@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "935949459981",
+    "firebase_url": "https://fuo-exaet.firebaseio.com",
+    "project_id": "fuo-exaet",
+    "storage_bucket": "fuo-exaet.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:935949459981:android:c72dca7425b0bc8e",
+        "android_client_info": {
+          "package_name": "com.eemanapp.fuoexaet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "935949459981-ihc43n3oj755jft94o9ps8bmh07cd31o.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.eemanapp.fuoexaet",
+            "certificate_hash": "1d41ca72e28bc7df88e40dff020678685151568a"
+          }
+        },
+        {
+          "client_id": "935949459981-5farhis9935ptp5id8kaafkr2o8t3po4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBdOYPn6B7xZu9Qdz7UkLmHaJly185MSBc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "935949459981-5farhis9935ptp5id8kaafkr2o8t3po4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

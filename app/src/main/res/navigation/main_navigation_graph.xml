@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navigation_graph"
+    app:startDestination="@id/homeDashboardFragment">
+
+    <fragment
+        android:id="@+id/homeDashboardFragment"
+        android:name="com.eemanapp.fuoexaet.view.main.HomeDashboardFragment"
+        android:label="FUO Exaet"
+        tools:layout="@layout/home_dashboard_fragment" />
+
+    <fragment
+        android:id="@+id/requestsFragment"
+        android:name="com.eemanapp.fuoexaet.view.main.RequestsFragment"
+        android:label="Requests"
+        tools:layout="@layout/requests_fragment" />
+
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.eemanapp.fuoexaet.view.main.ProfileFragment"
+        android:label="Profile"
+        tools:layout="@layout/profile_fragment" />
+
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.eemanapp.fuoexaet.view.main.SettingsFragment"
+        android:label="Settings"
+        tools:layout="@layout/settings_fragment" />
+</navigation>
