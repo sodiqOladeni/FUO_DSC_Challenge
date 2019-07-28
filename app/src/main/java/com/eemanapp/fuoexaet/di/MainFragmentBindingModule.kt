@@ -2,8 +2,8 @@ package com.eemanapp.fuoexaet.di
 
 import com.eemanapp.fuoexaet.view.main.HomeDashboardFragment
 import com.eemanapp.fuoexaet.view.main.ProfileFragment
-import com.eemanapp.fuoexaet.view.main.RequestsFragment
-import com.eemanapp.fuoexaet.view.main.SettingsFragment
+import com.eemanapp.fuoexaet.view.main.requests.RequestsFragment
+import com.eemanapp.fuoexaet.view.main.settings.SettingsFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 

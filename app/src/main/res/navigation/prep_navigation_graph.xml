@@ -9,7 +9,7 @@
         android:id="@+id/carouselSliderFragment"
         android:name="com.eemanapp.fuoexaet.view.prep.CarouselSliderFragment"
         android:label="fragment_carousel_slider"
-        tools:layout="@layout/fragment_carousel_slider">
+        tools:layout="@layout/fragment_slider">
 
         <action
             android:id="@+id/to_loginFragment"

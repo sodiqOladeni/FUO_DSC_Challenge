@@ -10,34 +10,40 @@
         android:required="true" />
 
     <application
+        android:name=".view.MainApplication"
         android:allowBackup="true"
+        android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:name=".view.MainApplication"
+        android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name=".view.prep.PrepActivity"
+        <activity
+            android:name=".view.main.requests.Requests"
+            android:label="@string/title_activity_requests"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".view.prep.PrepActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.FullScreen"
-            android:screenOrientation="portrait"/>
-
-        <activity android:name=".view.main.MainActivity"
-            android:screenOrientation="portrait"/>
-
-
-
-        <activity android:name=".view.prep.SplashActivity"
-            android:theme="@style/AppTheme.FullScreen"
-            android:screenOrientation="portrait">
-
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity
+            android:name=".view.main.MainActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
+        <activity
+            android:name=".view.prep.SplashActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.FullScreen"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"

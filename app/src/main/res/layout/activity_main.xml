@@ -13,8 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         app:titleTextColor="@color/black"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar" />
 
     <fragment
         android:id="@+id/nav_host_fragment"
@@ -22,6 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:defaultNavHost="true"
+        android:layout_below="@id/toolBar"
         app:navGraph="@navigation/main_navigation_graph" />
 
     <View

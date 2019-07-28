@@ -5,11 +5,10 @@ import android.content.Context.LAYOUT_INFLATER_SERVICE
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.viewpager.widget.PagerAdapter
 import com.eemanapp.fuoexaet.R
+import com.google.android.material.button.MaterialButton
 
 class SliderViewPager(var mContext: Context, var mLayouts: IntArray, var screenInitializer: HomeScreenInitializer)
     : PagerAdapter() {
@@ -20,8 +19,8 @@ class SliderViewPager(var mContext: Context, var mLayouts: IntArray, var screenI
         val view = inflater.inflate(mLayouts[position], container, false)
         val infoView = view.findViewWithTag<ConstraintLayout>("TEXT_INFO_LAYOUT")
 
-        val singUpButton = infoView.findViewById<Button>(R.id.btn_signup)
-        val loginButton = infoView.findViewById<Button>(R.id.btn_login)
+        val singUpButton = infoView.findViewById<MaterialButton>(R.id.btn_signup)
+        val loginButton = infoView.findViewById<MaterialButton>(R.id.btn_login)
         singUpButton.setOnClickListener { v -> screenInitializer.initializeHomeScreen(v) }
         loginButton.setOnClickListener { v -> screenInitializer.initializeHomeScreen(v) }
 

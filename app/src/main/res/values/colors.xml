@@ -6,6 +6,15 @@
 
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
+    <color name="somehow_black">#4F4F4F</color>
+    <color name="fair_black">#828282</color>
     <color name="fountain_green">#047A4A</color>
     <color name="fountain_blue">#2D9CDB</color>
+    <color name="total_request_purple">#463C6A</color>
+    <color name="approved_request_lightGreen">#10C971</color>
+    <color name="rejected_request_red">#EB5757</color>
+    <color name="pending_request_yellow">#F2C94C</color>
+    <color name="deep_hash">#A6AAB4</color>
+    <color name="about_to_grey">#C4C4C4</color>
+    <color name="light_grey">#DADADA</color>
 </resources>
