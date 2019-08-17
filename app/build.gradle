@@ -39,6 +39,15 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    compileOptions {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
 }
 
 dependencies {
@@ -66,6 +75,7 @@ dependencies {
     def logging_interceptor = '3.9.1'
     implementation "com.squareup.okhttp3:logging-interceptor:$logging_interceptor"
 
+    implementation("io.coil-kt:coil:0.6.0")
     // glide v4
     def glide_version = "4.9.0"
     implementation "com.github.bumptech.glide:glide:$glide_version"
@@ -90,8 +100,8 @@ dependencies {
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version_ktx"
 
     //Kotlin coroutines
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.1"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.1.1"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.2.2"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.2.2"
 
     // dagger version
     def dagger_version = '2.23.2'
@@ -107,14 +117,16 @@ dependencies {
     implementation 'com.hbb20:ccp:2.2.9'
     //Circular image
     implementation 'de.hdodenhof:circleimageview:3.0.0'
+    //Search dialog
+    implementation 'com.github.mirrajabi:search-dialog:1.2.1'
 
     //Firebase
     implementation 'com.google.firebase:firebase-messaging:19.0.1'
-    implementation 'com.google.firebase:firebase-storage:18.1.0'
-    implementation 'com.google.firebase:firebase-firestore:20.1.0'
-    implementation 'com.google.firebase:firebase-ads:18.1.0'
+    implementation 'com.google.firebase:firebase-storage:18.1.1'
+    implementation 'com.google.firebase:firebase-firestore:20.2.0'
+    implementation 'com.google.firebase:firebase-ads:18.1.1'
     implementation 'com.google.firebase:firebase-auth:18.1.0'
-    implementation 'com.google.firebase:firebase-functions:18.0.0'
+    implementation 'com.google.firebase:firebase-functions:18.1.0'
     implementation 'com.google.firebase:firebase-core:17.0.1'
     // Crashlytics
     implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'

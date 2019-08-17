@@ -38,7 +38,7 @@
     <string name="security">Security</string>
     <string name="enter_email_to_reset">Enter your email to reset your password</string>
     <string name="reset">Reset Password</string>
-    <string name="rem_password">Remembered Password?</string>
+    <string name="rem_password">Remember Password?</string>
     <string name="create_an_account">Create account</string>
     <string name="filter_requests">Filter Requests</string>
     <string name="exaet_requests">Exaet Requests</string>
@@ -64,4 +64,16 @@
     <string name="push_notifications">Push Notifications</string>
     <string name="pref_notif_message">Turn on notification to receive message alerts</string>
     <string name="logout">Logout</string>
+    <string name="continue_to">Continue</string>
+    <string name="field_cant_be_empty">Field can\'t be empty</string>
+    <string name="invalid_email">Email not valid</string>
+    <string name="invalid_password">The password is invalid, password should more than six digits</string>
+    <string name="already_have_account">Already have an account?</string>
+    <string name="staff_id">Staff ID</string>
+    <string name="password_dont_match">Retype password is not the same as the password entered</string>
+    <string name="college">College</string>
+    <string name="user_image_cant_empty">An image need to be selected</string>
+    <string name="image_selection_error">No image was selected</string>
+    <string name="check_email">Check your email</string>
+    <string name="error_occur">Error occur</string>
 </resources>

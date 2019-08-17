@@ -1,6 +1,6 @@
 package com.eemanapp.fuoexaet.di
 
-import com.eemanapp.fuoexaet.view.main.HomeDashboardFragment
+import com.eemanapp.fuoexaet.view.main.home.HomeDashboardFragment
 import com.eemanapp.fuoexaet.view.main.ProfileFragment
 import com.eemanapp.fuoexaet.view.main.requests.RequestsFragment
 import com.eemanapp.fuoexaet.view.main.settings.SettingsFragment

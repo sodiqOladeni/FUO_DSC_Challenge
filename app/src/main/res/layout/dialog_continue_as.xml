@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="20dp"
     android:orientation="vertical"
     app:behavior_hideable="true"
     app:behavior_peekHeight="60dp"
@@ -13,43 +12,69 @@
         android:id="@+id/continue_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
         android:text="@string/continue_as"
         android:textColor="@color/somehow_black"
-        android:textSize="20sp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="14dp"
+        android:textSize="16sp"
         android:textStyle="bold" />
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="3dp"
+        android:layout_height="0.5dp"
         android:background="@color/fair_black" />
 
-    <TextView
-        android:id="@+id/cont_as_student"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:textColor="@color/somehow_black"
-        android:text="@string/student"
-        android:textSize="18sp" />
+        <RadioGroup
+            android:id="@+id/user_who"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="15dp"
+            android:layout_marginStart="33dp"
+            android:layout_marginEnd="33dp">
 
-    <TextView
-        android:id="@+id/cont_as_security"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:textColor="@color/somehow_black"
-        android:text="@string/security"
-        android:textSize="18sp" />
+            <RadioButton
+                android:id="@+id/user_student"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:textSize="16sp"
+                android:text="@string/student"/>
 
-    <TextView
-        android:id="@+id/cont_as_student_affairs"
-        android:layout_width="wrap_content"
+            <RadioButton
+                android:id="@+id/user_security"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:layout_marginTop="5dp"
+                android:text="@string/security"/>
+
+            <RadioButton
+                android:id="@+id/user_coordinator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:layout_marginTop="5dp"
+                android:text="@string/student_affairs"/>
+        </RadioGroup>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/continue_"
+        android:theme="@style/Theme.MaterialComponents.Light.DarkActionBar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/somehow_black"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="20dp"
-        android:text="@string/student_affairs"
-        android:textSize="18sp" />
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginBottom="15dp"
+        android:layout_weight="1"
+        app:cornerRadius="0dp"
+        app:backgroundTint="@color/fountain_green"
+        app:rippleColor="@color/fountain_blue"
+        android:text="@string/continue_to"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="14sp" />
 
 </LinearLayout>

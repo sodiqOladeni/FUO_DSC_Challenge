@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,7 +8,7 @@
     android:layout_marginStart="20dp"
     android:layout_marginEnd="20dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".view.main.HomeDashboardFragment">
+    tools:context=".view.main.home.HomeDashboardFragment">
 
 
     <LinearLayout
@@ -240,6 +241,7 @@
         android:layout_below="@id/bottom_label"/>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
         android:layout_below="@id/btn_filter"
         android:layout_marginTop="15dp"
         tools:listitem="@layout/model_student_request"
@@ -247,7 +249,7 @@
         android:layout_height="wrap_content" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton"
+        android:id="@+id/fab_newRequest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -260,3 +262,4 @@
         app:fabSize="normal"
         app:srcCompat="@drawable/ic_request_fab_24dp" />
 </RelativeLayout>
+</layout>

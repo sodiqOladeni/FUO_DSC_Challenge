@@ -6,8 +6,10 @@
         android:layout_height="match_parent"
         android:background="@drawable/ic_prep_bg">
 
-        <include layout="@layout/signup_student" />
+        <include layout="@layout/signup_student"
+            android:id="@+id/student_layout"/>
 
-        <include layout="@layout/signup_staff" />
+        <include layout="@layout/signup_staff"
+            android:id="@+id/staff_layout"/>
     </LinearLayout>
 </layout>
