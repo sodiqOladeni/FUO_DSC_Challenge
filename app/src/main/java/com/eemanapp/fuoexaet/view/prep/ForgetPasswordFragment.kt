@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 
 import com.eemanapp.fuoexaet.R
@@ -16,13 +17,14 @@ import com.eemanapp.fuoexaet.di.Injectable
 import com.eemanapp.fuoexaet.utils.Constants
 import com.eemanapp.fuoexaet.utils.Methods
 import com.eemanapp.fuoexaet.viewModel.ForgetPasswordViewModel
+import javax.inject.Inject
 
 class ForgetPasswordFragment : Fragment(), Injectable {
 
     companion object {
         fun newInstance() = ForgetPasswordFragment()
     }
-
+    @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
     private lateinit var viewModel: ForgetPasswordViewModel
     private lateinit var binding: ForgetPasswordFragmentBinding
 
@@ -36,7 +38,7 @@ class ForgetPasswordFragment : Fragment(), Injectable {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(ForgetPasswordViewModel::class.java)
+        viewModel = ViewModelProviders.of(this, viewModelFactory).get(ForgetPasswordViewModel::class.java)
 
         val userWho = arguments?.getString(Constants.USER_WHO)!!
         val b = Bundle()
@@ -80,13 +82,15 @@ class ForgetPasswordFragment : Fragment(), Injectable {
     }
 
     private fun resetPassword(e: String) {
-        Methods.hideProgressBar(
-            binding.progressBar, binding.fpReset,
-            listOf(binding.fpSignup, binding.fpLogin)
-        )
 
         viewModel.resetPasswordWithEmail(e)
         viewModel.uiData.observe(this, Observer {
+
+            Methods.hideProgressBar(
+                binding.progressBar, binding.fpReset,
+                listOf(binding.fpSignup, binding.fpLogin)
+            )
+
             if (it.status!!) {
                 val d = Methods.showSuccessDialog(
                     context!!,

@@ -1,4 +1,6 @@
 package com.eemanapp.fuoexaet.data
 
-class SharedPref {
+import android.content.Context
+
+class SharedPref(var context:Context) {
 }

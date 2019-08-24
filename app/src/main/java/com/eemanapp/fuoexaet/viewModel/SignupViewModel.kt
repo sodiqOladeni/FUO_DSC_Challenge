@@ -4,6 +4,7 @@ import androidx.core.net.toUri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.eemanapp.fuoexaet.data.local.UserDao
 import com.eemanapp.fuoexaet.model.UiData
 import com.eemanapp.fuoexaet.model.User
 import com.eemanapp.fuoexaet.utils.Methods
@@ -15,9 +16,10 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.storage.UploadTask
+import javax.inject.Inject
 
 
-class SignupViewModel : ViewModel() {
+class SignupViewModel @Inject constructor(var userDao: UserDao) : ViewModel() {
 
     private val _uiData = MutableLiveData<UiData>()
     val uiData: LiveData<UiData>
@@ -34,7 +36,7 @@ class SignupViewModel : ViewModel() {
         createUserTask = firebaseAuth.createUserWithEmailAndPassword(user.email, user.password)
         createUserTask?.addOnCompleteListener {
             if (it.isSuccessful) {
-                user.uniqueId = firebaseAuth.currentUser?.providerId
+                user.uniqueId = firebaseAuth.currentUser?.uid
                 saveUserImage(user)
             } else {
                 newUiData.status = false
@@ -80,8 +82,8 @@ class SignupViewModel : ViewModel() {
                 // Handle failures
                 newUiData.status = it.isSuccessful
                 newUiData.message = it.result.toString()
+                userDao.setUser(user)
                 _uiData.value = newUiData
-
             } else {
                 // Handle failures
                 newUiData.status = false

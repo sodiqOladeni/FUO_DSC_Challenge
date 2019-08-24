@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 
 import com.eemanapp.fuoexaet.R
@@ -18,13 +19,14 @@ import com.eemanapp.fuoexaet.utils.Constants
 import com.eemanapp.fuoexaet.utils.Methods
 import com.eemanapp.fuoexaet.view.main.MainActivity
 import com.eemanapp.fuoexaet.viewModel.LoginViewModel
+import javax.inject.Inject
 
 class LoginFragment : Fragment(), Injectable {
 
     companion object {
         fun newInstance() = LoginFragment()
     }
-
+    @Inject lateinit var viewModelFactory:ViewModelProvider.Factory
     private lateinit var binding: LoginFragmentBinding
     private lateinit var viewModel: LoginViewModel
     private lateinit var userWho: String
@@ -39,7 +41,7 @@ class LoginFragment : Fragment(), Injectable {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(LoginViewModel::class.java)
+        viewModel = ViewModelProviders.of(this, viewModelFactory).get(LoginViewModel::class.java)
         binding.lifecycleOwner = this
 
         userWho = arguments?.getString(Constants.USER_WHO)!!
@@ -102,22 +104,24 @@ class LoginFragment : Fragment(), Injectable {
 
     private fun processLogin(e:String, p:String) {
 
-        Methods.hideProgressBar(
-            binding.progressBar, binding.loginBtn,
-            listOf(
-                binding.loginWho,
-                binding.loginForgetPassword,
-                binding.loginNotAs,
-                binding.loginSignup
-            )
-        )
-
         viewModel.authUser(e, p, userWho)
         viewModel.uiData.observe(this, Observer {
+
+
+            Methods.hideProgressBar(
+                binding.progressBar, binding.loginBtn,
+                listOf(
+                    binding.loginWho,
+                    binding.loginForgetPassword,
+                    binding.loginNotAs,
+                    binding.loginSignup
+                )
+            )
+
             if (it.status!!) {
                 viewModel.setUiDataToNull()
                 startMainActivity()
-                viewModel
+                viewModel.setUiDataToNull()
             } else {
 
             }

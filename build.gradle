@@ -8,15 +8,15 @@ buildscript {
         maven { url 'https://maven.fabric.io/public' }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.5.0-rc03'
+        classpath 'com.android.tools.build:gradle:3.5.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
-        //Safe args for Navigation Jetpack
+        //NOTE: Do not place your application dependencies here; they belong
+        //In the individual module build.gradle files
+        //SafeArgs for Navigation JetPack
         def nav_version = "2.0.0"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"
         classpath 'com.google.gms:google-services:4.3.0'
-        classpath 'io.fabric.tools:gradle:1.30.0'
+        classpath 'io.fabric.tools:gradle:1.31.0'
     }
 }
 

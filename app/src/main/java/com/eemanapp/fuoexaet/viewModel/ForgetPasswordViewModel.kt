@@ -5,11 +5,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.eemanapp.fuoexaet.model.UiData
 import com.google.android.gms.tasks.Task
-import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
+import javax.inject.Inject
 
-class ForgetPasswordViewModel : ViewModel() {
+class ForgetPasswordViewModel @Inject constructor() : ViewModel() {
 
     private val _uiData = MutableLiveData<UiData>()
     val uiData: LiveData<UiData>

@@ -30,19 +30,21 @@ import com.eemanapp.fuoexaet.utils.DatePickerFragment
 import android.content.Intent
 import android.net.Uri
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import coil.api.load
 import coil.transform.CircleCropTransformation
 import com.eemanapp.fuoexaet.R
 import com.eemanapp.fuoexaet.view.main.MainActivity
+import javax.inject.Inject
 
 class SignupFragment : Fragment(), Injectable, DatePickerListener {
 
     companion object {
         fun newInstance() = SignupFragment()
     }
-
-    private lateinit var binding: SignupFragmentBinding
+    @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
     private lateinit var viewModel: SignupViewModel
+    private lateinit var binding: SignupFragmentBinding
     private lateinit var userWho: String
     private val PERMISSIONS_REQUEST_CODE = 10
     private val PICK_IMAGE = 11
@@ -61,7 +63,7 @@ class SignupFragment : Fragment(), Injectable, DatePickerListener {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(SignupViewModel::class.java)
+        viewModel = ViewModelProviders.of(this, viewModelFactory).get(SignupViewModel::class.java)
         binding.lifecycleOwner = this
 
         userWho = arguments?.getString(Constants.USER_WHO)!!
@@ -349,15 +351,15 @@ class SignupFragment : Fragment(), Injectable, DatePickerListener {
     }
 
     private fun processSignup(user: User) {
-
-        Methods.hideProgressBar(
-            binding.staffLayout.progressBar, binding.staffLayout.signupBtn,
-            listOf(binding.staffLayout.signupNotAs, binding.staffLayout.signupLogin)
-        )
-
         viewModel.authUserAndProceedSaving(user)
         viewModel.uiData.observe(this, Observer {
-            it.let {
+
+            Methods.hideProgressBar(
+                binding.staffLayout.progressBar, binding.staffLayout.signupBtn,
+                listOf(binding.staffLayout.signupNotAs, binding.staffLayout.signupLogin)
+            )
+
+            it?.let {
                 if (it.status!!) {
                     val i  = Intent(context, MainActivity::class.java)
                     i.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK

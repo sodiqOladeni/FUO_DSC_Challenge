@@ -1,50 +1,32 @@
 package com.eemanapp.fuoexaet.di
 
+import android.app.Application
+import android.content.Context
+import com.eemanapp.fuoexaet.data.SharedPref
+import com.eemanapp.fuoexaet.data.local.FuoDb
+import com.eemanapp.fuoexaet.data.local.UserDao
+import com.google.firebase.firestore.FirebaseFirestore
 import dagger.Module
+import dagger.Provides
+import javax.inject.Singleton
 
 @Module(includes = [ViewModelModule::class])
 class DataModule {
 
-//    @Singleton
-//    @Provides
-//    fun providePref(app: Application): SharedPreferenceManager = SharedPreferenceManager(app)
+    @Singleton
+    @Provides
+    fun providePref(app:Application): SharedPref = SharedPref(app)
 
-//    @Singleton
-//    @Provides
-//    fun provideDatabase(app: Application):SqyteDatabase = SqyteDatabase.getDatabase(app)
+    @Singleton
+    @Provides
+    fun provideDatabase(app:Application):FuoDb = FuoDb.getDatabase(app)
+
+    @Singleton
+    @Provides
+    fun providesFirestore(): FirebaseFirestore = FirebaseFirestore.getInstance()
 
 
-//    @Singleton
-//    @Provides
-//    fun provideLoginSignupRepo(api:RestApi, preferenceManager: SharedPreferenceManager):
-//            LoginSignupRepo = LoginSignupRepo(api, preferenceManager)
-//
-//    @Singleton
-//    @Provides
-//    fun provideCourseRepository(api: RestApi):CoursesRepository = CoursesRepository(api)
-//
-//    @Singleton
-//    @Provides
-//    fun provideProfileRepository(api: RestApi, preferenceManager: SharedPreferenceManager):
-//            ProfileRepository = ProfileRepository(api, preferenceManager)
-
-//    @Singleton
-//    @Provides
-//    fun getRetrofit(): RestApi {
-//        val httpClient = OkHttpClient.Builder()
-//        httpClient.connectTimeout(240, TimeUnit.SECONDS)
-//        val apiInterceptor = HttpLoggingInterceptor()
-//        apiInterceptor.level = HttpLoggingInterceptor.Level.BODY
-//        httpClient.readTimeout(120, TimeUnit.SECONDS)
-//        httpClient.connectTimeout(240, TimeUnit.SECONDS)
-//        if (BuildConfig.DEBUG) {
-//            httpClient.addInterceptor(apiInterceptor)
-//        }
-//
-//        return Retrofit.Builder()
-//            .baseUrl(Constants.BASE_URL)
-//            .client(httpClient.build())
-//            .addConverterFactory(GsonConverterFactory.create())
-//            .build().create(RestApi::class.java)
-//    }
+    @Singleton
+    @Provides
+    fun provideuserDao(appDb: FuoDb):UserDao = appDb.userDao
 }

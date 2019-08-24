@@ -1,6 +1,13 @@
 package com.eemanapp.fuoexaet.model
 
+import androidx.annotation.NonNull
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity(tableName = "user")
 data class User(
+    @PrimaryKey(autoGenerate = true)
+    @NonNull var dbId:Long = -1,
     var fullName: String,
     var schoolId: String,
     var email: String,

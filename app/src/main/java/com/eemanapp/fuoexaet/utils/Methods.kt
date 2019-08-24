@@ -138,6 +138,5 @@ class Methods {
             return SimpleDateFormat("EEEE MMM-dd-yyyy' Time: 'HH:mm")
                 .format(systemTime).toString()
         }
-
     }
 }
