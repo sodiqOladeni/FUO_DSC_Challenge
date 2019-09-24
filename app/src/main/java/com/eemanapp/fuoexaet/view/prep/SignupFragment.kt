@@ -42,7 +42,9 @@ class SignupFragment : Fragment(), Injectable, DatePickerListener {
     companion object {
         fun newInstance() = SignupFragment()
     }
-    @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
     private lateinit var viewModel: SignupViewModel
     private lateinit var binding: SignupFragmentBinding
     private lateinit var userWho: String
@@ -130,7 +132,8 @@ class SignupFragment : Fragment(), Injectable, DatePickerListener {
     }
 
     private fun verifyStaffInput() {
-        val fn = binding.staffLayout.signupName
+        val fn = binding.staffLayout.signupFname
+        val ln = binding.staffLayout.signupLname
         val em = binding.staffLayout.signupEmail
         val id = binding.staffLayout.signupStaffId
         val pn = binding.staffLayout.signupPhoneNumber
@@ -138,6 +141,7 @@ class SignupFragment : Fragment(), Injectable, DatePickerListener {
         val pass2 = binding.staffLayout.signupPassword2
 
         fn.error = null
+        ln.error = null
         em.error = null
         id.error = null
         pn.error = null
@@ -151,6 +155,12 @@ class SignupFragment : Fragment(), Injectable, DatePickerListener {
             fn.error = getString(R.string.field_cant_be_empty)
             isValid = false
             focusView = fn
+        }
+
+        if (ln.text.toString().isNullOrEmpty()) {
+            ln.error = getString(R.string.field_cant_be_empty)
+            isValid = false
+            focusView = ln
         }
 
         if (!Methods.isValidEmail(em.text.toString())) {
@@ -204,7 +214,8 @@ class SignupFragment : Fragment(), Injectable, DatePickerListener {
             )
             processSignup(
                 User(
-                    fullName = fn.text.toString(),
+                    firstName = fn.text.toString(),
+                    lastName = ln.text.toString(),
                     schoolId = id.text.toString(),
                     email = em.text.toString(),
                     phoneNumber = pn.text.toString(),
@@ -228,8 +239,8 @@ class SignupFragment : Fragment(), Injectable, DatePickerListener {
         val dept = binding.studentLayout.editDept
         val yearEntry = binding.studentLayout.editYear
         val hall = binding.studentLayout.editHall
-        val pass1 = binding.staffLayout.signupPassword1
-        val pass2 = binding.staffLayout.signupPassword2
+        val pass1 = binding.studentLayout.signupPassword1
+        val pass2 = binding.studentLayout.signupPassword2
 
         fn.error = null
         ln.error = null
@@ -326,13 +337,23 @@ class SignupFragment : Fragment(), Injectable, DatePickerListener {
 
         if (isValid) {
             Methods.hideSoftKey(activity!!)
-            Methods.showProgressBar(
-                binding.staffLayout.progressBar, binding.staffLayout.signupBtn,
-                listOf(binding.staffLayout.signupNotAs, binding.staffLayout.signupLogin)
-            )
+
+            if (userWho == getString(R.string.student)) {
+                Methods.showProgressBar(
+                    binding.studentLayout.progressBar, binding.studentLayout.signupBtn,
+                    listOf(binding.studentLayout.signupNotAs, binding.studentLayout.signupLogin)
+                )
+            } else {
+                Methods.showProgressBar(
+                    binding.staffLayout.progressBar, binding.staffLayout.signupBtn,
+                    listOf(binding.staffLayout.signupNotAs, binding.staffLayout.signupLogin)
+                )
+            }
+
             processSignup(
                 User(
-                    fullName = fn.text.toString() + " " + ln.text.toString(),
+                    firstName = fn.text.toString(),
+                    lastName = ln.text.toString(),
                     schoolId = matric.text.toString(),
                     email = em.text.toString(),
                     phoneNumber = pn.text.toString(),
@@ -354,14 +375,21 @@ class SignupFragment : Fragment(), Injectable, DatePickerListener {
         viewModel.authUserAndProceedSaving(user)
         viewModel.uiData.observe(this, Observer {
 
-            Methods.hideProgressBar(
-                binding.staffLayout.progressBar, binding.staffLayout.signupBtn,
-                listOf(binding.staffLayout.signupNotAs, binding.staffLayout.signupLogin)
-            )
+            if (userWho == getString(R.string.student)) {
+                Methods.hideProgressBar(
+                    binding.studentLayout.progressBar, binding.studentLayout.signupBtn,
+                    listOf(binding.studentLayout.signupNotAs, binding.studentLayout.signupLogin)
+                )
+            } else {
+                Methods.hideProgressBar(
+                    binding.staffLayout.progressBar, binding.staffLayout.signupBtn,
+                    listOf(binding.staffLayout.signupNotAs, binding.staffLayout.signupLogin)
+                )
+            }
 
             it?.let {
                 if (it.status!!) {
-                    val i  = Intent(context, MainActivity::class.java)
+                    val i = Intent(context, MainActivity::class.java)
                     i.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
                     startActivity(i)
                     viewModel.saveUiDataToDefault()

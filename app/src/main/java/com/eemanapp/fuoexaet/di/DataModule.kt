@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import com.eemanapp.fuoexaet.data.SharedPref
 import com.eemanapp.fuoexaet.data.local.FuoDb
+import com.eemanapp.fuoexaet.data.local.RequestDao
 import com.eemanapp.fuoexaet.data.local.UserDao
 import com.google.firebase.firestore.FirebaseFirestore
 import dagger.Module
@@ -28,5 +29,9 @@ class DataModule {
 
     @Singleton
     @Provides
-    fun provideuserDao(appDb: FuoDb):UserDao = appDb.userDao
+    fun provideUserDao(appDb: FuoDb):UserDao = appDb.userDao
+
+    @Singleton
+    @Provides
+    fun provideRequestDao(appDb: FuoDb):RequestDao = appDb.requestDao
 }

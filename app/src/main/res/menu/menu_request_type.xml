@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/request_regular"
+        android:title="@string/regular_exaet"/>
+
+    <item
+        android:id="@+id/request_vacation"
+        android:title="@string/vacation_exaet"/>
+
+    <item
+        android:id="@+id/request_emergency"
+        android:title="@string/emergency_exaet"/>
+</menu>

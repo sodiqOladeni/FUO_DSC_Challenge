@@ -3,16 +3,16 @@ package com.eemanapp.fuoexaet.utils
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
-import android.content.pm.PackageManager
 import android.text.TextUtils
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import androidx.core.content.ContextCompat
+import android.widget.TextView
 import cn.pedant.SweetAlert.SweetAlertDialog
+import com.eemanapp.fuoexaet.model.Request
 import com.google.android.material.button.MaterialButton
-import java.lang.Exception
+import java.sql.Time
 import java.text.SimpleDateFormat
-import java.util.ArrayList
+import java.util.*
 
 class Methods {
 
@@ -135,8 +135,42 @@ class Methods {
          */
         @SuppressLint("SimpleDateFormat")
         fun convertLongToDateString(systemTime: Long): String {
-            return SimpleDateFormat("EEEE MMM-dd-yyyy' Time: 'HH:mm")
+            return SimpleDateFormat("E, dd MMM yyyy' Time: 'HH:mm")
                 .format(systemTime).toString()
+        }
+
+        @SuppressLint("SimpleDateFormat")
+        fun formatDate(systemTime: Long): String {
+            return SimpleDateFormat("E, dd MMM yyyy").format(systemTime).toString()
+        }
+
+        @SuppressLint("SimpleDateFormat")
+        fun formatDate(year: Int, month: Int, dayOfMonth: Int): String {
+            val date = Date(year, month, dayOfMonth)
+            return SimpleDateFormat("E, dd MMM yyyy").format(date).toString()
+        }
+
+        @SuppressLint("SimpleDateFormat")
+        fun formatTime(systemTime: Long): String {
+            return SimpleDateFormat("HH:mm a").format(systemTime).toString()
+        }
+
+        @SuppressLint("SimpleDateFormat")
+        fun formatTime(hours: Int, minutes: Int): String {
+            val time = Time(hours, minutes, 0)
+            return SimpleDateFormat("HH:mm a").format(time).toString()
+        }
+
+        fun getAllRequestApprovedCount(requests: List<Request>):List<Request> {
+            return requests.filter { it.requestStatus == DiffExaetStatus.APPROVED.name }
+        }
+
+        fun getAllRequestDeclinedCount(requests: List<Request>):List<Request> {
+            return requests.filter { it.requestStatus == DiffExaetStatus.DECLINED.name }
+        }
+
+        fun getAllRequestPendingCount(requests: List<Request>):List<Request> {
+            return requests.filter { it.requestStatus == DiffExaetStatus.PENDING.name }
         }
     }
 }

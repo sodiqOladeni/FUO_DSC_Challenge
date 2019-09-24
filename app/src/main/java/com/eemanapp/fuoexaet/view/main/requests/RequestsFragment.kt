@@ -15,7 +15,6 @@ import com.google.android.material.tabs.TabLayout
 
 class RequestsFragment : Fragment() {
 
-    private lateinit var viewModel: RequestsViewModel
     private var mContext: Context? = null
 
     override fun onAttach(context: Context) {
@@ -35,7 +34,6 @@ class RequestsFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(RequestsViewModel::class.java)
 
         val sectionsPagerAdapter = SectionsPagerAdapter(mContext!!, childFragmentManager)
         val viewPager: ViewPager = view!!.findViewById(R.id.view_pager)

@@ -118,12 +118,14 @@ class LoginFragment : Fragment(), Injectable {
                 )
             )
 
-            if (it.status!!) {
-                viewModel.setUiDataToNull()
-                startMainActivity()
-                viewModel.setUiDataToNull()
-            } else {
-
+            it?.let { uiData ->
+                if (uiData.status!!) {
+                    viewModel.setUiDataToNull()
+                    startMainActivity()
+                    viewModel.setUiDataToNull()
+                } else {
+                    Methods.showNotSuccessDialog(context!!, getString(R.string.error_occur), uiData.message!!)
+                }
             }
         })
     }

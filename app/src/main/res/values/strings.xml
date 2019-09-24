@@ -3,7 +3,6 @@
     <string name="ADMOB_APP_ID">n</string>
     <string name="ADMOB_APP_ID_TEST">ca-app-pub-3940256099942544~3347511713</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="fuo_exaet_app">FUO Exaet App</string>
     <string name="sign_up">Sign up</string>
@@ -76,4 +75,36 @@
     <string name="image_selection_error">No image was selected</string>
     <string name="check_email">Check your email</string>
     <string name="error_occur">Error occur</string>
+    <string name="view_profile">View Profile</string>
+    <string name="approve">Approve</string>
+    <string name="decline">Decline</string>
+    <string name="request_matric_template"><b>Matric No:</b> %s</string>
+    <string name="bsc">Bsc</string>
+    <string name="make_pass_request">Make a pass request</string>
+    <string name="your_request_forwarded">Your request will automatically be forwarded to student coordinators</string>
+    <string name="select_request_type">Select request type</string>
+    <string name="departure_time">Departure Time</string>
+    <string name="select_date_">Select Date:</string>
+    <string name="select_time_">Select Time:</string>
+    <string name="estimated_arrival_time">Estimated Arrival Time</string>
+    <string name="location_where_to">Location (Where you are going to)</string>
+    <string name="purpose_of_going">Purpose of going</string>
+    <string name="submit_request">Submit Request</string>
+    <string name="regular_exaet">Regular Exaet</string>
+    <string name="vacation_exaet">Vacation Exaet</string>
+    <string name="emergency_exaet">Emergency Exaet</string>
+    <string name="previous_requests">Previous Requests</string>
+    <string name="new_request">New Request</string>
+    <string name="location_">Location:</string>
+    <string name="request_type_">Request Type:</string>
+    <string name="departure_date">Departure Date</string>
+    <string name="arrival_date">Arrival Date</string>
+    <string name="request_type">Request Type</string>
+    <string name="confirmed_by_"><b>%s</b> %s</string>
+    <string name="please_wait_request_in_progress">Please wait… Updating request in progress</string>
+    <string name="please_check_your_internet">Please check your internet connection</string>
+    <string name="request_submitted">Request submitted</string>
+    <string name="request_updated">Request updated</string>
+    <string name="name_template">%s %s</string>
+    <string name="profile_updated">Profile updated</string>
 </resources>

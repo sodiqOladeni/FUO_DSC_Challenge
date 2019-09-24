@@ -24,6 +24,6 @@ class DatePickerFragment : DialogFragment(), DatePickerDialog.OnDateSetListener 
     }
 
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
-        listener.dateSelected(year, month, dayOfMonth)
+        listener.dateSelected(year - 1900, month, dayOfMonth)
     }
 }

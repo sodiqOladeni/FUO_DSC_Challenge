@@ -3,16 +3,20 @@ package com.eemanapp.fuoexaet.view.prep
 
 import android.animation.AnimatorInflater
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.Handler
 import android.preference.PreferenceManager
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.appcompat.app.AppCompatActivity
 
 import com.eemanapp.fuoexaet.R
+import com.eemanapp.fuoexaet.data.SharedPref
 import com.eemanapp.fuoexaet.utils.Constants
 import com.eemanapp.fuoexaet.view.main.MainActivity
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_splash.*
 
 
@@ -34,8 +38,8 @@ class SplashActivity : AppCompatActivity() {
             start()
         }
 
-        val prefManager = PreferenceManager.getDefaultSharedPreferences(this)
-        val userId = prefManager.getString(Constants.USER_ID, "")
+        val prefManager = SharedPref(this)
+        val userId = prefManager.getUserId()
 
         Handler().postDelayed({
             if (userId.isNullOrEmpty()) {
@@ -47,6 +51,8 @@ class SplashActivity : AppCompatActivity() {
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                 finish()
             }
+
+            Log.v("SplashActivity", "UserId ==> $userId")
         }, TIME_OUT)
     }
 }

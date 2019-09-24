@@ -1,100 +1,222 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_height="wrap_content"
-    android:layout_width="match_parent"
-    android:layout_marginTop="5dp"
-    android:layout_marginBottom="5dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardElevation="10dp"
-    xmlns:tools="http://schemas.android.com/tools">
+<layout>
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="15dp"
-    android:orientation="vertical" >
+    <data>
+        <variable
+            name="request"
+            type="com.eemanapp.fuoexaet.model.Request" />
+    </data>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:id="@+id/request_date"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:textStyle="normal"
-            tools:text="13/07/2019 16:37:53"/>
-
-        <TextView
-            android:id="@+id/request_status"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/fountain_green"
-            android:textStyle="normal"
-            tools:text="APPROVED"/>
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.75dp"
-        android:background="@color/about_to_grey"
-        android:layout_marginTop="10dp"/>
-
-    <LinearLayout
+    <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="6dp">
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        app:cardElevation="10dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            tools:text="@string/departure_time_"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="16dp"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/request_dtime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:layout_marginStart="5dp"
-            android:textStyle="bold"
-            tools:text="13/07/2019 16:37:53"/>
-    </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/request_date"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:convertSystemTimeToReadableTime="@{request.requestTime}"
+                    android:textColor="@color/black"
+                    android:textStyle="normal"
+                    tools:text="13/07/2019 16:37:53" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            tools:text="@string/arrival_time"/>
+                <TextView
+                    android:id="@+id/request_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/fountain_green"
+                    android:text="@{request.requestStatus}"
+                    android:textStyle="normal"
+                    tools:text="APPROVED" />
+            </LinearLayout>
 
-        <TextView
-            android:id="@+id/request_atime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:layout_marginStart="5dp"
-            android:textStyle="bold"
-            tools:text="13/07/2019 16:37:53"/>
-    </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.75dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/about_to_grey" />
 
-    <TextView
-        android:id="@+id/request_reason"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
-        android:ellipsize="end"
-        android:lines="3"
-        android:textSize="14sp"
-        android:textColor="#3B414B"
-        tools:text="I want to go and activate my  ATM Card at the bank, i don't have any food left for to eat"
-        />
-</LinearLayout>
-</com.google.android.material.card.MaterialCardView>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/label_departure_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/departure_date"
+                        android:textColor="@color/light_dark"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/departure_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{request.departureDate}"
+                        android:textColor="@color/fade_grey"
+                        android:textSize="14sp"
+                        android:textStyle="normal"
+                        tools:text="July 27, 2019" />
+
+                    <TextView
+                        android:id="@+id/label_departure_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="@string/departure_time"
+                        android:textColor="@color/light_dark"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/departure_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{request.departureTime}"
+                        android:textColor="@color/fade_grey"
+                        android:textSize="14sp"
+                        android:textStyle="normal"
+                        tools:text="10.30pm" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/label_arrival_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/arrival_date"
+                        android:textColor="@color/light_dark"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/arrival_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{request.arrivalDate}"
+                        android:textColor="@color/fade_grey"
+                        android:textSize="14sp"
+                        android:textStyle="normal"
+                        tools:text="July 27, 2019" />
+
+                    <TextView
+                        android:id="@+id/label_arrival_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="@string/arrival_time"
+                        android:textColor="@color/light_dark"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/arrival_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{request.arrivalTime}"
+                        android:textColor="@color/fade_grey"
+                        android:textSize="14sp"
+                        android:textStyle="normal"
+                        tools:text="10.30pm" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_request_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/request_type_"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    tools:text="@string/request_type_" />
+
+                <TextView
+                    android:id="@+id/request_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{request.requestType}"
+                    android:textColor="@color/fade_grey"
+                    android:textStyle="normal"
+                    tools:text="Regular Exaet" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/request_reason"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:lines="3"
+                    android:textColor="#3B414B"
+                    android:textSize="14sp"
+                    tools:text="I want to go and activate my  ATM Card at the bank, i don't have any food left for to eat" />
+
+                <LinearLayout
+                    android:id="@+id/layout_location"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/location_"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        tools:text="@string/location_" />
+
+                    <TextView
+                        android:id="@+id/request_location"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:text="@{request.location}"
+                        android:textColor="@color/fade_grey"
+                        android:textStyle="normal"
+                        tools:text="Osogbo garage" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+</layout>

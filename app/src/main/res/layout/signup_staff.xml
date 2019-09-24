@@ -53,16 +53,15 @@
                 android:layout_width="120dp"
                 android:layout_height="120dp"
                 android:layout_gravity="start"
-                android:background="@drawable/circle_black" />
+                android:background="@drawable/ic_account_circle_16dp" />
 
             <ImageView
                 android:id="@+id/edit_user_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_alignEnd="@+id/profile_image"
                 android:layout_alignParentBottom="true"
                 android:layout_gravity="start"
-                android:background="@drawable/circle"
                 app:srcCompat="@drawable/ic_camera_24dp" />
         </RelativeLayout>
 
@@ -74,10 +73,27 @@
             android:layout_marginStart="40dp"
             android:layout_marginTop="27dp"
             android:layout_marginEnd="40dp"
-            android:hint="@string/fullname">
+            android:hint="@string/firstname">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/signup_name"
+                android:id="@+id/signup_fname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:textSize="14sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/name2_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/name_container"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            android:hint="@string/lastname">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/signup_lname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName"
@@ -88,7 +104,7 @@
             android:id="@+id/email_cont"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/name_container"
+            android:layout_below="@+id/name2_container"
             android:layout_marginStart="40dp"
             android:layout_marginEnd="40dp"
             android:hint="@string/email_address">

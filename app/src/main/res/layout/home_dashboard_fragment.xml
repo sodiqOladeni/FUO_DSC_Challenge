@@ -1,265 +1,286 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    android:layout_marginStart="20dp"
-    android:layout_marginEnd="20dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".view.main.home.HomeDashboardFragment">
 
-
-    <LinearLayout
-        android:id="@+id/top_label"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="33dp">
+        android:layout_height="match_parent">
 
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
 
-        <com.google.android.material.card.MaterialCardView
-            app:cardBackgroundColor="@color/total_request_purple"
-            app:cardCornerRadius="5dp"
-            app:cardElevation="10dp"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_marginEnd="12dp"
-            android:layout_height="80dp">
-
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:padding="10dp"
-                android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:lines="1"
-                android:text="@string/exaet_requests"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:lines="1"
-                    android:ellipsize="end"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/white"
-                    android:layout_gravity="center_vertical"
-                    android:textSize="24sp"
-                    android:textStyle="bold"
-                    android:text="0"/>
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    app:srcCompat = "@drawable/ic_requests_24dp"/>
-            </LinearLayout>
-            </LinearLayout>
-
-        </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.card.MaterialCardView
-            app:cardBackgroundColor="@color/approved_request_lightGreen"
-            android:layout_marginStart="12dp"
-            app:cardCornerRadius="5dp"
-            app:cardElevation="10dp"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="80dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="10dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/white"
-                    android:lines="1"
-                    android:text="@string/approved_requests"/>
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:fitsSystemWindows="true"
+                tools:context=".view.main.home.HomeDashboardFragment">
 
                 <LinearLayout
+                    android:id="@+id/top_label"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp">
+                    android:layout_marginTop="33dp">
 
-                    <TextView
+                    <com.google.android.material.card.MaterialCardView
                         android:layout_width="0dp"
+                        android:layout_height="80dp"
+                        android:layout_marginEnd="12dp"
                         android:layout_weight="1"
-                        android:lines="1"
-                        android:ellipsize="end"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/white"
-                        android:layout_gravity="center_vertical"
-                        android:textSize="24sp"
-                        android:textStyle="bold"
-                        android:text="0"/>
+                        app:cardBackgroundColor="@color/total_request_purple"
+                        app:cardCornerRadius="5dp"
+                        app:cardElevation="10dp">
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        app:srcCompat = "@drawable/ic_approved_24dp"/>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:padding="10dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:lines="1"
+                                android:text="@string/exaet_requests"
+                                android:textColor="@color/white" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp">
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_weight="1"
+                                    android:ellipsize="end"
+                                    android:lines="1"
+                                    android:text="0"
+                                    android:textColor="@color/white"
+                                    android:textSize="24sp"
+                                    android:textStyle="bold" />
+
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    app:srcCompat="@drawable/ic_requests_24dp" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="0dp"
+                        android:layout_height="80dp"
+                        android:layout_marginStart="12dp"
+                        android:layout_weight="1"
+                        app:cardBackgroundColor="@color/approved_request_lightGreen"
+                        app:cardCornerRadius="5dp"
+                        app:cardElevation="10dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:padding="10dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:lines="1"
+                                android:text="@string/approved_requests"
+                                android:textColor="@color/white" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp">
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_weight="1"
+                                    android:ellipsize="end"
+                                    android:lines="1"
+                                    android:text="0"
+                                    android:textColor="@color/white"
+                                    android:textSize="24sp"
+                                    android:textStyle="bold" />
+
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    app:srcCompat="@drawable/ic_approved_24dp" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
                 </LinearLayout>
-            </LinearLayout>
-
-        </com.google.android.material.card.MaterialCardView>
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/bottom_label"
-        android:layout_below="@+id/top_label"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="17dp">
-
-
-        <com.google.android.material.card.MaterialCardView
-            app:cardBackgroundColor="@color/rejected_request_red"
-            app:cardCornerRadius="5dp"
-            app:cardElevation="10dp"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_marginEnd="12dp"
-            android:layout_height="80dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="10dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/white"
-                    android:lines="1"
-                    android:text="@string/rejected_requests"/>
 
                 <LinearLayout
+                    android:id="@+id/bottom_label"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp">
+                    android:layout_below="@+id/top_label"
+                    android:layout_marginTop="17dp">
 
-                    <TextView
+
+                    <com.google.android.material.card.MaterialCardView
                         android:layout_width="0dp"
+                        android:layout_height="80dp"
+                        android:layout_marginEnd="12dp"
                         android:layout_weight="1"
-                        android:lines="1"
-                        android:ellipsize="end"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/white"
-                        android:layout_gravity="center_vertical"
-                        android:textSize="24sp"
-                        android:textStyle="bold"
-                        android:text="0"/>
+                        app:cardBackgroundColor="@color/rejected_request_red"
+                        app:cardCornerRadius="5dp"
+                        app:cardElevation="10dp">
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:tint="@color/white"
-                        app:srcCompat = "@drawable/ic_reject_24px"/>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:padding="10dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:lines="1"
+                                android:text="@string/rejected_requests"
+                                android:textColor="@color/white" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp">
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_weight="1"
+                                    android:ellipsize="end"
+                                    android:lines="1"
+                                    android:text="0"
+                                    android:textColor="@color/white"
+                                    android:textSize="24sp"
+                                    android:textStyle="bold" />
+
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:tint="@color/white"
+                                    app:srcCompat="@drawable/ic_reject_24px" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="0dp"
+                        android:layout_height="80dp"
+                        android:layout_marginStart="12dp"
+                        android:layout_weight="1"
+                        app:cardBackgroundColor="@color/pending_request_yellow"
+                        app:cardCornerRadius="5dp"
+                        app:cardElevation="10dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:padding="10dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:lines="1"
+                                android:text="@string/pending_requests"
+                                android:textColor="@color/white" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp">
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_weight="1"
+                                    android:ellipsize="end"
+                                    android:lines="1"
+                                    android:text="0"
+                                    android:textColor="@color/white"
+                                    android:textSize="24sp"
+                                    android:textStyle="bold" />
+
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    app:srcCompat="@drawable/ic_rejected_24dp" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
                 </LinearLayout>
-            </LinearLayout>
 
-        </com.google.android.material.card.MaterialCardView>
+                <Button
+                    android:id="@+id/btn_filter"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_below="@id/bottom_label"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="0dp"
+                    android:drawableEnd="@drawable/ic_filter_list_24dp"
+                    android:text="@string/filter_requests"
+                    android:textAlignment="viewStart"
+                    android:textAllCaps="false"
+                    android:textColor="@color/deep_hash"
+                    app:cornerRadius="5dp" />
 
-        <com.google.android.material.card.MaterialCardView
-            app:cardBackgroundColor="@color/pending_request_yellow"
-            android:layout_marginStart="12dp"
-            app:cardCornerRadius="5dp"
-            app:cardElevation="10dp"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="80dp">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/btn_filter"
+                    android:layout_marginTop="15dp"
+                    tools:listitem="@layout/model_student_request" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="10dp"
-                android:orientation="vertical">
-
-                <TextView
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fab_newRequest"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/white"
-                    android:lines="1"
-                    android:text="@string/pending_requests"/>
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="72dp"
+                    app:elevation="6dp"
+                    app:fabSize="normal"
+                    app:srcCompat="@drawable/ic_request_fab_24dp" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:lines="1"
-                        android:ellipsize="end"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/white"
-                        android:layout_gravity="center_vertical"
-                        android:textSize="24sp"
-                        android:textStyle="bold"
-                        android:text="0"/>
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        app:srcCompat = "@drawable/ic_rejected_24dp"/>
-                </LinearLayout>
-            </LinearLayout>
-
-        </com.google.android.material.card.MaterialCardView>
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/btn_filter"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginTop="15dp"
-        app:cornerRadius="5dp"
-        android:layout_marginStart="0dp"
-        android:layout_marginEnd="0dp"
-        android:drawableEnd="@drawable/ic_filter_list_24dp"
-        android:textAllCaps="false"
-        android:textAlignment="viewStart"
-        android:textColor="@color/deep_hash"
-        android:text="@string/filter_requests"
-        android:layout_below="@id/bottom_label"/>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_below="@id/btn_filter"
-        android:layout_marginTop="15dp"
-        tools:listitem="@layout/model_student_request"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_newRequest"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="72dp"
-        app:elevation="6dp"
-        app:fabSize="normal"
-        app:srcCompat="@drawable/ic_request_fab_24dp" />
-</RelativeLayout>
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
+                    android:layout_below="@id/btn_filter"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="40dp"
+                    android:indeterminate="true"
+                    android:indeterminateBehavior="repeat"
+                    android:indeterminateOnly="true" />
+            </RelativeLayout>
+        </androidx.core.widget.NestedScrollView>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

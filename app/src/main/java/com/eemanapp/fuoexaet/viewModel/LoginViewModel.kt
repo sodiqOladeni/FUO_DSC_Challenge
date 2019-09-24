@@ -1,5 +1,6 @@
 package com.eemanapp.fuoexaet.viewModel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,6 +12,7 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.*
 import javax.inject.Inject
 
 class LoginViewModel @Inject constructor(var userDao: UserDao, var pref:SharedPref) : ViewModel() {
@@ -21,12 +23,12 @@ class LoginViewModel @Inject constructor(var userDao: UserDao, var pref:SharedPr
     private var mFirestore = FirebaseFirestore.getInstance()
     private var authTask: Task<AuthResult>? = null
     private var newUiData = UiData()
+    private val viewModelJob = Job()
+    private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
     fun authUser(email: String, password: String, userWho: String) {
         authTask = mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
             if (it.isSuccessful) {
-                newUiData.status = it.isSuccessful
-                newUiData.message = ""
                 fetchUserDataWithEmail(email, userWho)
             } else {
                 newUiData.status = false
@@ -44,10 +46,7 @@ class LoginViewModel @Inject constructor(var userDao: UserDao, var pref:SharedPr
                 //User to be saved in the db after creating it
                 // And also userId to be in shared preferences
                 val user = it.toObjects(User::class.java)
-                userDao.setUser(user[0])
-                newUiData.status = true
-                newUiData.message = "User found"
-                _uiData.value = newUiData
+                saveUserInfo(user[0])
             }
         }.addOnFailureListener {
             newUiData.status = false
@@ -60,8 +59,23 @@ class LoginViewModel @Inject constructor(var userDao: UserDao, var pref:SharedPr
         _uiData.value = null
     }
 
+    private fun saveUserInfo(user:User){
+        uiScope.launch {
+            withContext(Dispatchers.IO){
+                userDao.setUser(user)
+            }
+
+            pref.setUserId(user.uniqueId!!)
+            Log.v("LoginViewModel", "UserId ==> ${user.uniqueId!!}")
+            newUiData.status = true
+            newUiData.message = "User found"
+            _uiData.value = newUiData
+        }
+    }
+
     override fun onCleared() {
         super.onCleared()
         authTask = null
+        viewModelJob.cancel()
     }
 }

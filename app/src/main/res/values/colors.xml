@@ -17,4 +17,6 @@
     <color name="deep_hash">#A6AAB4</color>
     <color name="about_to_grey">#C4C4C4</color>
     <color name="light_grey">#DADADA</color>
+    <color name="light_dark">#3B414B</color>
+    <color name="fade_grey">#BDBDBD</color>
 </resources>

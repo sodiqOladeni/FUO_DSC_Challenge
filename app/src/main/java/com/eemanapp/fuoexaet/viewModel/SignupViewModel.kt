@@ -1,9 +1,11 @@
 package com.eemanapp.fuoexaet.viewModel
 
+import android.util.Log
 import androidx.core.net.toUri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.eemanapp.fuoexaet.data.SharedPref
 import com.eemanapp.fuoexaet.data.local.UserDao
 import com.eemanapp.fuoexaet.model.UiData
 import com.eemanapp.fuoexaet.model.User
@@ -16,10 +18,11 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.storage.UploadTask
+import kotlinx.coroutines.*
 import javax.inject.Inject
 
 
-class SignupViewModel @Inject constructor(var userDao: UserDao) : ViewModel() {
+class SignupViewModel @Inject constructor(var userDao: UserDao, var pref: SharedPref) : ViewModel() {
 
     private val _uiData = MutableLiveData<UiData>()
     val uiData: LiveData<UiData>
@@ -31,6 +34,8 @@ class SignupViewModel @Inject constructor(var userDao: UserDao) : ViewModel() {
     private var createUserTask: Task<AuthResult>? = null
     private var uploadTask: UploadTask? = null
     private var fireStoreDoc: DocumentReference? = null
+    private val viewModelJob = Job()
+    private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
     fun authUserAndProceedSaving(user: User) {
         createUserTask = firebaseAuth.createUserWithEmailAndPassword(user.email, user.password)
@@ -75,15 +80,11 @@ class SignupViewModel @Inject constructor(var userDao: UserDao) : ViewModel() {
     }
 
     private fun saveUserData(user: User) {
-        fireStoreDoc =
-            fireStore.collection(Methods.userWhoCodeToName(user.userWho)).document(user.fullName)
+        fireStoreDoc = fireStore.collection(Methods.userWhoCodeToName(user.userWho)).document(user.uniqueId!!)
         fireStoreDoc?.set(user)?.addOnCompleteListener {
             if (it.isSuccessful) {
-                // Handle failures
-                newUiData.status = it.isSuccessful
-                newUiData.message = it.result.toString()
-                userDao.setUser(user)
-                _uiData.value = newUiData
+                // Handle Success
+                saveUser(user)
             } else {
                 // Handle failures
                 newUiData.status = false
@@ -97,10 +98,25 @@ class SignupViewModel @Inject constructor(var userDao: UserDao) : ViewModel() {
         _uiData.value = null
     }
 
+    private fun saveUser(user: User){
+        uiScope.launch {
+            withContext(Dispatchers.IO){
+                userDao.setUser(user)
+            }
+
+            pref.setUserId(user.uniqueId!!)
+            Log.v("SignupViewModel", "UserId ==> ${user.uniqueId!!}")
+            newUiData.status = true
+            newUiData.message = "User successfully signed up"
+            _uiData.value = newUiData
+        }
+    }
+
     override fun onCleared() {
         super.onCleared()
         createUserTask = null
         uploadTask = null
         fireStoreDoc = null
+        viewModelJob.cancel()
     }
 }
