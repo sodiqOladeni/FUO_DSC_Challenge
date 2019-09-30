@@ -54,6 +54,7 @@
                                 android:layout_marginTop="8dp">
 
                                 <TextView
+                                    android:id="@+id/count_all_exaet"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center_vertical"
@@ -103,6 +104,7 @@
                                 android:layout_marginTop="8dp">
 
                                 <TextView
+                                    android:id="@+id/count_approve_exaet"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center_vertical"
@@ -161,6 +163,7 @@
                                 android:layout_marginTop="8dp">
 
                                 <TextView
+                                    android:id="@+id/count_rejected_exaet"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center_vertical"
@@ -211,6 +214,7 @@
                                 android:layout_marginTop="8dp">
 
                                 <TextView
+                                    android:id="@+id/count_pending_exaet"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center_vertical"
@@ -253,8 +257,34 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/btn_filter"
-                    android:layout_marginTop="15dp"
-                    tools:listitem="@layout/model_student_request" />
+                    android:visibility="gone"
+                    android:layout_marginTop="5dp"/>
+
+                <LinearLayout
+                    android:id="@+id/empty_data"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    android:visibility="gone"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:layout_below="@id/btn_filter">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:srcCompat = "@drawable/ic_undraw_no_data"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="16sp"
+                        android:textColor="@color/fair_black"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_horizontal"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/no_request_has_been_made"/>
+                </LinearLayout>
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/fab_newRequest"
@@ -262,13 +292,10 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentBottom="true"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="72dp"
+                    android:layout_marginBottom="16dp"
                     app:elevation="6dp"
                     app:fabSize="normal"
-                    app:srcCompat="@drawable/ic_request_fab_24dp" />
+                    app:srcCompat="@drawable/ic_request_fab_24dp"/>
 
                 <ProgressBar
                     android:id="@+id/progressBar"

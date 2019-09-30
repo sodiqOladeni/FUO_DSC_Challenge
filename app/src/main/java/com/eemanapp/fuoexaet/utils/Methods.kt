@@ -135,7 +135,7 @@ class Methods {
          */
         @SuppressLint("SimpleDateFormat")
         fun convertLongToDateString(systemTime: Long): String {
-            return SimpleDateFormat("E, dd MMM yyyy' Time: 'HH:mm")
+            return SimpleDateFormat("E, dd MMM yyyy' :'HH:mm")
                 .format(systemTime).toString()
         }
 

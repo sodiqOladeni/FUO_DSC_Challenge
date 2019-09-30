@@ -19,4 +19,10 @@ interface RequestDao {
 
     @Query("delete from request")
     fun deleteRequests():Int
+
+    @Query("select * from request where uniqueId = :userId")
+    fun getRequestWithUserId(userId:String):LiveData<List<Request>>
+
+    @Query("select * from request where requestUniqueId = :requestId")
+    fun getRequestWithId(requestId:String):LiveData<Request>
 }

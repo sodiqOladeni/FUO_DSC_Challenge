@@ -5,19 +5,15 @@
         <variable
             name="request"
             type="com.eemanapp.fuoexaet.model.Request" />
-        
-        <variable
-            name="requestClickListener"
-            type="com.eemanapp.fuoexaet.interfaces.RequestClickListener" />
     </data>
+
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="5dp"
-    android:layout_marginBottom="5dp"
-    app:cardElevation="10dp">
+    app:cardUseCompatPadding="true"
+    app:cardCornerRadius="10dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -350,16 +346,16 @@
                 android:layout_gravity="center"
                 android:layout_weight="2"
                 android:gravity="center"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:paddingStart="5dp"
+                android:paddingEnd="1dp"
                 android:lineSpacingExtra="3sp"
-                android:textColor="@color/approved_request_lightGreen"
+                android:text="@{request.getStatusWithCoordinator}"
+                app:requestStatusColor="@{request.requestStatus}"
                 android:textSize="14sp" />
-
-
         </LinearLayout>
-
-
     </LinearLayout>
+
 </com.google.android.material.card.MaterialCardView>
 </layout>
-
-<!--    app:requestStatus="@{request.requestStatus, @string/confirmed_by_, request.request.approveCoordinator}"-->

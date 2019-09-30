@@ -4,19 +4,19 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.eemanapp.fuoexaet.data.SharedPref
 import com.eemanapp.fuoexaet.data.local.RequestDao
-import com.eemanapp.fuoexaet.data.local.UserDao
 import com.eemanapp.fuoexaet.model.Request
 import com.eemanapp.fuoexaet.model.UiData
 import com.eemanapp.fuoexaet.model.User
 import com.eemanapp.fuoexaet.utils.Constants
+import com.eemanapp.fuoexaet.utils.Methods
 import com.google.firebase.firestore.*
 import kotlinx.coroutines.*
 import javax.inject.Inject
 
 class HomeDashboardViewModel @Inject constructor(
-    private val userDao: UserDao,
-    private val requestDao: RequestDao
+    private val requestDao: RequestDao, private val pref: SharedPref
 ) : ViewModel(), EventListener<QuerySnapshot> {
 
     private val db = FirebaseFirestore.getInstance()
@@ -36,35 +36,29 @@ class HomeDashboardViewModel @Inject constructor(
 
     init {
         getUser()
-        startListening()
-        mRequestQuery =
-            db.collection(Constants.ALL_REQUESTS).orderBy("requestTime", Query.Direction.ASCENDING)
-        setQuery(mRequestQuery!!)
     }
 
     private fun getUser() {
-        uiScope.launch {
-            _user.value = getUserFromDb()
-        }
+        val user = getUserFromPref()
+        _user.value = user
+        composeQuery(user)
     }
 
-    private suspend fun getUserFromDb(): User {
-        return withContext(Dispatchers.IO) {
-            userDao.getUser()
-        }
+    private fun getUserFromPref(): User {
+        return pref.getUser()
     }
 
     fun updateRequest(request: Request) {
-        val ref = db.collection(Constants.ALL_REQUESTS).document(request.requestUniqueId!!)
-        ref.update(
-            "requestStatus", request.requestStatus,
-            "approveCoordinator", request.approveCoordinator
-        )
+        val ref = db.collection(Constants.ALL_REQUESTS).document(request.requestUniqueId)
+        ref.update("requestStatus", request.requestStatus,
+            "approveCoordinator", request.approveCoordinator)
+
             .addOnSuccessListener {
                 newUiData.status = true
                 newUiData.message = "Request successfully ${request.requestStatus}"
                 _uiData.value = newUiData
             }
+
             .addOnFailureListener {
                 newUiData.status = false
                 newUiData.message = "Error updating request"
@@ -106,25 +100,14 @@ class HomeDashboardViewModel @Inject constructor(
                     uiScope.launch {
                         saveRequestInDb(snapshot.toObject(Request::class.java))
                     }
-                    Log.v(
-                        "HomeDashboardViewModel",
-                        "Data Fetched =>" + snapshot.toObject(Request::class.java).toString()
-                    )
                 }
                 DocumentChange.Type.MODIFIED -> {
                     uiScope.launch {
                         updateRequestChangesInDb(snapshot.toObject(Request::class.java))
                     }
-                    Log.v(
-                        "HomeDashboardViewModel",
-                        "Data Updated =>" + snapshot.toObject(Request::class.java).toString()
-                    )
                 }
                 DocumentChange.Type.REMOVED -> {
-                    Log.v(
-                        "HomeDashboardViewModel",
-                        "Data Removed =>" + snapshot.toObject(Request::class.java).toString()
-                    )
+
                 }
             }
         }
@@ -146,5 +129,31 @@ class HomeDashboardViewModel @Inject constructor(
         super.onCleared()
         viewModelJob.cancel()
         stopListening()
+    }
+
+    private fun composeQuery(user: User) {
+        when (Methods.userWhoCodeToName(user.userWho)) {
+            //STUDENT
+            Constants.STUDENT -> {
+                db.collection(Constants.ALL_REQUESTS)
+                val q = db.collection(Constants.ALL_REQUESTS)
+                    .whereEqualTo("user.uniqueId", user.uniqueId)
+                    .orderBy("requestTime", Query.Direction.ASCENDING)
+                setQuery(q)
+            }
+            //SECURITY
+            Constants.SECURITY -> {
+                val q = db.collection(Constants.ALL_REQUESTS)
+                    .whereEqualTo("requestStatus", "APPROVED")
+                    .orderBy("requestTime", Query.Direction.ASCENDING)
+                setQuery(q)
+            }
+            //COORDINATOR
+            Constants.COORDINATOR -> {
+                val q = db.collection(Constants.ALL_REQUESTS)
+                    .orderBy("requestTime", Query.Direction.ASCENDING)
+                setQuery(q)
+            }
+        }
     }
 }

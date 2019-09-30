@@ -5,12 +5,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.eemanapp.fuoexaet.data.SharedPref
 import com.eemanapp.fuoexaet.data.local.RequestDao
-import com.eemanapp.fuoexaet.data.local.UserDao
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.*
 import javax.inject.Inject
 
-class SettingsViewModel @Inject constructor(var userDao: UserDao, var pref: SharedPref, var requestDao: RequestDao) : ViewModel() {
+class SettingsViewModel @Inject constructor(var pref: SharedPref, var requestDao: RequestDao) : ViewModel() {
 
     private val viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
@@ -21,7 +20,6 @@ class SettingsViewModel @Inject constructor(var userDao: UserDao, var pref: Shar
     fun deleteUserFromDb() {
         uiScope.launch {
             withContext(Dispatchers.IO){
-                userDao.deleteUser()
                 requestDao.deleteRequests()
             }
             pref.deletePrefs()

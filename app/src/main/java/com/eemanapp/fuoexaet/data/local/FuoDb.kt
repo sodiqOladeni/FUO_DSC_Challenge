@@ -8,10 +8,9 @@ import androidx.room.TypeConverters
 import com.eemanapp.fuoexaet.model.Request
 import com.eemanapp.fuoexaet.model.User
 
-@Database(entities = [User::class, Request::class], version = 1)
+@Database(entities = [Request::class], version = 1)
 @TypeConverters(Converters::class)
 abstract class FuoDb : RoomDatabase(){
-    abstract val userDao:UserDao
     abstract val requestDao:RequestDao
 
     companion object{

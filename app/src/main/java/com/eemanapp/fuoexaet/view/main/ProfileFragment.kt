@@ -64,7 +64,6 @@ class ProfileFragment : Fragment(), Injectable, DatePickerListener {
             it?.let { t ->
                 user = t
                 setupUser()
-                Log.v("ProfileFragment", t.toString())
             }
         })
 
@@ -87,8 +86,12 @@ class ProfileFragment : Fragment(), Injectable, DatePickerListener {
         user.let {
             if (Methods.userWhoCodeToName(it?.userWho!!) == Constants.STUDENT) {
                 binding.studentLayout.user = it
+                binding.staffLayout.parentStaffLayout.visibility = View.GONE
+                binding.studentLayout.parentStudentLayout.visibility = View.VISIBLE
             } else {
                 binding.staffLayout.user = it
+                binding.staffLayout.parentStaffLayout.visibility = View.VISIBLE
+                binding.studentLayout.parentStudentLayout.visibility = View.GONE
             }
         }
         clickListeners()

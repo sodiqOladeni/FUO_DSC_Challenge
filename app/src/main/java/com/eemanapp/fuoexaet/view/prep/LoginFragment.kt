@@ -26,7 +26,9 @@ class LoginFragment : Fragment(), Injectable {
     companion object {
         fun newInstance() = LoginFragment()
     }
-    @Inject lateinit var viewModelFactory:ViewModelProvider.Factory
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
     private lateinit var binding: LoginFragmentBinding
     private lateinit var viewModel: LoginViewModel
     private lateinit var userWho: String
@@ -102,7 +104,7 @@ class LoginFragment : Fragment(), Injectable {
         }
     }
 
-    private fun processLogin(e:String, p:String) {
+    private fun processLogin(e: String, p: String) {
 
         viewModel.authUser(e, p, userWho)
         viewModel.uiData.observe(this, Observer {
@@ -118,13 +120,17 @@ class LoginFragment : Fragment(), Injectable {
                 )
             )
 
-            it?.let { uiData ->
-                if (uiData.status!!) {
-                    viewModel.setUiDataToNull()
+            if (it != null) {
+                if (it.status!!) {
                     startMainActivity()
                     viewModel.setUiDataToNull()
                 } else {
-                    Methods.showNotSuccessDialog(context!!, getString(R.string.error_occur), uiData.message!!)
+                    Methods.showNotSuccessDialog(
+                        context!!,
+                        getString(R.string.error_occur),
+                        it.message!!
+                    )
+                    viewModel.setUiDataToNull()
                 }
             }
         })

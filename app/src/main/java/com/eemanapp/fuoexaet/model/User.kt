@@ -7,10 +7,7 @@ import androidx.room.PrimaryKey
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-@Entity(tableName = "user")
 data class User(
-    @PrimaryKey(autoGenerate = true)
-    @NonNull var dbId:Long = -1,
     var firstName: String = "",
     var lastName: String = "",
     var schoolId: String = "",
@@ -26,7 +23,7 @@ data class User(
     var password: String = "",
     //Non general information
     //These information only applies to student
-    var programme:String = "Bsc",
+    val programme:String = "Bsc",
     var college: String? = null,
     var dept: String? = null,
     var entryYear: String? = null,

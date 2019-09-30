@@ -394,7 +394,11 @@ class SignupFragment : Fragment(), Injectable, DatePickerListener {
                     startActivity(i)
                     viewModel.saveUiDataToDefault()
                 } else {
-
+                    Methods.showNotSuccessDialog(
+                        context!!,
+                        getString(R.string.error_occur),
+                        it.message!!
+                    )
                     viewModel.saveUiDataToDefault()
                 }
             }

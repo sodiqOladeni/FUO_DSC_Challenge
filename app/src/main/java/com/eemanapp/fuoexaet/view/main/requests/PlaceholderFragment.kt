@@ -83,18 +83,19 @@ class PlaceholderFragment : Fragment(), Injectable, RequestClickListener {
     }
 
     private fun setupUI() {
-        Log.v("PlaceHolderFragment", "FromUser ==> ${user.toString()}")
         if (Methods.userWhoCodeToName(user!!.userWho) == Constants.STUDENT) {
             binding.recyclerView.apply {
                 adapter = requestsStudentAdapter
                 layoutManager = LinearLayoutManager(context)
             }
             viewModel.requests.observe(this, Observer {
-                Log.v("PlaceHolderFragment", "FromDb ==> $it")
                 binding.progressBar.visibility = View.GONE
                 if (it.isNullOrEmpty()) {
-
+                    binding.emptyData.visibility = View.VISIBLE
+                    binding.recyclerView.visibility = View.GONE
                 } else {
+                    binding.emptyData.visibility = View.GONE
+                    binding.recyclerView.visibility = View.VISIBLE
                     requestsStudentAdapter?.requests = it
                 }
             })
@@ -107,8 +108,11 @@ class PlaceholderFragment : Fragment(), Injectable, RequestClickListener {
             viewModel.requests.observe(this, Observer {
                 binding.progressBar.visibility = View.GONE
                 if (it.isNullOrEmpty()) {
-
+                    binding.emptyData.visibility = View.VISIBLE
+                    binding.recyclerView.visibility = View.GONE
                 } else {
+                    binding.emptyData.visibility = View.GONE
+                    binding.recyclerView.visibility = View.VISIBLE
                     when (sectionNumber) {
                         1 -> {
                             requestsStaffAdapter?.requests = it
@@ -151,7 +155,7 @@ class PlaceholderFragment : Fragment(), Injectable, RequestClickListener {
 
     override fun onViewProfile(request: Request) {
         val b = Bundle()
-        b.putParcelable(Constants.REQUEST, request)
+        b.putString(Constants.REQUEST_ID, request.requestUniqueId)
         b.putParcelable(Constants.USER, user)
         findNavController().navigate(R.id.to_requestProfileDetailsFragment, b)
     }
@@ -161,6 +165,7 @@ class PlaceholderFragment : Fragment(), Injectable, RequestClickListener {
             request.requestStatus = DiffExaetStatus.DECLINED.name
             request.approveCoordinator =
                 getString(R.string.name_template, user?.firstName, user?.lastName)
+            request.declineOrApproveTime = System.currentTimeMillis()
             updateRequest(request)
         } else {
             Toast.makeText(
@@ -176,6 +181,7 @@ class PlaceholderFragment : Fragment(), Injectable, RequestClickListener {
             request.requestStatus = DiffExaetStatus.APPROVED.name
             request.approveCoordinator =
                 getString(R.string.name_template, user?.firstName, user?.lastName)
+            request.declineOrApproveTime = System.currentTimeMillis()
             updateRequest(request)
         } else {
             Toast.makeText(

@@ -107,4 +107,13 @@
     <string name="request_updated">Request updated</string>
     <string name="name_template">%s %s</string>
     <string name="profile_updated">Profile updated</string>
+    <string name="no_request_has_been_made">No request has been made</string>
+    <string name="no_previous_available">No previous request available for student</string>
+    <string name="grant_passage">Grant Passage</string>
+    <string name="mark_as_returned">Mark as Returned</string>
+    <string name="request_status">Request Status</string>
+    <string name="declined_time">Declined Time</string>
+    <string name="declined_by">Declined By</string>
+    <string name="gate_departure_time">Gate Departure Time</string>
+    <string name="gate_arrival_time">Gate Arrival Time</string>
 </resources>

@@ -42,7 +42,6 @@ class HomeDashboardFragment : Fragment(), Injectable, RequestClickListener {
     private lateinit var viewModel: HomeDashboardViewModel
     private lateinit var binding: HomeDashboardFragmentBinding
     private var user: User? = null
-    private lateinit var firestore: FirebaseFirestore
     private var isUpdateInProgress = false
 
     override fun onCreateView(
@@ -58,7 +57,6 @@ class HomeDashboardFragment : Fragment(), Injectable, RequestClickListener {
         viewModel =
             ViewModelProviders.of(this, viewModelFactory).get(HomeDashboardViewModel::class.java)
         binding.lifecycleOwner = this
-        firestore = FirebaseFirestore.getInstance()
 
         val b = Bundle()
         binding.fabNewRequest.setOnClickListener {
@@ -94,8 +92,17 @@ class HomeDashboardFragment : Fragment(), Injectable, RequestClickListener {
                 viewModel.requests.observe(this, Observer {
                     binding.progressBar.visibility = View.GONE
                     if (it.isNullOrEmpty()) {
-
+                        binding.recyclerView.visibility = View.GONE
+                        binding.emptyData.visibility = View.VISIBLE
                     } else {
+                        binding.recyclerView.visibility = View.VISIBLE
+                        binding.emptyData.visibility = View.GONE
+                        //Update the type of count
+                        binding.countAllExaet.text = it.size.toString()
+                        binding.countApproveExaet.text = Methods.getAllRequestApprovedCount(it).size.toString()
+                        binding.countRejectedExaet.text = Methods.getAllRequestDeclinedCount(it).size.toString()
+                        binding.countPendingExaet.text = Methods.getAllRequestPendingCount(it).size.toString()
+                        //Update adapter to load previous requests
                         requestsStudentAdapter?.requests = it
                     }
                 })
@@ -113,8 +120,17 @@ class HomeDashboardFragment : Fragment(), Injectable, RequestClickListener {
                 viewModel.requests.observe(this, Observer {
                     binding.progressBar.visibility = View.GONE
                     if (it.isNullOrEmpty()) {
-
+                        binding.recyclerView.visibility = View.GONE
+                        binding.emptyData.visibility = View.VISIBLE
                     } else {
+                        binding.recyclerView.visibility = View.VISIBLE
+                        binding.emptyData.visibility = View.GONE
+                        //Update the type of count
+                        binding.countAllExaet.text = it.size.toString()
+                        binding.countApproveExaet.text = Methods.getAllRequestApprovedCount(it).size.toString()
+                        binding.countRejectedExaet.text = Methods.getAllRequestDeclinedCount(it).size.toString()
+                        binding.countPendingExaet.text = Methods.getAllRequestPendingCount(it).size.toString()
+                        //Update adapter to load previous requests
                         requestsStaffAdapter?.requests = it
                     }
                 })
@@ -132,8 +148,17 @@ class HomeDashboardFragment : Fragment(), Injectable, RequestClickListener {
                 viewModel.requests.observe(this, Observer {
                     binding.progressBar.visibility = View.GONE
                     if (it.isNullOrEmpty()) {
-
+                        binding.recyclerView.visibility = View.GONE
+                        binding.emptyData.visibility = View.VISIBLE
                     } else {
+                        binding.recyclerView.visibility = View.VISIBLE
+                        binding.emptyData.visibility = View.GONE
+                        //Update the type of count
+                        binding.countAllExaet.text = it.size.toString()
+                        binding.countApproveExaet.text = Methods.getAllRequestApprovedCount(it).size.toString()
+                        binding.countRejectedExaet.text = Methods.getAllRequestDeclinedCount(it).size.toString()
+                        binding.countPendingExaet.text = Methods.getAllRequestPendingCount(it).size.toString()
+                        //Update adapter to load previous requests
                         requestsStaffAdapter?.requests = it
                     }
                 })
@@ -143,7 +168,7 @@ class HomeDashboardFragment : Fragment(), Injectable, RequestClickListener {
 
     override fun onViewProfile(request: Request) {
         val b = Bundle()
-        b.putParcelable(Constants.REQUEST, request)
+        b.putString(Constants.REQUEST_ID, request.requestUniqueId)
         b.putParcelable(Constants.USER, user)
         findNavController().navigate(R.id.to_requestProfileDetailsFragment, b)
     }
@@ -153,6 +178,7 @@ class HomeDashboardFragment : Fragment(), Injectable, RequestClickListener {
             request.requestStatus = DiffExaetStatus.DECLINED.name
             request.approveCoordinator =
                 getString(R.string.name_template, user?.firstName, user?.lastName)
+            request.declineOrApproveTime = System.currentTimeMillis()
             updateRequest(request)
         } else {
             Toast.makeText(
@@ -168,6 +194,7 @@ class HomeDashboardFragment : Fragment(), Injectable, RequestClickListener {
             request.requestStatus = DiffExaetStatus.APPROVED.name
             request.approveCoordinator =
                 getString(R.string.name_template, user?.firstName, user?.lastName)
+            request.declineOrApproveTime = System.currentTimeMillis()
             updateRequest(request)
         } else {
             Toast.makeText(

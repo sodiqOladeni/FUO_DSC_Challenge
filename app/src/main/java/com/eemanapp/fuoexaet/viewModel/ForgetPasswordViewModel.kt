@@ -18,15 +18,17 @@ class ForgetPasswordViewModel @Inject constructor() : ViewModel() {
     private var newUiData = UiData()
 
     fun resetPasswordWithEmail(email: String) {
-        authTask = mAuth.sendPasswordResetEmail(email).addOnSuccessListener {
-            newUiData.status = true
-            newUiData.message = "Password reset link has been sent to your email"
-            _uiData.value = newUiData
-        }.addOnFailureListener {
-            newUiData.status = false
-            newUiData.message = it.message
-            _uiData.value = newUiData
-        }
+        authTask = mAuth.sendPasswordResetEmail(email)
+            .addOnSuccessListener {
+                newUiData.status = true
+                newUiData.message = "Password reset link has been sent to your email"
+                _uiData.value = newUiData
+            }
+            .addOnFailureListener {
+                newUiData.status = false
+                newUiData.message = it.message
+                _uiData.value = newUiData
+            }
     }
 
     fun uiDataToNull() {

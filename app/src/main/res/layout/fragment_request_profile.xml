@@ -8,11 +8,9 @@
             type="com.eemanapp.fuoexaet.model.Request" />
     </data>
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_marginBottom="56dp"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -292,7 +290,8 @@
                     android:layout_marginTop="5dp"
                     android:text="@string/profile"
                     android:textColor="@color/light_dark"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
 
                 <LinearLayout
                     android:id="@+id/profile_layout"
@@ -468,7 +467,7 @@
                     android:layout_height="1dp"
                     android:layout_below="@+id/profile_layout"
                     android:layout_marginTop="27dp"
-                    android:background="#80DADADA" />
+                    android:background="@color/rejected_request_red" />
 
                 <TextView
                     android:id="@+id/label_new_requests"
@@ -480,7 +479,8 @@
                     android:layout_marginTop="5dp"
                     android:text="@string/new_request"
                     android:textColor="@color/light_dark"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
 
                 <LinearLayout
                     android:id="@+id/request_time"
@@ -503,9 +503,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/departure_date"
-                            android:textColor="@color/light_dark"
+                            android:textColor="@color/fountain_green"
                             android:textSize="14sp"
-                            android:textStyle="bold" />
+                            android:textStyle="normal" />
 
                         <TextView
                             android:id="@+id/departure_date"
@@ -523,9 +523,9 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
                             android:text="@string/departure_time"
-                            android:textColor="@color/light_dark"
+                            android:textColor="@color/fountain_green"
                             android:textSize="14sp"
-                            android:textStyle="bold" />
+                            android:textStyle="normal" />
 
                         <TextView
                             android:id="@+id/departure_time"
@@ -549,9 +549,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/arrival_date"
-                            android:textColor="@color/light_dark"
+                            android:textColor="@color/fountain_green"
                             android:textSize="14sp"
-                            android:textStyle="bold" />
+                            android:textStyle="normal" />
 
                         <TextView
                             android:id="@+id/arrival_date"
@@ -569,9 +569,9 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
                             android:text="@string/arrival_time"
-                            android:textColor="@color/light_dark"
+                            android:textColor="@color/fountain_green"
                             android:textSize="14sp"
-                            android:textStyle="bold" />
+                            android:textStyle="normal" />
 
                         <TextView
                             android:id="@+id/arrival_time"
@@ -599,8 +599,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/request_type_"
-                        android:textColor="@color/black"
-                        android:textStyle="bold"
+                        android:textColor="@color/fountain_green"
+                        android:textStyle="normal"
                         tools:text="@string/request_type_" />
 
                     <TextView
@@ -621,9 +621,10 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginTop="10dp"
                     android:ellipsize="end"
-                    android:lines="3"
+                    android:maxLines="3"
                     android:paddingStart="15dp"
                     android:paddingEnd="15dp"
+                    android:text="@{request.purpose}"
                     android:textColor="#3B414B"
                     android:textSize="14sp"
                     tools:text="I want to go and activate my  ATM Card at the bank, i don't have any food left for to eat" />
@@ -634,7 +635,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/request_reason"
-                    android:layout_marginTop="2dp"
+                    android:layout_marginTop="12dp"
                     android:paddingStart="15dp"
                     android:paddingEnd="15dp">
 
@@ -642,8 +643,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/location_"
-                        android:textColor="@color/black"
-                        android:textStyle="bold"
+                        android:textColor="@color/fountain_green"
+                        android:textStyle="normal"
                         tools:text="@string/location_" />
 
                     <TextView
@@ -663,7 +664,7 @@
                     android:layout_height="1dp"
                     android:layout_below="@+id/layout_location"
                     android:layout_marginTop="7dp"
-                    android:background="#80DADADA" />
+                    android:background="@color/rejected_request_red" />
 
                 <TextView
                     android:id="@+id/label_requests"
@@ -675,87 +676,351 @@
                     android:layout_marginTop="15dp"
                     android:text="@string/previous_requests"
                     android:textColor="@color/light_dark"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerView"
+                <LinearLayout
+                    android:id="@+id/layout_data"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_above="@+id/approve_decline_buttons_layout"
                     android:layout_below="@+id/label_requests"
+                    android:orientation="vertical">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:visibility="visible" />
+
+                    <TextView
+                        android:id="@+id/empty_data"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:gravity="center_horizontal"
+                        android:text="@string/no_previous_available"
+                        android:textColor="@color/fair_black"
+                        android:textSize="20sp"
+                        android:textStyle="italic"
+                        android:visibility="gone" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/layout_data"
+                    android:layout_alignParentBottom="true"
+                    android:layout_gravity="bottom"
                     android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="10dp"
-                    tools:listitem="@layout/model_student_request" />
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="15dp"
+                    android:gravity="bottom"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:id="@+id/approve_decline_buttons_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <FrameLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="15dp"
+                            android:layout_weight="1">
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btn_approve_request"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="@string/approve"
+                                android:textAllCaps="false"
+                                android:textColor="@color/white"
+                                android:textSize="14sp"
+                                android:theme="@style/Theme.MaterialComponents.Light.DarkActionBar"
+                                app:backgroundTint="@color/approved_request_lightGreen"
+                                app:cornerRadius="0dp"
+                                app:rippleColor="@color/fountain_blue" />
+
+                            <ProgressBar
+                                android:id="@+id/progressBar_approve"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_gravity="center" />
+                        </FrameLayout>
+
+                        <FrameLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="15dp"
+                            android:layout_weight="1">
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btn_decline_request"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="@string/decline"
+                                android:textAllCaps="false"
+                                android:textColor="@color/white"
+                                android:textSize="14sp"
+                                android:theme="@style/Theme.MaterialComponents.Light.DarkActionBar"
+                                app:backgroundTint="@color/rejected_request_red"
+                                app:cornerRadius="0dp"
+                                app:rippleColor="@color/fountain_blue" />
+
+                            <ProgressBar
+                                android:id="@+id/progressBar_decline"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_gravity="center"
+                                android:visibility="gone" />
+                        </FrameLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/outOfSchool_decline_buttons_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <FrameLayout
+                            android:id="@+id/layout_grant_passage"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btn_outOfSchool_request"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="@string/grant_passage"
+                                android:textAllCaps="false"
+                                android:textColor="@color/white"
+                                android:textSize="14sp"
+                                android:theme="@style/Theme.MaterialComponents.Light.DarkActionBar"
+                                app:backgroundTint="@color/approved_request_lightGreen"
+                                app:cornerRadius="0dp"
+                                app:rippleColor="@color/fountain_blue" />
+
+                            <ProgressBar
+                                android:id="@+id/progressBar_outOfSchool"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_gravity="center" />
+                        </FrameLayout>
+
+                        <FrameLayout
+                            android:id="@+id/layout_mark_as_return"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btn_completed_request"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="@string/mark_as_returned"
+                                android:textAllCaps="false"
+                                android:textColor="@color/white"
+                                android:textSize="14sp"
+                                android:theme="@style/Theme.MaterialComponents.Light.DarkActionBar"
+                                app:backgroundTint="@color/fountain_blue"
+                                app:cornerRadius="0dp"
+                                app:rippleColor="@color/approved_request_lightGreen" />
+
+                            <ProgressBar
+                                android:id="@+id/progressBar_completed"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_gravity="center"
+                                android:visibility="gone" />
+                        </FrameLayout>
+                    </LinearLayout>
+
+                    <!--                    -->
+
+                    <LinearLayout
+                        android:id="@+id/layout_request_declined"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/rejected_request_red"
+                        android:orientation="vertical"
+                        android:paddingBottom="16dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:padding="16dp">
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/request_status"
+                                    android:textColor="@color/fade_grey"
+                                    android:textSize="14sp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:inputType="textCapWords"
+                                    android:text="@{request.requestStatus}"
+                                    android:textColor="@color/white"
+                                    android:textSize="14sp"
+                                    tools:text="Declined" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/declined_time"
+                                    android:textColor="@color/fade_grey"
+                                    android:textSize="14sp" />
+
+                                <TextView
+                                    convertSystemTimeToReadableTime="@{request.declineOrApproveTime}"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/white"
+                                    android:textSize="14sp"
+                                    tools:text="23, 7, 2019" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="16dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/declined_by"
+                                android:textColor="@color/fade_grey"
+                                android:textSize="14sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:ellipsize="end"
+                                android:maxLines="2"
+                                android:text="@{request.approveCoordinator}"
+                                android:textColor="@color/white"
+                                android:textSize="14sp"
+                                tools:text="Dr, Abd Roji" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/layout_request_completed"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/light_grey"
+                        android:orientation="vertical"
+                        android:paddingBottom="16dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="16dp"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/request_status"
+                                    android:textColor="@color/fountain_green"
+                                    android:textSize="14sp"
+                                    android:textStyle="normal" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@{request.requestStatus}"
+                                    android:textColor="@color/black"
+                                    android:textSize="14sp"
+                                    android:textStyle="normal"
+                                    tools:text="Completed" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/gate_departure_time"
+                                    android:textColor="@color/fountain_green"
+                                    android:textSize="14sp"
+                                    android:textStyle="normal" />
+
+                                <TextView
+                                    convertSystemTimeToReadableTime="@{request.gateDepartureTime}"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/black"
+                                    android:textSize="14sp"
+                                    android:textStyle="normal"
+                                    tools:text="July 27, 2019" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="16dp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/gate_arrival_time"
+                                android:textColor="@color/fountain_green"
+                                android:textSize="14sp"
+                                android:textStyle="normal" />
+
+                            <TextView
+                                convertSystemTimeToReadableTime="@{request.gateArrivalTime}"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/black"
+                                android:textSize="14sp"
+                                android:textStyle="normal"
+                                tools:text="10.30pm" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
 
             </RelativeLayout>
         </androidx.core.widget.NestedScrollView>
-
-        <LinearLayout
-            android:id="@+id/approve_decline_buttons_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_gravity="bottom"
-            android:layout_marginBottom="16dp"
-            android:gravity="bottom"
-            android:orientation="horizontal">
-
-            <FrameLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="15dp"
-                android:layout_weight="1">
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btn_approve_request"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="@string/approve"
-                    android:textAllCaps="false"
-                    android:textColor="@color/white"
-                    android:textSize="14sp"
-                    android:theme="@style/Theme.MaterialComponents.Light.DarkActionBar"
-                    app:backgroundTint="@color/approved_request_lightGreen"
-                    app:cornerRadius="0dp"
-                    app:rippleColor="@color/fountain_blue" />
-
-                <ProgressBar
-                    android:id="@+id/progressBar_approve"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_gravity="center" />
-            </FrameLayout>
-
-            <FrameLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="16dp"
-                android:layout_weight="1">
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btn_decline_request"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="@string/decline"
-                    android:textAllCaps="false"
-                    android:textColor="@color/white"
-                    android:textSize="14sp"
-                    android:theme="@style/Theme.MaterialComponents.Light.DarkActionBar"
-                    app:backgroundTint="@color/rejected_request_red"
-                    app:cornerRadius="0dp"
-                    app:rippleColor="@color/fountain_blue" />
-
-                <ProgressBar
-                    android:id="@+id/progressBar_decline"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_gravity="center"
-                    android:visibility="gone" />
-            </FrameLayout>
-
-        </LinearLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
