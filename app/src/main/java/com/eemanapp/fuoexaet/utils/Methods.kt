@@ -77,6 +77,9 @@ class Methods {
                 titleText = title
                 contentText = message
                 confirmText = confirmationMessage
+                setConfirmClickListener {
+                    this.dismiss()
+                }
                 show()
             }
             return dialogBuilder

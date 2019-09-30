@@ -169,6 +169,7 @@ class HomeDashboardFragment : Fragment(), Injectable, RequestClickListener {
     override fun onViewProfile(request: Request) {
         val b = Bundle()
         b.putString(Constants.REQUEST_ID, request.requestUniqueId)
+        b.putString(Constants.REQUESTER_USER_ID, request.user?.uniqueId)
         b.putParcelable(Constants.USER, user)
         findNavController().navigate(R.id.to_requestProfileDetailsFragment, b)
     }

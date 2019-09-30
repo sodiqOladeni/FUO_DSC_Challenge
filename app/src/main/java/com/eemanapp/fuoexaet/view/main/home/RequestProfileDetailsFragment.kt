@@ -35,6 +35,7 @@ class RequestProfileDetailsFragment : Fragment(), Injectable {
     private lateinit var viewModel: RequestsViewModel
     private var request: Request? = null
     private var requestId: String? = null
+    private var requesterUserId: String? = null
     private var user: User? = null
     private var mAdapter: RequestsStudentAdapter? = null
 
@@ -51,6 +52,7 @@ class RequestProfileDetailsFragment : Fragment(), Injectable {
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(RequestsViewModel::class.java)
         binding.lifecycleOwner = this
         requestId = arguments?.getString(Constants.REQUEST_ID)
+        requesterUserId = arguments?.getString(Constants.REQUESTER_USER_ID)
         user = arguments?.getParcelable(Constants.USER)
         mAdapter = RequestsStudentAdapter()
 
@@ -63,7 +65,7 @@ class RequestProfileDetailsFragment : Fragment(), Injectable {
             getRequestWithId()
         }
 
-        user?.uniqueId?.let {
+        requesterUserId?.let {
             getPreviousRequests()
         }
 
@@ -108,12 +110,13 @@ class RequestProfileDetailsFragment : Fragment(), Injectable {
     private fun getRequestWithId() {
         viewModel.getRequestById(requestId!!).observe(this, Observer {
             binding.request = it
+            request = it
             updateButtonsBasedOnRequest()
         })
     }
 
     private fun getPreviousRequests() {
-        viewModel.getRequestForUser(request?.user?.uniqueId!!)
+        viewModel.getRequestForUser(requesterUserId!!)
             .observe(this, Observer { userRequests ->
                 if (userRequests.isNullOrEmpty()) {
                     binding.recyclerView.visibility = View.GONE

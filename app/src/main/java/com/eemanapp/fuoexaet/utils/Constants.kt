@@ -11,6 +11,7 @@ class Constants {
         const val USER = "User"
         const val REQUEST = "Request"
         const val REQUEST_ID = "Request_Id"
+        const val REQUESTER_USER_ID = "Requester_User_Id"
         const val ALL_REQUESTS = "All_Student_Requests"
 
         const val USER_FIRSTNAME = "User_First_Name"
