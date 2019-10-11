@@ -24,6 +24,7 @@ import androidx.navigation.fragment.findNavController
 import com.eemanapp.fuoexaet.model.Request
 import com.eemanapp.fuoexaet.model.User
 import com.eemanapp.fuoexaet.utils.*
+import java.util.*
 
 
 /**
@@ -31,24 +32,29 @@ import com.eemanapp.fuoexaet.utils.*
  */
 class NewRequestFragment : Fragment(), Injectable, DatePickerListener, TimePickerListener {
 
-    private lateinit var binding:FragmentNewRequestBinding
-    private var dateTimePicker:DatePickerFragment? = null
-    private var timePickerFragment:TimePickerFragment? = null
-    private lateinit var viewModel:RequestsViewModel
+    private lateinit var binding: FragmentNewRequestBinding
+    private var dateTimePicker: DatePickerFragment? = null
+    private var timePickerFragment: TimePickerFragment? = null
+    private lateinit var viewModel: RequestsViewModel
     private val systemType = System.currentTimeMillis()
     private var isDepartureDate = true
     private var isDepartureTime = true
-    private var departureDate:String? = Methods.formatDate(systemType)
-    private var departureTime:String? =  Methods.formatTime(systemType)
-    private var arrivalDate:String? = null
-    private var arrivalTime:String? = null
-    private var requestType:String? = null
+    private var departureDate: String? = Methods.formatDate(systemType)
+    private var departureTime: String? = Methods.formatTime(systemType)
+    private var arrivalDate: String? = null
+    private var arrivalTime: String? = null
+    private var requestType: String? = null
     private var user: User? = null
-    private lateinit var popupMenu:PopupMenu
-    @Inject lateinit var viewModelFactory:ViewModelProvider.Factory
+    private lateinit var popupMenu: PopupMenu
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+    private val TAG = NewRequestFragment::class.java.simpleName
+    private var userRequestThisMonth: Int? = null
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         // Inflate the layout for this fragment
         binding = FragmentNewRequestBinding.inflate(inflater)
         return binding.root
@@ -64,9 +70,14 @@ class NewRequestFragment : Fragment(), Injectable, DatePickerListener, TimePicke
 
         user = arguments?.getParcelable(Constants.USER)
         setListeners()
+
+        viewModel.requests.observe(this, Observer {
+            userRequestThisMonth = Methods.countUserRegularRequestThisMonth(it)
+            Log.v(TAG, "Exeat number this month ==> $userRequestThisMonth")
+        })
     }
 
-    private fun setListeners(){
+    private fun setListeners() {
         binding.departureDate.text = departureDate
         binding.departureTime.text = departureTime
 
@@ -117,131 +128,156 @@ class NewRequestFragment : Fragment(), Injectable, DatePickerListener, TimePicke
         }
     }
 
-    private fun verifyExaetRequestInput(){
+    private fun verifyExaetRequestInput() {
 
         var isValid = true
-        var focusView:View? = null
+        var focusView: View? = null
         val toast = Toast.makeText(context, "", Toast.LENGTH_LONG)
         var message = ""
         val location = binding.requestLocation.text.toString()
         val purpose = binding.requestPurpose.text.toString()
 
-        if (requestType.isNullOrEmpty()){
+        if (requestType.isNullOrEmpty()) {
             message += "Request Type"
             isValid = false
             focusView = binding.requestType
+        } else {
+            if ((requestType.equals(getString(R.string.regular_exaet), true)) and (userRequestThisMonth == 2)) {
+                Methods.showNotSuccessDialog(
+                    context!!,
+                    getString(R.string.request_error),
+                    getString(R.string.regular_request_cannot_be_made)
+                )
+                return
+            }
         }
 
-        if (departureDate.isNullOrEmpty()){
+        if (departureDate.isNullOrEmpty()) {
             message += "Departure Date"
             isValid = false
             focusView = binding.departureDate
         }
 
-        if (departureTime.isNullOrEmpty()){
+        if (departureTime.isNullOrEmpty()) {
             message += "Departure Time"
             isValid = false
             focusView = binding.departureTime
         }
 
-        if (arrivalDate.isNullOrEmpty()){
+        if (arrivalDate.isNullOrEmpty()) {
             message += "Arrival Date"
             isValid = false
             focusView = binding.arrivalDate
         }
 
-        if (arrivalTime.isNullOrEmpty()){
+        if (arrivalTime.isNullOrEmpty()) {
             message += "Arrival Time"
             isValid = false
             focusView = binding.arrivalTime
         }
 
-        if (location.isNullOrEmpty()){
+        if (location.isNullOrEmpty()) {
             binding.requestLocation.error = getString(R.string.field_cant_be_empty)
             isValid = false
             focusView = binding.requestLocation
         }
 
-        if (purpose.isNullOrEmpty()){
+        if (purpose.isNullOrEmpty()) {
             binding.requestPurpose.error = getString(R.string.field_cant_be_empty)
             isValid = false
             focusView = binding.requestPurpose
         }
 
-        if (isValid){
+        if (isValid) {
             Methods.hideSoftKey(activity!!)
             Methods.showProgressBar(
                 binding.progressBar,
                 binding.btnSubmitRequest,
-                listOf(binding.departureDate, binding.labelDepartureDate,
+                listOf(
+                    binding.departureDate, binding.labelDepartureDate,
                     binding.departureTime, binding.labelDepartureTime,
                     binding.arrivalDate, binding.arrivalTime,
                     binding.labelArrivalDate, binding.labelArrivalTime,
-                    binding.requestType, binding.requestLocation, binding.requestPurpose)
+                    binding.requestType, binding.requestLocation, binding.requestPurpose
+                )
             )
             val request = Request(
                 requestType = requestType!!,
                 requestStatus = DiffExaetStatus.PENDING.name,
-                departureDate = departureDate?:"",
-                departureTime = departureTime?:"",
-                arrivalDate = arrivalDate?:"",
-                arrivalTime = arrivalTime?:"",
+                departureDate = departureDate ?: "",
+                departureTime = departureTime ?: "",
+                arrivalDate = arrivalDate ?: "",
+                arrivalTime = arrivalTime ?: "",
                 location = location,
                 purpose = purpose,
                 requestTime = System.currentTimeMillis(),
                 user = user
             )
             submitRequest(request)
-        }else{
+        } else {
             focusView?.requestFocus()
             toast.setText("$message Must be selected")
             toast.show()
         }
     }
 
-    private fun popupRequestType(){
+    private fun popupRequestType() {
         popupMenu.setOnMenuItemClickListener {
             binding.requestType.text = it.title.toString()
             requestType = it.title.toString()
-             true
+            true
         }
         popupMenu.show()
     }
 
-    private fun submitRequest(request:Request){
+    private fun submitRequest(request: Request) {
         viewModel.submitRequest(request)
         viewModel.uiData.observe(this, Observer {
             Methods.hideProgressBar(
                 binding.progressBar,
                 binding.btnSubmitRequest,
-                listOf(binding.departureDate, binding.labelDepartureDate,
+                listOf(
+                    binding.departureDate, binding.labelDepartureDate,
                     binding.departureTime, binding.labelDepartureTime,
                     binding.arrivalDate, binding.arrivalTime,
                     binding.labelArrivalDate, binding.labelArrivalTime,
-                    binding.requestType, binding.requestLocation, binding.requestPurpose)
+                    binding.requestType, binding.requestLocation, binding.requestPurpose
+                )
             )
 
-            if (it != null){
-                if (it.status!!){
-                    val dialog = Methods.showSuccessDialog(context!!, getString(R.string.request_submitted), it.message!!)
-                    dialog.setOnCancelListener {
+            if (it != null) {
+                if (it.status!!) {
+                    val dialog = Methods.showSuccessDialog(
+                        context!!,
+                        getString(R.string.request_submitted),
+                        it.message!!
+                    )
+                    dialog.setOnDismissListener {
                         findNavController().navigateUp()
                     }
-                }else{
-                    Methods.showNotSuccessDialog(context!!, getString(R.string.error_occur), it.message!!)
+                } else {
+                    Methods.showNotSuccessDialog(
+                        context!!,
+                        getString(R.string.error_occur),
+                        it.message!!
+                    )
                 }
-            }else{
-                Methods.showNotSuccessDialog(context!!,getString(R.string.error_occur), getString(R.string.please_check_your_internet))
+            } else {
+                Methods.showNotSuccessDialog(
+                    context!!,
+                    getString(R.string.error_occur),
+                    getString(R.string.please_check_your_internet)
+                )
             }
         })
     }
 
     override fun dateSelected(year: Int, month: Int, dayOfMonth: Int) {
         val date = Methods.formatDate(year, month, dayOfMonth)
-        if (isDepartureDate){
+        if (isDepartureDate) {
             binding.departureDate.text = date
             departureDate = date
-        }else{
+        } else {
             binding.arrivalDate.text = Methods.formatDate(year, month, dayOfMonth)
             arrivalDate = date
         }
@@ -249,10 +285,10 @@ class NewRequestFragment : Fragment(), Injectable, DatePickerListener, TimePicke
 
     override fun timeSelected(hours: Int, minutes: Int) {
         val time = Methods.formatTime(hours, minutes)
-        if (isDepartureTime){
+        if (isDepartureTime) {
             binding.departureTime.text = time
             departureTime = time
-        }else{
+        } else {
             binding.arrivalTime.text = Methods.formatTime(hours, minutes)
             arrivalTime = time
         }

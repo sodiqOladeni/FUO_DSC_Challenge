@@ -116,8 +116,10 @@
                 android:textSize="14sp" />
 
             <LinearLayout
+                android:id="@+id/cont_dont_have_account"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:layout_gravity="center_horizontal"
                 android:gravity="center_horizontal">
 

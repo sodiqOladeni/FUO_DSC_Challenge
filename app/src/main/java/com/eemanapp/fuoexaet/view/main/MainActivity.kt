@@ -24,7 +24,6 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
 
     @Inject
     lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Fragment>
-    private lateinit var appBarConfig : AppBarConfiguration
     override fun supportFragmentInjector() = dispatchingAndroidInjector
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,27 +31,15 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolBar)
 
+        val navView: BottomNavigationView = findViewById(R.id.bottomNavView)
 
-        val host: NavHostFragment = supportFragmentManager
-            .findFragmentById(R.id.nav_host_fragment) as NavHostFragment? ?: return
-        val navController = host.navController
-        appBarConfig = AppBarConfiguration(navController.graph)
+        val navController = findNavController(R.id.nav_host_fragment)
+        // Passing each menu ID as a set of Ids because each
+        // menu should be considered as top level destinations.
+        val appBarConfiguration = AppBarConfiguration(
+            setOf(R.id.homeDashboardFragment, R.id.requestsFragment, R.id.profileFragment, R.id.settingsFragment))
 
-        setupActionBar(navController, appBarConfig)
-        setupBottomNavMenu(navController)
-    }
-
-    private fun setupBottomNavMenu(navController: NavController) {
-        val bottomNav = findViewById<BottomNavigationView>(R.id.bottomNavView)
-        bottomNav?.setupWithNavController(navController)
-    }
-
-    private fun setupActionBar(navController: NavController,
-                               appBarConfig : AppBarConfiguration) {
-        setupActionBarWithNavController(navController, appBarConfig)
-    }
-
-    override fun onSupportNavigateUp(): Boolean {
-        return findNavController(R.id.nav_host_fragment).navigateUp()
+        setupActionBarWithNavController(navController, appBarConfiguration)
+        navView.setupWithNavController(navController)
     }
 }

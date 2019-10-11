@@ -431,8 +431,9 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@{request.user.hallOfResidence}"
+                                android:text="@{request.user.getHallAndRoomNumber}"
                                 android:textColor="@color/light_dark"
+
                                 android:textSize="12sp"
                                 tools:text="Sultan Abubakar Hall" />
                         </LinearLayout>
@@ -477,7 +478,7 @@
                     android:layout_gravity="start"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="5dp"
-                    android:text="@string/new_request"
+                    android:text="@string/current_request_clicked_"
                     android:textColor="@color/light_dark"
                     android:textSize="14sp"
                     android:textStyle="bold" />
@@ -750,6 +751,7 @@
                                 android:id="@+id/progressBar_approve"
                                 android:layout_width="40dp"
                                 android:layout_height="40dp"
+                                android:visibility="gone"
                                 android:layout_gravity="center" />
                         </FrameLayout>
 
@@ -809,6 +811,7 @@
                                 android:id="@+id/progressBar_outOfSchool"
                                 android:layout_width="40dp"
                                 android:layout_height="40dp"
+                                android:visibility="gone"
                                 android:layout_gravity="center" />
                         </FrameLayout>
 

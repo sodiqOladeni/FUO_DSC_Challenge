@@ -77,10 +77,10 @@ class RequestProfileDetailsFragment : Fragment(), Injectable {
             Methods.showProgressBar(
                 binding.progressBarApprove,
                 binding.btnApproveRequest,
-                listOf(binding.btnDeclineRequest)
-            )
+                listOf(binding.btnDeclineRequest))
             updateRequest()
         }
+
         binding.btnDeclineRequest.setOnClickListener {
             request?.approveCoordinator =
                 getString(R.string.name_template, user?.firstName, user?.lastName)
@@ -140,11 +140,12 @@ class RequestProfileDetailsFragment : Fragment(), Injectable {
 
     private fun updateButtonsBasedOnRequest() {
         when (request?.requestStatus) {
+
             DiffExaetStatus.APPROVED.name -> {
-                binding.approveDeclineButtonsLayout.visibility = View.GONE
                 binding.outOfSchoolDeclineButtonsLayout.visibility = View.VISIBLE
                 binding.approveDeclineButtonsLayout.visibility = View.GONE
-                binding.outOfSchoolDeclineButtonsLayout.visibility = View.GONE
+                binding.layoutRequestDeclined.visibility = View.GONE
+                binding.layoutRequestCompleted.visibility = View.GONE
                 if (Methods.userWhoCodeToName(user?.userWho!!) == Constants.SECURITY) {
                     // Only security should be able to grant passage or mark as returned
                     binding.layoutGrantPassage.visibility = View.VISIBLE
@@ -167,12 +168,14 @@ class RequestProfileDetailsFragment : Fragment(), Injectable {
                     binding.btnOutOfSchoolRequest.isClickable = false
                 }
             }
+
             DiffExaetStatus.DECLINED.name -> {
                 binding.layoutRequestDeclined.visibility = View.VISIBLE
                 binding.layoutRequestCompleted.visibility = View.GONE
                 binding.approveDeclineButtonsLayout.visibility = View.GONE
                 binding.outOfSchoolDeclineButtonsLayout.visibility = View.GONE
             }
+
             DiffExaetStatus.PENDING.name -> {
                 binding.approveDeclineButtonsLayout.visibility = View.VISIBLE
                 binding.outOfSchoolDeclineButtonsLayout.visibility = View.GONE
@@ -188,9 +191,10 @@ class RequestProfileDetailsFragment : Fragment(), Injectable {
                     binding.btnDeclineRequest.isClickable = false
                 }
             }
+
             DiffExaetStatus.OUT_SCHOOL.name -> {
-                binding.approveDeclineButtonsLayout.visibility = View.GONE
                 binding.outOfSchoolDeclineButtonsLayout.visibility = View.VISIBLE
+                binding.approveDeclineButtonsLayout.visibility = View.GONE
                 binding.layoutRequestCompleted.visibility = View.GONE
                 binding.layoutRequestDeclined.visibility = View.GONE
                 if (Methods.userWhoCodeToName(user?.userWho!!) == Constants.SECURITY) {
@@ -214,8 +218,8 @@ class RequestProfileDetailsFragment : Fragment(), Injectable {
                     binding.btnOutOfSchoolRequest.isEnabled = false
                     binding.btnOutOfSchoolRequest.isClickable = false
                 }
-
             }
+
             DiffExaetStatus.COMPLETED.name -> {
                 binding.layoutRequestCompleted.visibility = View.VISIBLE
                 binding.layoutRequestDeclined.visibility = View.GONE
@@ -228,11 +232,12 @@ class RequestProfileDetailsFragment : Fragment(), Injectable {
     private fun updateRequest() {
         viewModel.updateRequest(request!!)
         viewModel.uiData.observe(this, Observer {
+
             Methods.hideProgressBar(
                 binding.progressBarDecline,
                 binding.btnDeclineRequest,
-                listOf(binding.btnApproveRequest)
-            )
+                listOf(binding.btnApproveRequest))
+
             Methods.hideProgressBar(
                 binding.progressBarApprove,
                 binding.btnApproveRequest,
@@ -241,27 +246,22 @@ class RequestProfileDetailsFragment : Fragment(), Injectable {
 
             if (it != null) {
                 if (it.status!!) {
-                    val dialog = Methods.showSuccessDialog(
-                        context!!,
-                        getString(R.string.request_updated),
-                        it.message!!
-                    )
+                    val dialog = Methods.showSuccessDialog(context!!,
+                        getString(R.string.request_updated), it.message!!)
+
                     dialog.setCancelClickListener {
                         findNavController().popBackStack()
                     }
+
                 } else {
-                    Methods.showNotSuccessDialog(
-                        context!!,
-                        getString(R.string.error_occur),
-                        it.message!!
-                    )
+                    Methods.showNotSuccessDialog(context!!,
+                        getString(R.string.error_occur), it.message!!)
                 }
+
             } else {
                 Methods.showNotSuccessDialog(
-                    context!!,
-                    getString(R.string.error_occur),
-                    getString(R.string.please_check_your_internet)
-                )
+                    context!!, getString(R.string.error_occur),
+                    getString(R.string.please_check_your_internet))
             }
         })
     }

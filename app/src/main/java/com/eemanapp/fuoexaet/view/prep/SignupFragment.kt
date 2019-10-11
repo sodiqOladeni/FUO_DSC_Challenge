@@ -218,6 +218,7 @@ class SignupFragment : Fragment(), Injectable, DatePickerListener {
                     lastName = ln.text.toString(),
                     schoolId = id.text.toString(),
                     email = em.text.toString(),
+                    userCreatedWhen = System.currentTimeMillis(),
                     phoneNumber = pn.text.toString(),
                     imageUri = userImagePath.toString(),
                     userWho = Methods.userWhoNameToCode(userWho),
@@ -239,6 +240,7 @@ class SignupFragment : Fragment(), Injectable, DatePickerListener {
         val dept = binding.studentLayout.editDept
         val yearEntry = binding.studentLayout.editYear
         val hall = binding.studentLayout.editHall
+        val roomNumber = binding.studentLayout.editHallRoomNumber
         val pass1 = binding.studentLayout.signupPassword1
         val pass2 = binding.studentLayout.signupPassword2
 
@@ -251,6 +253,7 @@ class SignupFragment : Fragment(), Injectable, DatePickerListener {
         dept.error = null
         yearEntry.error = null
         hall.error = null
+        roomNumber.error = null
         pass1.error = null
         pass2.error = null
 
@@ -311,6 +314,12 @@ class SignupFragment : Fragment(), Injectable, DatePickerListener {
             focusView = hall
         }
 
+        if (roomNumber.text.toString().isNullOrEmpty()) {
+            roomNumber.error = getString(R.string.field_cant_be_empty)
+            isValid = false
+            focusView = roomNumber
+        }
+
         if (!Methods.isValidPassword(pass1.text.toString())) {
             pass1.error = getString(R.string.invalid_password)
             isValid = false
@@ -356,6 +365,7 @@ class SignupFragment : Fragment(), Injectable, DatePickerListener {
                     lastName = ln.text.toString(),
                     schoolId = matric.text.toString(),
                     email = em.text.toString(),
+                    userCreatedWhen = System.currentTimeMillis(),
                     phoneNumber = pn.text.toString(),
                     imageUri = userImagePath.toString(),
                     userWho = Methods.userWhoNameToCode(userWho),
@@ -363,7 +373,8 @@ class SignupFragment : Fragment(), Injectable, DatePickerListener {
                     college = college.text.toString(),
                     dept = dept.text.toString(),
                     entryYear = yearEntry.text.toString(),
-                    hallOfResidence = hall.text.toString()
+                    hallOfResidence = hall.text.toString(),
+                    hallRoomNumber = roomNumber.text.toString()
                 )
             )
         } else {
@@ -389,9 +400,11 @@ class SignupFragment : Fragment(), Injectable, DatePickerListener {
 
             it?.let {
                 if (it.status!!) {
-                    val i = Intent(context, MainActivity::class.java)
-                    i.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
-                    startActivity(i)
+                    Methods.showSuccessDialog(
+                        context!!,
+                        getString(R.string.user_created),
+                        it.message!!
+                    )
                     viewModel.saveUiDataToDefault()
                 } else {
                     Methods.showNotSuccessDialog(

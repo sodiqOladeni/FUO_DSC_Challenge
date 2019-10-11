@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">FUO Exaet</string>
+    <string name="app_name">FUO Exeat</string>
     <string name="ADMOB_APP_ID">n</string>
     <string name="ADMOB_APP_ID_TEST">ca-app-pub-3940256099942544~3347511713</string>
 
@@ -11,7 +11,7 @@
     <string name="permission_with_ease">Permission With Ease</string>
     <string name="less_paper_work">Less Paper Work</string>
     <string name="request_for_hall_pass">Request for your hall pass with ease by simply submitting your request from the FUO Exaet App</string>
-    <string name="grant_exaet_request">Grant Exaet leave from the comfort of your office, at the speed of light</string>
+    <string name="grant_exaet_request">Grant Exeat leave from the comfort of your office, at the speed of light</string>
     <string name="home">Home</string>
     <string name="requests">Requests</string>
     <string name="profile">Profile</string>
@@ -25,7 +25,7 @@
     <string name="not_d_placeholder">Not a %s</string>
     <string name="dont_have_an_account">Don\'t have an account?</string>
 
-    <string name="welcome_fuo_exaet">Welcome to,\nFUO Exaet App</string>
+    <string name="welcome_fuo_exaet">Welcome to,\nFUO Exeat App</string>
     <string name="signing_as_placeholder">You are signing in as a %s</string>
     <string name="fullname">Full name</string>
     <string name="matric_number">Matric Number</string>
@@ -90,9 +90,9 @@
     <string name="location_where_to">Location (Where you are going to)</string>
     <string name="purpose_of_going">Purpose of going</string>
     <string name="submit_request">Submit Request</string>
-    <string name="regular_exaet">Regular Exaet</string>
-    <string name="vacation_exaet">Vacation Exaet</string>
-    <string name="emergency_exaet">Emergency Exaet</string>
+    <string name="regular_exaet">Regular Exeat</string>
+    <string name="vacation_exaet">Vacation Exeat</string>
+    <string name="emergency_exaet">Emergency Exeat</string>
     <string name="previous_requests">Previous Requests</string>
     <string name="new_request">New Request</string>
     <string name="location_">Location:</string>
@@ -116,4 +116,9 @@
     <string name="declined_by">Declined By</string>
     <string name="gate_departure_time">Gate Departure Time</string>
     <string name="gate_arrival_time">Gate Arrival Time</string>
+    <string name="request_error">Request Error</string>
+    <string name="regular_request_cannot_be_made">You have exceeded the number of regular exeat request that you can make this month, kindly select emergency request if it is compulsory</string>
+    <string name="hall_room_number">Hall Room Number</string>
+    <string name="user_created">User created</string>
+    <string name="current_request_clicked_">Current Request (Clicked Request)</string>
 </resources>

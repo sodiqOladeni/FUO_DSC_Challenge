@@ -286,17 +286,6 @@
                         android:text="@string/no_request_has_been_made"/>
                 </LinearLayout>
 
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/fab_newRequest"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginBottom="16dp"
-                    app:elevation="6dp"
-                    app:fabSize="normal"
-                    app:srcCompat="@drawable/ic_request_fab_24dp"/>
-
                 <ProgressBar
                     android:id="@+id/progressBar"
                     android:layout_width="42dp"
@@ -309,5 +298,15 @@
                     android:indeterminateOnly="true" />
             </RelativeLayout>
         </androidx.core.widget.NestedScrollView>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_newRequest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="16dp"
+            app:hoveredFocusedTranslationZ="0dp"
+            app:pressedTranslationZ="0dp"
+            app:srcCompat="@drawable/ic_request_fab_24dp"/>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

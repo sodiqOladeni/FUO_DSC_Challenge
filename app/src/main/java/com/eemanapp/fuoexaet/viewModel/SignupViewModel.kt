@@ -18,6 +18,13 @@ import com.google.firebase.auth.AuthResult
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.storage.UploadTask
 import javax.inject.Inject
+import android.content.Intent.getIntent
+import androidx.core.content.ContextCompat.startActivity
+import android.content.Intent
+import androidx.annotation.NonNull
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.auth.FirebaseUser
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 
 
 class SignupViewModel @Inject constructor(var pref: SharedPref) :
@@ -82,7 +89,7 @@ class SignupViewModel @Inject constructor(var pref: SharedPref) :
         fireStoreDoc?.set(user)?.addOnCompleteListener {
             if (it.isSuccessful) {
                 // Handle Success
-                saveUser(user)
+                sendVerificationEmail()
             } else {
                 // Handle failures
                 newUiData.status = false
@@ -96,12 +103,23 @@ class SignupViewModel @Inject constructor(var pref: SharedPref) :
         _uiData.value = null
     }
 
-    private fun saveUser(user: User) {
-        pref.setUser(user)
-        pref.setUserId(user.uniqueId!!)
-        newUiData.status = true
-        newUiData.message = "User successfully signed up"
-        _uiData.value = newUiData
+    private fun sendVerificationEmail() {
+        val user = FirebaseAuth.getInstance().currentUser
+        user!!.sendEmailVerification()
+            .addOnCompleteListener { task ->
+                FirebaseAuth.getInstance().signOut()
+                if (task.isSuccessful) {
+                    // email sent
+                    // after email is sent just logout the user and finish this activity
+                    newUiData.status = true
+                    newUiData.message = "User successfully created, please check your email to verify your account"
+                    _uiData.value = newUiData
+                } else {
+                    newUiData.status = false
+                    newUiData.message = "User successfully created but unable to send verification email"
+                    _uiData.value = newUiData
+                }
+            }
     }
 
     override fun onCleared() {

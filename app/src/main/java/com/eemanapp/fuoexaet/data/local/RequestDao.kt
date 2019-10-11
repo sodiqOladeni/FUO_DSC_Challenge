@@ -14,13 +14,13 @@ interface RequestDao {
     @Update
     fun updateRequest(vararg request: Request)
 
-    @Query("select * from request")
+    @Query("select * from request order by requestTime DESC")
     fun getRequests():LiveData<List<Request>>
 
     @Query("delete from request")
     fun deleteRequests():Int
 
-    @Query("select * from request where uniqueId = :userId")
+    @Query("select * from request where uniqueId = :userId order by requestTime DESC")
     fun getRequestWithUserId(userId:String):LiveData<List<Request>>
 
     @Query("select * from request where requestUniqueId = :requestId")

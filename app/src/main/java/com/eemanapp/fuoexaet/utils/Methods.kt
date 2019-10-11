@@ -10,6 +10,7 @@ import android.widget.TextView
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.eemanapp.fuoexaet.model.Request
 import com.google.android.material.button.MaterialButton
+import org.threeten.bp.format.DateTimeFormatter
 import java.sql.Time
 import java.text.SimpleDateFormat
 import java.util.*
@@ -164,16 +165,79 @@ class Methods {
             return SimpleDateFormat("HH:mm a").format(time).toString()
         }
 
-        fun getAllRequestApprovedCount(requests: List<Request>):List<Request> {
+        fun getAllRequestApprovedCount(requests: List<Request>): List<Request> {
             return requests.filter { it.requestStatus == DiffExaetStatus.APPROVED.name }
         }
 
-        fun getAllRequestDeclinedCount(requests: List<Request>):List<Request> {
+        fun getAllRequestDeclinedCount(requests: List<Request>): List<Request> {
             return requests.filter { it.requestStatus == DiffExaetStatus.DECLINED.name }
         }
 
-        fun getAllRequestPendingCount(requests: List<Request>):List<Request> {
+        fun getAllRequestPendingCount(requests: List<Request>): List<Request> {
             return requests.filter { it.requestStatus == DiffExaetStatus.PENDING.name }
+        }
+
+        fun countRequestsToday(
+            requests: List<Request>?,
+            today: Int,
+            thisMonth: Int,
+            thisYear: Int
+        ): Int {
+            return requests?.filter {
+                (Date(it.requestTime).day == today) and (Date(it.requestTime).month == thisMonth) and (Date(
+                    it.requestTime
+                ).year == thisYear)
+            }?.size ?: 0
+        }
+
+        fun countRequestsApprovedToday(
+            requests: List<Request>?,
+            today: Int,
+            thisMonth: Int,
+            thisYear: Int
+        ): Int {
+            return requests?.filter {
+                (it.requestStatus == DiffExaetStatus.APPROVED.name) and
+                        ((Date(it.requestTime).day == today) and (Date(it.requestTime).month == thisMonth) and (Date(
+                            it.requestTime
+                        ).year == thisYear))
+            }?.size ?: 0
+        }
+
+        fun countRequestsDeclinedToday(
+            requests: List<Request>?,
+            today: Int,
+            thisMonth: Int,
+            thisYear: Int
+        ): Int {
+            return requests?.filter {
+                (it.requestStatus == DiffExaetStatus.DECLINED.name) and
+                        ((Date(it.requestTime).day == today) and (Date(it.requestTime).month == thisMonth) and (Date(
+                            it.requestTime
+                        ).year == thisYear))
+            }?.size ?: 0
+        }
+
+        fun countRequestPendingToday(
+            requests: List<Request>?,
+            today: Int,
+            thisMonth: Int,
+            thisYear: Int
+        ): Int {
+            return requests?.filter {
+                (it.requestStatus == DiffExaetStatus.PENDING.name) and
+                        ((Date(it.requestTime).day == today) and (Date(it.requestTime).month == thisMonth) and (Date(
+                            it.requestTime
+                        ).year == thisYear))
+            }?.size ?: 0
+        }
+
+        fun countUserRegularRequestThisMonth(requests: List<Request>?): Int {
+            return requests?.filter {
+                (Date(it.requestTime).month == Date(System.currentTimeMillis()).month)
+                        && Date(it.requestTime).year == Date(System.currentTimeMillis()).year
+                        && it.requestType == "Regular Exeat"
+            }?.size ?: 0
         }
     }
 }

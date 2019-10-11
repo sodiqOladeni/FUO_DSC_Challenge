@@ -25,7 +25,15 @@ class LoginViewModel @Inject constructor(var pref: SharedPref) : ViewModel() {
     fun authUser(email: String, password: String, userWho: String) {
         authTask = mAuth.signInWithEmailAndPassword(email, password)
             .addOnSuccessListener {
-                fetchUserDataWithEmail(email, userWho)
+                if (it.user?.isEmailVerified!!){
+                    fetchUserDataWithEmail(email, userWho)
+                }else{
+                    it.user?.sendEmailVerification()
+                    FirebaseAuth.getInstance().signOut()
+                    newUiData.status = false
+                    newUiData.message = "Your email has not been verified, please check your email and verify your account"
+                    _uiData.value = newUiData
+                }
             }
             .addOnFailureListener {
                 newUiData.status = false

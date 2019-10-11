@@ -68,6 +68,14 @@ class LoginFragment : Fragment(), Injectable {
         binding.loginSignup.setOnClickListener {
             findNavController().navigate(R.id.to_signupFragment, b)
         }
+
+
+        if (userWho == Constants.STUDENT) {
+            binding.contDontHaveAccount.visibility = View.VISIBLE
+        }else{
+            binding.contDontHaveAccount.visibility = View.GONE
+        }
+
     }
 
     private fun verifyInput() {

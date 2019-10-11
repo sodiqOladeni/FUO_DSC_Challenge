@@ -26,6 +26,7 @@ import com.eemanapp.fuoexaet.utils.Methods
 import com.eemanapp.fuoexaet.viewModel.HomeDashboardViewModel
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
+import java.util.*
 import javax.inject.Inject
 
 class HomeDashboardFragment : Fragment(), Injectable, RequestClickListener {
@@ -43,6 +44,9 @@ class HomeDashboardFragment : Fragment(), Injectable, RequestClickListener {
     private lateinit var binding: HomeDashboardFragmentBinding
     private var user: User? = null
     private var isUpdateInProgress = false
+    private var today: Int = 0
+    private var thisMonth: Int = 0
+    private var thisYear: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -63,6 +67,11 @@ class HomeDashboardFragment : Fragment(), Injectable, RequestClickListener {
             b.putParcelable(Constants.USER, user)
             findNavController().navigate(R.id.to_newRequestFragment, b)
         }
+
+        val dateTime = Date(System.currentTimeMillis())
+        today = dateTime.day
+        thisMonth = dateTime.month
+        thisYear = dateTime.year
         getUser()
     }
 
@@ -99,9 +108,12 @@ class HomeDashboardFragment : Fragment(), Injectable, RequestClickListener {
                         binding.emptyData.visibility = View.GONE
                         //Update the type of count
                         binding.countAllExaet.text = it.size.toString()
-                        binding.countApproveExaet.text = Methods.getAllRequestApprovedCount(it).size.toString()
-                        binding.countRejectedExaet.text = Methods.getAllRequestDeclinedCount(it).size.toString()
-                        binding.countPendingExaet.text = Methods.getAllRequestPendingCount(it).size.toString()
+                        binding.countApproveExaet.text =
+                            Methods.getAllRequestApprovedCount(it).size.toString()
+                        binding.countRejectedExaet.text =
+                            Methods.getAllRequestDeclinedCount(it).size.toString()
+                        binding.countPendingExaet.text =
+                            Methods.getAllRequestPendingCount(it).size.toString()
                         //Update adapter to load previous requests
                         requestsStudentAdapter?.requests = it
                     }
@@ -126,10 +138,13 @@ class HomeDashboardFragment : Fragment(), Injectable, RequestClickListener {
                         binding.recyclerView.visibility = View.VISIBLE
                         binding.emptyData.visibility = View.GONE
                         //Update the type of count
-                        binding.countAllExaet.text = it.size.toString()
-                        binding.countApproveExaet.text = Methods.getAllRequestApprovedCount(it).size.toString()
-                        binding.countRejectedExaet.text = Methods.getAllRequestDeclinedCount(it).size.toString()
-                        binding.countPendingExaet.text = Methods.getAllRequestPendingCount(it).size.toString()
+                        binding.countAllExaet.text = Methods.countRequestsToday(it, today, thisMonth, thisYear).toString()
+                        binding.countApproveExaet.text =
+                            Methods.countRequestsApprovedToday(it, today, thisMonth, thisYear).toString()
+                        binding.countRejectedExaet.text =
+                            Methods.countRequestsDeclinedToday(it, today, thisMonth, thisYear).toString()
+                        binding.countPendingExaet.text =
+                            Methods.countRequestPendingToday(it, today, thisMonth, thisYear).toString()
                         //Update adapter to load previous requests
                         requestsStaffAdapter?.requests = it
                     }
@@ -154,10 +169,13 @@ class HomeDashboardFragment : Fragment(), Injectable, RequestClickListener {
                         binding.recyclerView.visibility = View.VISIBLE
                         binding.emptyData.visibility = View.GONE
                         //Update the type of count
-                        binding.countAllExaet.text = it.size.toString()
-                        binding.countApproveExaet.text = Methods.getAllRequestApprovedCount(it).size.toString()
-                        binding.countRejectedExaet.text = Methods.getAllRequestDeclinedCount(it).size.toString()
-                        binding.countPendingExaet.text = Methods.getAllRequestPendingCount(it).size.toString()
+                        binding.countAllExaet.text = Methods.countRequestsToday(it, today, thisMonth, thisYear).toString()
+                        binding.countApproveExaet.text =
+                            Methods.countRequestsApprovedToday(it, today, thisMonth, thisYear).toString()
+                        binding.countRejectedExaet.text =
+                            Methods.countRequestsDeclinedToday(it, today, thisMonth, thisYear).toString()
+                        binding.countPendingExaet.text =
+                            Methods.countRequestPendingToday(it, today, thisMonth, thisYear).toString()
                         //Update adapter to load previous requests
                         requestsStaffAdapter?.requests = it
                     }

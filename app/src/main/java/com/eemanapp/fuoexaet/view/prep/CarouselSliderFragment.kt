@@ -31,7 +31,9 @@ class CarouselSliderFragment : Fragment(), Injectable, HomeScreenInitializer {
             }
 
             R.id.btn_signup -> {
-                showBottomSheet(whatToContinueAs = getString(R.string.sign_up))
+                val b = Bundle()
+                b.putString(Constants.USER_WHO, getString(R.string.student))
+                findNavController().navigate(R.id.to_signupFragment, b)
             }
         }
     }
@@ -95,8 +97,6 @@ class CarouselSliderFragment : Fragment(), Injectable, HomeScreenInitializer {
             dialog.dismiss()
             if (whatToContinueAs == getString(R.string.login)) {
                 findNavController().navigate(R.id.to_loginFragment, b)
-            } else {
-                findNavController().navigate(R.id.to_signupFragment, b)
             }
         }
 
