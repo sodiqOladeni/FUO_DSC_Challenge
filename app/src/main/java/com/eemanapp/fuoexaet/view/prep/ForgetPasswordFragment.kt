@@ -17,6 +17,7 @@ import com.eemanapp.fuoexaet.di.Injectable
 import com.eemanapp.fuoexaet.utils.Constants
 import com.eemanapp.fuoexaet.utils.Methods
 import com.eemanapp.fuoexaet.viewModel.ForgetPasswordViewModel
+import com.google.android.material.snackbar.Snackbar
 import javax.inject.Inject
 
 class ForgetPasswordFragment : Fragment(), Injectable {
@@ -53,7 +54,11 @@ class ForgetPasswordFragment : Fragment(), Injectable {
         }
 
         binding.fpReset.setOnClickListener {
-            verifyResetInput()
+            if (Methods.isNetworkAvailable(context!!)) {
+                verifyResetInput()
+            } else {
+                Snackbar.make(binding.root, getString(R.string.no_internet_connection), Snackbar.LENGTH_LONG).show()
+            }
         }
     }
 

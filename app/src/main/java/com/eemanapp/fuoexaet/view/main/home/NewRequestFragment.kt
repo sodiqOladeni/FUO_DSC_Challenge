@@ -24,6 +24,7 @@ import androidx.navigation.fragment.findNavController
 import com.eemanapp.fuoexaet.model.Request
 import com.eemanapp.fuoexaet.model.User
 import com.eemanapp.fuoexaet.utils.*
+import com.google.android.material.snackbar.Snackbar
 import java.util.*
 
 
@@ -118,7 +119,15 @@ class NewRequestFragment : Fragment(), Injectable, DatePickerListener, TimePicke
         }
 
         binding.btnSubmitRequest.setOnClickListener {
-            verifyExaetRequestInput()
+            if (Methods.isNetworkAvailable(context!!)) {
+                verifyExaetRequestInput()
+            } else {
+                Snackbar.make(
+                    binding.root,
+                    getString(R.string.no_internet_connection),
+                    Snackbar.LENGTH_LONG
+                ).show()
+            }
         }
 
         popupMenu = PopupMenu(context!!, binding.requestType)

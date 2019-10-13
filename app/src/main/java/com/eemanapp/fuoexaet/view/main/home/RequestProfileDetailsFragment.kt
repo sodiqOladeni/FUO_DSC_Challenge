@@ -21,6 +21,7 @@ import com.eemanapp.fuoexaet.utils.Constants
 import com.eemanapp.fuoexaet.utils.DiffExaetStatus
 import com.eemanapp.fuoexaet.utils.Methods
 import com.eemanapp.fuoexaet.viewModel.RequestsViewModel
+import com.google.android.material.snackbar.Snackbar
 import javax.inject.Inject
 
 class RequestProfileDetailsFragment : Fragment(), Injectable {
@@ -70,40 +71,73 @@ class RequestProfileDetailsFragment : Fragment(), Injectable {
         }
 
         binding.btnApproveRequest.setOnClickListener {
-            request?.approveCoordinator =
-                getString(R.string.name_template, user?.firstName, user?.lastName)
-            request?.requestStatus = DiffExaetStatus.APPROVED.name
-            request?.declineOrApproveTime = System.currentTimeMillis()
-            Methods.showProgressBar(
-                binding.progressBarApprove,
-                binding.btnApproveRequest,
-                listOf(binding.btnDeclineRequest))
-            updateRequest()
+            if (Methods.isNetworkAvailable(context!!)) {
+                request?.approveCoordinator =
+                    getString(R.string.name_template, user?.firstName, user?.lastName)
+                request?.requestStatus = DiffExaetStatus.APPROVED.name
+                request?.declineOrApproveTime = System.currentTimeMillis()
+                Methods.showProgressBar(
+                    binding.progressBarApprove,
+                    binding.btnApproveRequest,
+                    listOf(binding.btnDeclineRequest)
+                )
+                updateRequest()
+            } else {
+                Snackbar.make(
+                    binding.root,
+                    getString(R.string.no_internet_connection),
+                    Snackbar.LENGTH_LONG
+                ).show()
+            }
         }
 
         binding.btnDeclineRequest.setOnClickListener {
-            request?.approveCoordinator =
-                getString(R.string.name_template, user?.firstName, user?.lastName)
-            request?.requestStatus = DiffExaetStatus.DECLINED.name
-            request?.declineOrApproveTime = System.currentTimeMillis()
-            Methods.showProgressBar(
-                binding.progressBarDecline,
-                binding.btnDeclineRequest,
-                listOf(binding.btnApproveRequest)
-            )
-            updateRequest()
+            if (Methods.isNetworkAvailable(context!!)) {
+                request?.approveCoordinator =
+                    getString(R.string.name_template, user?.firstName, user?.lastName)
+                request?.requestStatus = DiffExaetStatus.DECLINED.name
+                request?.declineOrApproveTime = System.currentTimeMillis()
+                Methods.showProgressBar(
+                    binding.progressBarDecline,
+                    binding.btnDeclineRequest,
+                    listOf(binding.btnApproveRequest)
+                )
+                updateRequest()
+            } else {
+                Snackbar.make(
+                    binding.root,
+                    getString(R.string.no_internet_connection),
+                    Snackbar.LENGTH_LONG
+                ).show()
+            }
         }
 
         binding.btnOutOfSchoolRequest.setOnClickListener {
-            request?.requestStatus = DiffExaetStatus.OUT_SCHOOL.name
-            request?.gateDepartureTime = System.currentTimeMillis()
-            updateRequest()
+            if (Methods.isNetworkAvailable(context!!)) {
+                request?.requestStatus = DiffExaetStatus.OUT_SCHOOL.name
+                request?.gateDepartureTime = System.currentTimeMillis()
+                updateRequest()
+            } else {
+                Snackbar.make(
+                    binding.root,
+                    getString(R.string.no_internet_connection),
+                    Snackbar.LENGTH_LONG
+                ).show()
+            }
         }
 
         binding.btnCompletedRequest.setOnClickListener {
-            request?.requestStatus = DiffExaetStatus.COMPLETED.name
-            request?.gateArrivalTime = System.currentTimeMillis()
-            updateRequest()
+            if (Methods.isNetworkAvailable(context!!)) {
+                request?.requestStatus = DiffExaetStatus.COMPLETED.name
+                request?.gateArrivalTime = System.currentTimeMillis()
+                updateRequest()
+            } else {
+                Snackbar.make(
+                    binding.root,
+                    getString(R.string.no_internet_connection),
+                    Snackbar.LENGTH_LONG
+                ).show()
+            }
         }
     }
 
@@ -236,7 +270,8 @@ class RequestProfileDetailsFragment : Fragment(), Injectable {
             Methods.hideProgressBar(
                 binding.progressBarDecline,
                 binding.btnDeclineRequest,
-                listOf(binding.btnApproveRequest))
+                listOf(binding.btnApproveRequest)
+            )
 
             Methods.hideProgressBar(
                 binding.progressBarApprove,
@@ -246,22 +281,27 @@ class RequestProfileDetailsFragment : Fragment(), Injectable {
 
             if (it != null) {
                 if (it.status!!) {
-                    val dialog = Methods.showSuccessDialog(context!!,
-                        getString(R.string.request_updated), it.message!!)
+                    val dialog = Methods.showSuccessDialog(
+                        context!!,
+                        getString(R.string.request_updated), it.message!!
+                    )
 
                     dialog.setCancelClickListener {
                         findNavController().popBackStack()
                     }
 
                 } else {
-                    Methods.showNotSuccessDialog(context!!,
-                        getString(R.string.error_occur), it.message!!)
+                    Methods.showNotSuccessDialog(
+                        context!!,
+                        getString(R.string.error_occur), it.message!!
+                    )
                 }
 
             } else {
                 Methods.showNotSuccessDialog(
                     context!!, getString(R.string.error_occur),
-                    getString(R.string.please_check_your_internet))
+                    getString(R.string.please_check_your_internet)
+                )
             }
         })
     }

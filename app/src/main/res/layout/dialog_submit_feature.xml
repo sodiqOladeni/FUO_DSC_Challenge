@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:padding="32dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/label_report_problem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:textStyle="normal"
+        android:text="@string/we_are_constantly"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+        android:id="@+id/layout_edit"
+        android:layout_marginTop="20dp"
+        android:layout_below="@id/label_report_problem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/problem_reported"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="textShortMessage"
+            android:maxLines="4"
+            android:layout_below="@id/label_report_problem"
+            android:textSize="14sp"
+            android:hint="@string/we_love_to_hear"
+            android:layout_marginTop="10dp"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layout_edit"
+        android:orientation="horizontal"
+        android:layout_gravity="end"
+        android:gravity="end"
+        android:layout_marginTop="11dp">
+
+        <TextView
+            android:id="@+id/cancel"
+            android:textSize="16sp"
+            android:textColor="@color/rejected_request_red"
+            android:text="@string/cancel"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_marginEnd="18dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="28dp">
+
+            <TextView
+                android:id="@+id/ok"
+                android:textSize="16sp"
+                android:textColor="@color/fountain_green"
+                android:text="@string/submit"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:visibility="gone"
+                android:layout_gravity="center"
+                android:layout_width="25dp"
+                android:layout_height="25dp"/>
+        </FrameLayout>
+    </LinearLayout>
+</RelativeLayout>

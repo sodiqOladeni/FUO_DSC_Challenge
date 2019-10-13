@@ -47,5 +47,15 @@ abstract class ViewModelModule {
     abstract fun bindSettingsViewModel(settingsViewModel: SettingsViewModel):ViewModel
 
     @Binds
+    @IntoMap
+    @ViewModelKey(ChangePasswordViewModel::class)
+    abstract fun bindChangePasswordViewModel(changePasswordViewModel: ChangePasswordViewModel):ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(SignupCreateStaffViewModel::class)
+    abstract fun bindSignupCreateStaffViewModel(signupCreateStaffViewModel: SignupCreateStaffViewModel):ViewModel
+
+    @Binds
     abstract fun bindViewModelFactory(factory: ViewModelFactory):ViewModelProvider.Factory
 }

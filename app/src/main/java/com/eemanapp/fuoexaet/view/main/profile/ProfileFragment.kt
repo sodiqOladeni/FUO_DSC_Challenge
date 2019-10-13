@@ -1,11 +1,10 @@
-package com.eemanapp.fuoexaet.view.main
+package com.eemanapp.fuoexaet.view.main.profile
 
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,13 +12,13 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import coil.api.load
 import coil.transform.CircleCropTransformation
 
 import com.eemanapp.fuoexaet.R
 import com.eemanapp.fuoexaet.databinding.ProfileFragmentBinding
 import com.eemanapp.fuoexaet.di.Injectable
-import com.eemanapp.fuoexaet.di.ViewModelFactory
 import com.eemanapp.fuoexaet.interfaces.DatePickerListener
 import com.eemanapp.fuoexaet.model.Colleges
 import com.eemanapp.fuoexaet.model.Dept
@@ -29,6 +28,7 @@ import com.eemanapp.fuoexaet.utils.Constants
 import com.eemanapp.fuoexaet.utils.DatePickerFragment
 import com.eemanapp.fuoexaet.utils.Methods
 import com.eemanapp.fuoexaet.viewModel.ProfileViewModel
+import com.google.android.material.snackbar.Snackbar
 import ir.mirrajabi.searchdialog.SimpleSearchDialogCompat
 import ir.mirrajabi.searchdialog.core.SearchResultListener
 import javax.inject.Inject
@@ -59,6 +59,7 @@ class ProfileFragment : Fragment(), Injectable, DatePickerListener {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(ProfileViewModel::class.java)
         binding.lifecycleOwner = this
+        val b = Bundle()
 
         viewModel.user.observe(this, Observer {
             it?.let { t ->
@@ -68,17 +69,52 @@ class ProfileFragment : Fragment(), Injectable, DatePickerListener {
         })
 
         binding.studentLayout.btnUpdateProfile.setOnClickListener {
-            verifyStudentInput()
+            if (Methods.isNetworkAvailable(context!!)) {
+                verifyStudentInput()
+            } else {
+                Snackbar.make(
+                    binding.root,
+                    getString(R.string.no_internet_connection),
+                    Snackbar.LENGTH_LONG
+                ).show()
+            }
         }
         binding.staffLayout.btnUpdateProfile.setOnClickListener {
-            verifyStaffInput()
+            if (Methods.isNetworkAvailable(context!!)) {
+                verifyStaffInput()
+            } else {
+                Snackbar.make(
+                    binding.root,
+                    getString(R.string.no_internet_connection),
+                    Snackbar.LENGTH_LONG
+                ).show()
+            }
         }
 
-        binding.staffLayout.editUserImage.setOnClickListener {
-            pickImage()
-        }
         binding.studentLayout.editUserImage.setOnClickListener {
             pickImage()
+        }
+
+        binding.staffLayout.cardCreateCoordinator.setOnClickListener {
+            b.putString(Constants.USER_WHO, Constants.COORDINATOR)
+            b.putParcelable(Constants.USER, user)
+            findNavController().navigate(R.id.to_signupStaffFragment, b)
+        }
+
+        binding.staffLayout.cardCreateSecurity.setOnClickListener {
+            b.putString(Constants.USER_WHO, Constants.SECURITY)
+            b.putParcelable(Constants.USER, user)
+            findNavController().navigate(R.id.to_signupStaffFragment, b)
+        }
+
+        binding.staffLayout.changePassword.setOnClickListener {
+            b.putParcelable(Constants.USER, user)
+            findNavController().navigate(R.id.to_passwordResetFragment, b)
+        }
+
+        binding.studentLayout.changePassword.setOnClickListener {
+            b.putParcelable(Constants.USER, user)
+            findNavController().navigate(R.id.to_passwordResetFragment, b)
         }
     }
 
@@ -92,6 +128,11 @@ class ProfileFragment : Fragment(), Injectable, DatePickerListener {
                 binding.staffLayout.user = it
                 binding.staffLayout.parentStaffLayout.visibility = View.VISIBLE
                 binding.studentLayout.parentStudentLayout.visibility = View.GONE
+                if (Methods.userWhoCodeToName(it.userWho) == Constants.COORDINATOR) {
+                    binding.staffLayout.layoutAccountCreation.visibility = View.VISIBLE
+                } else {
+                    binding.staffLayout.layoutAccountCreation.visibility = View.GONE
+                }
             }
         }
         clickListeners()
@@ -107,6 +148,7 @@ class ProfileFragment : Fragment(), Injectable, DatePickerListener {
         val dept = binding.studentLayout.editDept
         val yearEntry = binding.studentLayout.editYear
         val hall = binding.studentLayout.editHall
+        val hallNumber = binding.studentLayout.editHallRoomNumber
 
         fn.error = null
         ln.error = null
@@ -117,6 +159,7 @@ class ProfileFragment : Fragment(), Injectable, DatePickerListener {
         dept.error = null
         yearEntry.error = null
         hall.error = null
+        hallNumber.error = null
 
         var isValid = true
         var focusView: View? = null
@@ -175,6 +218,12 @@ class ProfileFragment : Fragment(), Injectable, DatePickerListener {
             focusView = hall
         }
 
+        if (hallNumber.text.toString().isNullOrEmpty()) {
+            hallNumber.error = getString(R.string.field_cant_be_empty)
+            isValid = false
+            focusView = hallNumber
+        }
+
         if (isValid) {
             Methods.hideSoftKey(activity!!)
             Methods.showProgressBar(
@@ -190,6 +239,7 @@ class ProfileFragment : Fragment(), Injectable, DatePickerListener {
             user?.dept = dept.text.toString()
             user?.entryYear = yearEntry.text.toString()
             user?.hallOfResidence = hall.text.toString()
+            user?.hallRoomNumber = hall.text.toString()
             updateUser(user!!)
         } else {
             focusView?.requestFocus()
@@ -245,8 +295,7 @@ class ProfileFragment : Fragment(), Injectable, DatePickerListener {
         if (isValid) {
             Methods.hideSoftKey(activity!!)
             Methods.showProgressBar(
-                binding.staffLayout.progressBar, binding.staffLayout.btnUpdateProfile,
-                listOf(binding.staffLayout.editUserImage)
+                binding.staffLayout.progressBar, binding.staffLayout.btnUpdateProfile, listOf()
             )
 
             user?.firstName = fn.text.toString()
@@ -267,11 +316,6 @@ class ProfileFragment : Fragment(), Injectable, DatePickerListener {
             if (userImagePath != null) {
                 if (Methods.userWhoCodeToName(user?.userWho!!) == Constants.STUDENT) {
                     binding.studentLayout.profileImage.load(userImagePath) {
-                        crossfade(true)
-                        transformations(CircleCropTransformation())
-                    }
-                } else {
-                    binding.staffLayout.profileImage.load(userImagePath) {
                         crossfade(true)
                         transformations(CircleCropTransformation())
                     }
@@ -298,7 +342,7 @@ class ProfileFragment : Fragment(), Injectable, DatePickerListener {
             } else {
                 Methods.hideProgressBar(
                     binding.staffLayout.progressBar, binding.staffLayout.btnUpdateProfile,
-                    listOf(binding.staffLayout.editUserImage)
+                    listOf()
                 )
             }
 

@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+        <variable
+            name="request"
+            type="com.eemanapp.fuoexaet.model.Request" />
+    </data>
+
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardUseCompatPadding="true"
+    app:cardCornerRadius="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingTop="15dp"
+        android:paddingBottom="3dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp">
+
+            <TextView
+                android:id="@+id/request_user_matric"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:text="@{String.format(@string/request_matric_template, request.user.schoolId)}"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                tools:text="Matric No: FUO/18/0029" />
+
+            <TextView
+                android:id="@+id/request_time"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:maxLines="1"
+                android:ellipsize="end"
+                app:convertSystemTimeToReadableTime="@{request.requestTime}"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                tools:text="13/07/2019 16:37:53" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.75dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="15dp"
+            android:background="@color/about_to_grey" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="16dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/label_departure_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/departure_date"
+                    android:textColor="@color/light_dark"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/departure_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{request.departureDate}"
+                    android:textColor="@color/fade_grey"
+                    android:textSize="14sp"
+                    android:textStyle="normal"
+                    tools:text="July 27, 2019" />
+
+                <TextView
+                    android:id="@+id/label_departure_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/departure_time"
+                    android:textColor="@color/light_dark"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/departure_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{request.departureTime}"
+                    android:textColor="@color/fade_grey"
+                    android:textSize="14sp"
+                    android:textStyle="normal"
+                    tools:text="10.30pm" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/label_arrival_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/arrival_date"
+                    android:textColor="@color/light_dark"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/arrival_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{request.arrivalDate}"
+                    android:textColor="@color/fade_grey"
+                    android:textSize="14sp"
+                    android:textStyle="normal"
+                    tools:text="July 27, 2019" />
+
+                <TextView
+                    android:id="@+id/label_arrival_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/arrival_time"
+                    android:textColor="@color/light_dark"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/arrival_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{request.arrivalTime}"
+                    android:textColor="@color/fade_grey"
+                    android:textSize="14sp"
+                    android:textStyle="normal"
+                    tools:text="10.30pm" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_request_type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="16dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/request_type"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                tools:text="@string/request_type" />
+
+            <TextView
+                android:id="@+id/request_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{request.requestType}"
+                android:textColor="@color/fade_grey"
+                android:textStyle="normal"
+                tools:text="Regular Exaet" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/request_profile_image"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                app:imageUrl="@{request.user.imageUri}"
+                android:layout_gravity="center_vertical|start"
+                android:background="@drawable/ic_account_circle_16dp" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="5dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/request_reason"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:lines="3"
+                    android:text="@{request.purpose}"
+                    android:textColor="#3B414B"
+                    android:textSize="14sp"
+                    tools:text="I want to go and activate my  ATM Card at the bank, i don't have any food left for to eat" />
+
+                <LinearLayout
+                    android:id="@+id/layout_location"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/location_"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        tools:text="@string/location_" />
+
+                    <TextView
+                        android:id="@+id/request_location"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:text="@{request.location}"
+                        android:textColor="@color/fade_grey"
+                        android:textStyle="normal"
+                        tools:text="Osogbo garage" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.75dp"
+            android:layout_marginTop="11dp"
+            android:background="#E8E9EC" />
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            app:goneIfNull="@{request.approveCoordinator}"
+            android:orientation="horizontal"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp">
+
+            <TextView
+                android:id="@+id/request_view_profile1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:lineSpacingExtra="3sp"
+                android:text="@string/view_profile"
+                android:textColor="@color/deep_hash"
+                android:textSize="14sp" />
+
+            <View
+                android:layout_width="0.75dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="2dp"
+                android:background="#E8E9EC" />
+
+            <TextView
+                android:id="@+id/label_request_approveby"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:paddingStart="5dp"
+                android:paddingEnd="1dp"
+                android:lineSpacingExtra="3sp"
+                android:text="@{request.getStatusWithCoordinator}"
+                app:requestStatusColor="@{request.requestStatus}"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            app:goneIfNotNull="@{request.approveCoordinator}"
+            android:orientation="horizontal"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp">
+
+            <TextView
+                android:id="@+id/request_view_profile2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:lineSpacingExtra="3sp"
+                android:text="@string/view_profile"
+                android:textColor="@color/deep_hash"
+                android:textSize="14sp" />
+
+            <View
+                android:layout_width="0.75dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="2dp"
+                android:background="#E8E9EC" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:paddingStart="5dp"
+                android:paddingEnd="1dp"
+                android:lineSpacingExtra="3sp"
+                android:text="@string/not_yet_approved"
+                android:textStyle="italic"
+                android:textColor="@color/pending_request_yellow"
+                android:textSize="14sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>
+</layout>

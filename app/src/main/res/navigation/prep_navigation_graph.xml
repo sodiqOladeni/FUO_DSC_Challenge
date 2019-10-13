@@ -65,13 +65,58 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/to_cardPaymentFragment"
+            app:destination="@id/cardPaymentFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+
     </fragment>
 
     <fragment
         android:id="@+id/signupFragment"
-        android:name="com.eemanapp.fuoexaet.view.prep.SignupFragment"
+        android:name="com.eemanapp.fuoexaet.view.prep.SignupStudentFragment"
         android:label="signup_fragment"
-        tools:layout="@layout/signup_fragment" >
+        tools:layout="@layout/signup_student" >
+    </fragment>
+
+    <fragment
+        android:id="@+id/forgetPasswordFragment"
+        android:name="com.eemanapp.fuoexaet.view.prep.ForgetPasswordFragment"
+        android:label="forget_password_fragment"
+        tools:layout="@layout/forget_password_fragment">
+
+        <action
+            android:id="@+id/to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+
+        <action
+            android:id="@+id/to_signupFragment"
+            app:destination="@id/signupFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+
+    <activity
+        android:id="@+id/mainActivity"
+        android:name="com.eemanapp.fuoexaet.view.main.MainActivity"
+        android:label="activity_main"
+        tools:layout="@layout/activity_main"/>
+
+    <fragment
+        android:id="@+id/cardPaymentFragment"
+        android:name="com.eemanapp.fuoexaet.view.prep.CardPaymentFragment"
+        android:label="Pay With Card"
+        tools:layout="@layout/fragment_card_payment">
+
         <action
             android:id="@+id/to_mainActivity"
             app:destination="@id/mainActivity"
@@ -80,32 +125,5 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
-
-    <fragment
-        android:id="@+id/forgetPasswordFragment"
-        android:name="com.eemanapp.fuoexaet.view.prep.ForgetPasswordFragment"
-        android:label="forget_password_fragment"
-        tools:layout="@layout/forget_password_fragment"
-        app:enterAnim="@anim/slide_in_right"
-        app:exitAnim="@anim/slide_out_left"
-        app:popEnterAnim="@anim/slide_in_left"
-        app:popExitAnim="@anim/slide_out_right">
-        <action
-            android:id="@+id/to_loginFragment"
-            app:destination="@id/loginFragment" />
-        <action
-            android:id="@+id/to_signupFragment"
-            app:destination="@id/signupFragment" />
-    </fragment>
-
-    <activity
-        android:id="@+id/mainActivity"
-        android:name="com.eemanapp.fuoexaet.view.main.MainActivity"
-        android:label="activity_main"
-        tools:layout="@layout/activity_main"
-        app:enterAnim="@anim/slide_in_right"
-        app:exitAnim="@anim/slide_out_left"
-        app:popEnterAnim="@anim/slide_in_left"
-        app:popExitAnim="@anim/slide_out_right"/>
 
 </navigation>

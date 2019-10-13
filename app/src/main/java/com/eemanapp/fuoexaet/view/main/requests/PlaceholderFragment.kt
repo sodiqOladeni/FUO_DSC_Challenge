@@ -23,9 +23,11 @@ import com.eemanapp.fuoexaet.model.User
 import com.eemanapp.fuoexaet.utils.Constants
 import com.eemanapp.fuoexaet.utils.DiffExaetStatus
 import com.eemanapp.fuoexaet.utils.Methods
+import com.eemanapp.fuoexaet.view.main.home.RequestsSecurityAdapter
 import com.eemanapp.fuoexaet.view.main.home.RequestsStaffAdapter
 import com.eemanapp.fuoexaet.view.main.home.RequestsStudentAdapter
 import com.eemanapp.fuoexaet.viewModel.RequestsViewModel
+import com.google.android.material.snackbar.Snackbar
 import javax.inject.Inject
 
 /**
@@ -43,6 +45,7 @@ class PlaceholderFragment : Fragment(), Injectable, RequestClickListener {
     private var sectionNumber: Int? = null
     private var requestsStudentAdapter: RequestsStudentAdapter? = null
     private var requestsStaffAdapter: RequestsStaffAdapter? = null
+    private var requestsSecurityAdapter: RequestsSecurityAdapter? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -56,7 +59,8 @@ class PlaceholderFragment : Fragment(), Injectable, RequestClickListener {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?): View? {
+        savedInstanceState: Bundle?
+    ): View? {
         binding = FragmentRequestsContentBinding.inflate(inflater)
         return binding.root
     }
@@ -68,8 +72,11 @@ class PlaceholderFragment : Fragment(), Injectable, RequestClickListener {
                 sectionNumber = arguments?.getInt(ARG_SECTION_NUMBER) ?: 1
                 setIndex(sectionNumber!!)
             }
+
         requestsStudentAdapter = RequestsStudentAdapter()
         requestsStaffAdapter = RequestsStaffAdapter(this)
+        requestsSecurityAdapter = RequestsSecurityAdapter(this)
+
         getUser()
     }
 
@@ -83,52 +90,100 @@ class PlaceholderFragment : Fragment(), Injectable, RequestClickListener {
     }
 
     private fun setupUI() {
-        if (Methods.userWhoCodeToName(user!!.userWho) == Constants.STUDENT) {
-            binding.recyclerView.apply {
-                adapter = requestsStudentAdapter
-                layoutManager = LinearLayoutManager(context)
-            }
-            viewModel.requests.observe(this, Observer {
-                binding.progressBar.visibility = View.GONE
-                if (it.isNullOrEmpty()) {
-                    binding.emptyData.visibility = View.VISIBLE
-                    binding.recyclerView.visibility = View.GONE
-                } else {
-                    binding.emptyData.visibility = View.GONE
-                    binding.recyclerView.visibility = View.VISIBLE
-                    requestsStudentAdapter?.requests = it
-                }
-            })
-        } else {
-            binding.recyclerView.apply {
-                adapter = requestsStaffAdapter
-                layoutManager = LinearLayoutManager(context)
-            }
 
-            viewModel.requests.observe(this, Observer {
-                binding.progressBar.visibility = View.GONE
-                if (it.isNullOrEmpty()) {
-                    binding.emptyData.visibility = View.VISIBLE
-                    binding.recyclerView.visibility = View.GONE
-                } else {
-                    binding.emptyData.visibility = View.GONE
-                    binding.recyclerView.visibility = View.VISIBLE
-                    when (sectionNumber) {
-                        1 -> {
-                            requestsStaffAdapter?.requests = it
-                        }
-                        2 -> {
-                            requestsStaffAdapter?.requests = Methods.getAllRequestPendingCount(it)
-                        }
-                        3 -> {
-                            requestsStaffAdapter?.requests = Methods.getAllRequestApprovedCount(it)
-                        }
-                        4 -> {
-                            requestsStaffAdapter?.requests = Methods.getAllRequestDeclinedCount(it)
+        when (Methods.userWhoCodeToName(user!!.userWho)) {
+            Constants.STUDENT -> {
+                binding.recyclerView.apply {
+                    adapter = requestsStudentAdapter
+                    layoutManager = LinearLayoutManager(context)
+                }
+                viewModel.requests.observe(this, Observer {
+                    binding.progressBar.visibility = View.GONE
+                    if (it.isNullOrEmpty()) {
+                        binding.emptyData.visibility = View.VISIBLE
+                        binding.recyclerView.visibility = View.GONE
+                    } else {
+                        binding.emptyData.visibility = View.GONE
+                        binding.recyclerView.visibility = View.VISIBLE
+                        when (sectionNumber) {
+                            1 -> {
+                                requestsStudentAdapter?.requests = it
+                            }
+                            2 -> {
+                                requestsStudentAdapter?.requests = Methods.getAllRequestPendingCount(it)
+                            }
+                            3 -> {
+                                requestsStudentAdapter?.requests = Methods.getAllRequestApprovedCount(it)
+                            }
+                            4 -> {
+                                requestsStudentAdapter?.requests = Methods.getAllRequestDeclinedCount(it)
+                            }
                         }
                     }
+                })
+            }
+            Constants.COORDINATOR -> {
+                binding.recyclerView.apply {
+                    adapter = requestsStaffAdapter
+                    layoutManager = LinearLayoutManager(context)
                 }
-            })
+
+                viewModel.requests.observe(this, Observer {
+                    binding.progressBar.visibility = View.GONE
+                    if (it.isNullOrEmpty()) {
+                        binding.emptyData.visibility = View.VISIBLE
+                        binding.recyclerView.visibility = View.GONE
+                    } else {
+                        binding.emptyData.visibility = View.GONE
+                        binding.recyclerView.visibility = View.VISIBLE
+                        when (sectionNumber) {
+                            1 -> {
+                                requestsStaffAdapter?.requests = it
+                            }
+                            2 -> {
+                                requestsStaffAdapter?.requests = Methods.getAllRequestPendingCount(it)
+                            }
+                            3 -> {
+                                requestsStaffAdapter?.requests = Methods.getAllRequestApprovedCount(it)
+                            }
+                            4 -> {
+                                requestsStaffAdapter?.requests = Methods.getAllRequestDeclinedCount(it)
+                            }
+                        }
+                    }
+                })
+            }
+            Constants.SECURITY -> {
+                binding.recyclerView.apply {
+                    adapter = requestsSecurityAdapter
+                    layoutManager = LinearLayoutManager(context)
+                }
+
+                viewModel.requests.observe(this, Observer {
+                    binding.progressBar.visibility = View.GONE
+                    if (it.isNullOrEmpty()) {
+                        binding.emptyData.visibility = View.VISIBLE
+                        binding.recyclerView.visibility = View.GONE
+                    } else {
+                        binding.emptyData.visibility = View.GONE
+                        binding.recyclerView.visibility = View.VISIBLE
+                        when (sectionNumber) {
+                            1 -> {
+                                requestsSecurityAdapter?.requests = it
+                            }
+                            2 -> {
+                                requestsSecurityAdapter?.requests = Methods.getAllRequestPendingCount(it)
+                            }
+                            3 -> {
+                                requestsSecurityAdapter?.requests = Methods.getAllRequestApprovedCount(it)
+                            }
+                            4 -> {
+                                requestsSecurityAdapter?.requests = Methods.getAllRequestDeclinedCount(it)
+                            }
+                        }
+                    }
+                })
+            }
         }
     }
 
@@ -162,33 +217,49 @@ class PlaceholderFragment : Fragment(), Injectable, RequestClickListener {
     }
 
     override fun onRequestDecline(request: Request) {
-        if (!isUpdateInProgress) {
-            request.requestStatus = DiffExaetStatus.DECLINED.name
-            request.approveCoordinator =
-                getString(R.string.name_template, user?.firstName, user?.lastName)
-            request.declineOrApproveTime = System.currentTimeMillis()
-            updateRequest(request)
+        if (Methods.isNetworkAvailable(context!!)) {
+            if (!isUpdateInProgress) {
+                request.requestStatus = DiffExaetStatus.DECLINED.name
+                request.approveCoordinator =
+                    getString(R.string.name_template, user?.firstName, user?.lastName)
+                request.declineOrApproveTime = System.currentTimeMillis()
+                updateRequest(request)
+            } else {
+                Toast.makeText(
+                    context,
+                    getString(R.string.please_wait_request_in_progress),
+                    Toast.LENGTH_LONG
+                ).show()
+            }
         } else {
-            Toast.makeText(
-                context,
-                getString(R.string.please_wait_request_in_progress),
-                Toast.LENGTH_LONG
+            Snackbar.make(
+                binding.root,
+                getString(R.string.no_internet_connection),
+                Snackbar.LENGTH_LONG
             ).show()
         }
     }
 
     override fun onRequestApprove(request: Request) {
-        if (!isUpdateInProgress) {
-            request.requestStatus = DiffExaetStatus.APPROVED.name
-            request.approveCoordinator =
-                getString(R.string.name_template, user?.firstName, user?.lastName)
-            request.declineOrApproveTime = System.currentTimeMillis()
-            updateRequest(request)
+        if (Methods.isNetworkAvailable(context!!)) {
+            if (!isUpdateInProgress) {
+                request.requestStatus = DiffExaetStatus.APPROVED.name
+                request.approveCoordinator =
+                    getString(R.string.name_template, user?.firstName, user?.lastName)
+                request.declineOrApproveTime = System.currentTimeMillis()
+                updateRequest(request)
+            } else {
+                Toast.makeText(
+                    context,
+                    getString(R.string.please_wait_request_in_progress),
+                    Toast.LENGTH_LONG
+                ).show()
+            }
         } else {
-            Toast.makeText(
-                context,
-                getString(R.string.please_wait_request_in_progress),
-                Toast.LENGTH_LONG
+            Snackbar.make(
+                binding.root,
+                getString(R.string.no_internet_connection),
+                Snackbar.LENGTH_LONG
             ).show()
         }
     }

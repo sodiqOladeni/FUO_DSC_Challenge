@@ -30,6 +30,16 @@ fun setLayoutVisibility(view: View, it: String?) {
     view.visibility = if (it == null) View.GONE else View.VISIBLE
 }
 
+@BindingAdapter("goneIfNotSecurity")
+fun goneLayoutIfNotSecurity(view: View, it: Int){
+    view.visibility = if (it == 2) View.VISIBLE else View.GONE
+}
+
+@BindingAdapter("goneIfNotStaff")
+fun goneLayoutIfNotStaff(view: View, it: Int){
+    view.visibility = if (it == 1) View.VISIBLE else View.GONE
+}
+
 @BindingAdapter("requestStatusColor")
 fun setRequestStatusColor(txtView: TextView, requestStatus: String) {
     when (requestStatus) {

@@ -138,20 +138,16 @@ class HomeDashboardViewModel @Inject constructor(
                 db.collection(Constants.ALL_REQUESTS)
                 val q = db.collection(Constants.ALL_REQUESTS)
                     .whereEqualTo("user.uniqueId", user.uniqueId)
-                    .orderBy("requestTime", Query.Direction.ASCENDING)
                 setQuery(q)
             }
             //SECURITY
             Constants.SECURITY -> {
                 val q = db.collection(Constants.ALL_REQUESTS)
-                    .whereEqualTo("requestStatus", "APPROVED")
-                    .orderBy("requestTime", Query.Direction.ASCENDING)
                 setQuery(q)
             }
             //COORDINATOR
             Constants.COORDINATOR -> {
                 val q = db.collection(Constants.ALL_REQUESTS)
-                    .orderBy("requestTime", Query.Direction.ASCENDING)
                 setQuery(q)
             }
         }

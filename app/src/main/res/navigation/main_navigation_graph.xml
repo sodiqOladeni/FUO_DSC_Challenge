@@ -30,9 +30,25 @@
 
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.eemanapp.fuoexaet.view.main.ProfileFragment"
+        android:name="com.eemanapp.fuoexaet.view.main.profile.ProfileFragment"
         android:label="Profile"
-        tools:layout="@layout/profile_fragment" />
+        tools:layout="@layout/profile_fragment" >
+        <action
+            android:id="@+id/to_signupStaffFragment"
+            app:destination="@id/signupStaffFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+
+        <action
+            android:id="@+id/to_passwordResetFragment"
+            app:destination="@id/passwordResetFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
 
     <fragment
         android:id="@+id/settingsFragment"
@@ -78,4 +94,16 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
+
+    <fragment
+        android:id="@+id/signupStaffFragment"
+        android:name="com.eemanapp.fuoexaet.view.main.profile.SignupStaffFragment"
+        android:label="Create Staff Account"
+        tools:layout = "@layout/signup_staff" />
+
+    <fragment
+        android:id="@+id/passwordResetFragment"
+        android:name="com.eemanapp.fuoexaet.view.main.profile.PasswordResetFragment"
+        tools:layout="@layout/fragment_reset_password"
+        android:label="Change Password"/>
 </navigation>

@@ -1,9 +1,7 @@
 package com.eemanapp.fuoexaet.view.prep
 
-import android.content.Intent
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.os.Handler
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -15,10 +13,12 @@ import androidx.navigation.fragment.findNavController
 import com.eemanapp.fuoexaet.R
 import com.eemanapp.fuoexaet.databinding.LoginFragmentBinding
 import com.eemanapp.fuoexaet.di.Injectable
+import com.eemanapp.fuoexaet.model.User
 import com.eemanapp.fuoexaet.utils.Constants
 import com.eemanapp.fuoexaet.utils.Methods
-import com.eemanapp.fuoexaet.view.main.MainActivity
 import com.eemanapp.fuoexaet.viewModel.LoginViewModel
+import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
 import javax.inject.Inject
 
 class LoginFragment : Fragment(), Injectable {
@@ -54,7 +54,13 @@ class LoginFragment : Fragment(), Injectable {
         b.putString(Constants.USER_WHO, userWho)
 
         binding.loginBtn.setOnClickListener {
-            verifyInput()
+            if (Methods.isNetworkAvailable(context!!)) {
+                verifyInput()
+            } else {
+                Snackbar.make(binding.root, getString(R.string.no_internet_connection), Snackbar.LENGTH_LONG).show()
+            }
+
+//            findNavController().navigate(R.id.to_cardPaymentFragment)
         }
 
         binding.loginForgetPassword.setOnClickListener {
@@ -72,7 +78,7 @@ class LoginFragment : Fragment(), Injectable {
 
         if (userWho == Constants.STUDENT) {
             binding.contDontHaveAccount.visibility = View.VISIBLE
-        }else{
+        } else {
             binding.contDontHaveAccount.visibility = View.GONE
         }
 
@@ -113,10 +119,8 @@ class LoginFragment : Fragment(), Injectable {
     }
 
     private fun processLogin(e: String, p: String) {
-
         viewModel.authUser(e, p, userWho)
-        viewModel.uiData.observe(this, Observer {
-
+        viewModel.uiData.observe(this, Observer {uiData->
 
             Methods.hideProgressBar(
                 binding.progressBar, binding.loginBtn,
@@ -128,16 +132,31 @@ class LoginFragment : Fragment(), Injectable {
                 )
             )
 
-            if (it != null) {
-                if (it.status!!) {
+            if (uiData != null) {
+                if (uiData.status!!) {
                     startMainActivity()
                     viewModel.setUiDataToNull()
                 } else {
-                    Methods.showNotSuccessDialog(
-                        context!!,
-                        getString(R.string.error_occur),
-                        it.message!!
-                    )
+                    if (uiData.message!! == Constants.USER_NOT_PAY){
+                        val d = Methods.showNormalDialog(context = context!!, title = getString(R.string.continue_to_payment),
+                            message = getString(R.string.you_need_payment), confirmationMessage = getString(R.string.make_payment))
+
+                        d.setCancelable(false)
+                        d.setConfirmClickListener {
+                            d.dismiss()
+                            val b = Bundle()
+                            b.putParcelable(Constants.USER, uiData.data as? User)
+                            findNavController().navigate(R.id.to_cardPaymentFragment, b)
+                        }
+                        d.setCancelClickListener {
+                            d.dismiss()
+                            FirebaseAuth.getInstance().signOut()
+                        }
+
+                    }else{
+                        Methods.showNotSuccessDialog(
+                            context!!, getString(R.string.error_occur), uiData.message!!)
+                    }
                     viewModel.setUiDataToNull()
                 }
             }
@@ -145,8 +164,7 @@ class LoginFragment : Fragment(), Injectable {
     }
 
     private fun startMainActivity() {
-        val i = Intent(context, MainActivity::class.java)
-        i.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
-        startActivity(i)
+        findNavController().navigate(R.id.to_mainActivity)
+        activity?.finish()
     }
 }

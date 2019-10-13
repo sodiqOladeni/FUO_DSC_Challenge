@@ -40,6 +40,7 @@ class SharedPref(var context:Context) {
             putString(Constants.USER_DEPT, user.dept)
             putString(Constants.USER_ENTRYYEAR, user.entryYear)
             putString(Constants.USER_HALL, user.hallOfResidence)
+            putString(Constants.USER_HALL_NUMBER, user.hallRoomNumber)
             apply()
         }
     }
@@ -58,6 +59,7 @@ class SharedPref(var context:Context) {
             dept = pref.getString(Constants.USER_DEPT, "")
             entryYear = pref.getString(Constants.USER_ENTRYYEAR, "")
             hallOfResidence = pref.getString(Constants.USER_HALL, "")
+            hallRoomNumber = pref.getString(Constants.USER_HALL_NUMBER, "")
         }
     }
 }

@@ -7,6 +7,8 @@ import androidx.lifecycle.ViewModel
 import com.eemanapp.fuoexaet.data.SharedPref
 import com.eemanapp.fuoexaet.model.UiData
 import com.eemanapp.fuoexaet.model.User
+import com.eemanapp.fuoexaet.utils.Constants
+import com.eemanapp.fuoexaet.utils.Methods
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
@@ -25,13 +27,14 @@ class LoginViewModel @Inject constructor(var pref: SharedPref) : ViewModel() {
     fun authUser(email: String, password: String, userWho: String) {
         authTask = mAuth.signInWithEmailAndPassword(email, password)
             .addOnSuccessListener {
-                if (it.user?.isEmailVerified!!){
+                if (it.user?.isEmailVerified!!) {
                     fetchUserDataWithEmail(email, userWho)
-                }else{
+                } else {
                     it.user?.sendEmailVerification()
                     FirebaseAuth.getInstance().signOut()
                     newUiData.status = false
-                    newUiData.message = "Your email has not been verified, please check your email and verify your account"
+                    newUiData.message =
+                        "Your email has not been verified, please check your email and verify your account"
                     _uiData.value = newUiData
                 }
             }
@@ -50,7 +53,14 @@ class LoginViewModel @Inject constructor(var pref: SharedPref) : ViewModel() {
                 //User to be saved in the db after creating it
                 // And also userId to be in shared preferences
                 val user = it.toObjects(User::class.java)
-                saveUserInfo(user[0])
+                if (user[0].hasUserPay) {
+                    saveUserInfo(user[0])
+                } else {
+                    newUiData.status = false
+                    newUiData.message = Constants.USER_NOT_PAY
+                    newUiData.data = user[0]
+                    _uiData.value = newUiData
+                }
             } else {
                 newUiData.status = false
                 newUiData.message =
@@ -62,6 +72,26 @@ class LoginViewModel @Inject constructor(var pref: SharedPref) : ViewModel() {
             newUiData.message = it.message ?: "Error fetching user data"
             _uiData.value = newUiData
         }
+    }
+
+    fun updateUserInfo(user: User): MutableLiveData<UiData> {
+        val uiData = MutableLiveData<UiData>()
+        val userTable =
+            mFirestore.collection(Methods.userWhoCodeToName(user.userWho)).document(user.uniqueId!!)
+        userTable.update("hasUserPay", user.hasUserPay, "userPaymentRef", user.userPaymentRef)
+            .addOnSuccessListener {
+                newUiData.status = true
+                newUiData.message = "Payment successfully recorded, well done!"
+                saveUserInfo(user)
+                uiData.value = newUiData
+            }
+            .addOnFailureListener {
+                newUiData.status = false
+                newUiData.message = "Payment has been made but not yet recorded, " +
+                        "please report this issue via fuoexaet@gmail.com"
+                uiData.value = newUiData
+            }
+        return uiData
     }
 
     fun setUiDataToNull() {

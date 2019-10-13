@@ -24,8 +24,10 @@ class Constants {
         const val USER_DEPT = "User_College"
         const val USER_ENTRYYEAR = "User_Year"
         const val USER_HALL = "User_Hall"
+        const val USER_HALL_NUMBER = "User_Hall_Number"
         const val USER_IMAGEURL = "User_Image_Url"
         const val USER_USERWHO = "User_User_Who"
         const val USER_UNIQUEID = "User_Unique_Id"
+        const val USER_NOT_PAY = "User_Never_Pay"
     }
 }

@@ -15,11 +15,14 @@ import dagger.android.ContributesAndroidInjector
     abstract fun bindCarouselSliderFragment(): CarouselSliderFragment
 
     @ContributesAndroidInjector
-    abstract fun bindSignup(): SignupFragment
+    abstract fun bindSignup(): SignupStudentFragment
 
     @ContributesAndroidInjector
     abstract fun bindlogin(): LoginFragment
 
    @ContributesAndroidInjector
    abstract fun bindForget(): ForgetPasswordFragment
+
+    @ContributesAndroidInjector
+    abstract fun bindCardPaymentFragment(): CardPaymentFragment
 }

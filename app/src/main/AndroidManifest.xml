@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <uses-feature
         android:name="android.hardware.camera" android:required="true" />
@@ -28,7 +29,7 @@
         <activity
             android:name=".view.prep.PrepActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.FullScreen"
+            android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustResize|stateHidden|adjustPan">
         </activity>
 
@@ -55,6 +56,11 @@
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="@string/ADMOB_APP_ID_TEST" />
+
+        <meta-data
+            android:name="co.paystack.android.PublicKey"
+            android:value="pk_test_68e5fe35c83c0fcd94f29be305d69510dd858a09"/>
+
     </application>
 
 </manifest>

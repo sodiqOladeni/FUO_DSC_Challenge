@@ -1,20 +1,15 @@
 package com.eemanapp.fuoexaet.view.prep
 
 import android.app.Activity.RESULT_OK
-import android.content.Context
 import android.content.pm.PackageManager
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.os.Handler
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
-
-import com.eemanapp.fuoexaet.databinding.SignupFragmentBinding
 import com.eemanapp.fuoexaet.di.Injectable
 import com.eemanapp.fuoexaet.interfaces.DatePickerListener
 import com.eemanapp.fuoexaet.utils.Constants
@@ -34,32 +29,30 @@ import androidx.lifecycle.ViewModelProvider
 import coil.api.load
 import coil.transform.CircleCropTransformation
 import com.eemanapp.fuoexaet.R
-import com.eemanapp.fuoexaet.view.main.MainActivity
+import com.eemanapp.fuoexaet.databinding.SignupStudentBinding
+import com.google.android.material.snackbar.Snackbar
 import javax.inject.Inject
 
-class SignupFragment : Fragment(), Injectable, DatePickerListener {
+class SignupStudentFragment : Fragment(), Injectable, DatePickerListener {
 
     companion object {
-        fun newInstance() = SignupFragment()
+        fun newInstance() = SignupStudentFragment()
     }
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
     private lateinit var viewModel: SignupViewModel
-    private lateinit var binding: SignupFragmentBinding
+    private lateinit var binding: SignupStudentBinding
     private lateinit var userWho: String
     private val PERMISSIONS_REQUEST_CODE = 10
     private val PICK_IMAGE = 11
-    private val PERMISSIONS_REQUIRED = arrayOf(
-        android.Manifest.permission.CAMERA
-    )
     private var userImagePath: Uri? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = SignupFragmentBinding.inflate(inflater, container, false)
+        binding = SignupStudentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -72,177 +65,49 @@ class SignupFragment : Fragment(), Injectable, DatePickerListener {
         val b = Bundle()
         when (userWho) {
             getString(R.string.student) -> {
-                binding.studentLayout.parentSignupStudent.visibility = View.VISIBLE
-                binding.staffLayout.parentSignupStaff.visibility = View.GONE
-                binding.studentLayout.signupWho.text =
+                binding.signupWho.text =
                     getString(R.string.signing_as_placeholder, userWho)
-                binding.studentLayout.signupNotAs.text =
+                binding.signupNotAs.text =
                     getString(R.string.not_d_placeholder, userWho)
 
-                binding.studentLayout.signupNotAs.setOnClickListener {
+                binding.signupNotAs.setOnClickListener {
                     findNavController().navigateUp()
                 }
 
-                binding.studentLayout.signupLogin.setOnClickListener {
+                binding.signupLogin.setOnClickListener {
                     b.putString(Constants.USER_WHO, userWho)
                     findNavController().navigate(R.id.to_loginFragment, b)
                 }
 
-                binding.studentLayout.signupBtn.setOnClickListener {
-                    verifyStudentInput()
+                binding.signupBtn.setOnClickListener {
+                    if (Methods.isNetworkAvailable(context!!)) {
+                        verifyStudentInput()
+                    } else {
+                        Snackbar.make(binding.root, getString(R.string.no_internet_connection), Snackbar.LENGTH_LONG).show()
+                    }
                 }
 
-                binding.studentLayout.editUserImage.setOnClickListener {
-                    pickImage()
-                }
-            }
-
-            getString(R.string.security), getString(R.string.student_affairs) -> {
-                binding.studentLayout.parentSignupStudent.visibility = View.GONE
-                binding.staffLayout.parentSignupStaff.visibility = View.VISIBLE
-                binding.staffLayout.signupWho.text =
-                    getString(R.string.signing_as_placeholder, userWho)
-                binding.staffLayout.signupNotAs.text =
-                    getString(R.string.signing_as_placeholder, userWho)
-
-                binding.staffLayout.signupNotAs.setOnClickListener {
-                    findNavController().navigateUp()
-                }
-
-                binding.staffLayout.signupLogin.setOnClickListener {
-                    b.putString(Constants.USER_WHO, userWho)
-                    findNavController().navigate(R.id.to_loginFragment, b)
-                }
-
-                binding.staffLayout.signupBtn.setOnClickListener {
-                    verifyStaffInput()
-                }
-
-                binding.staffLayout.editUserImage.setOnClickListener {
+                binding.editUserImage.setOnClickListener {
                     pickImage()
                 }
             }
         }
-
         clickListeners()
     }
 
-    private fun hasPermissions(context: Context) = PERMISSIONS_REQUIRED.all {
-        ContextCompat.checkSelfPermission(context, it) == PackageManager.PERMISSION_GRANTED
-    }
-
-    private fun verifyStaffInput() {
-        val fn = binding.staffLayout.signupFname
-        val ln = binding.staffLayout.signupLname
-        val em = binding.staffLayout.signupEmail
-        val id = binding.staffLayout.signupStaffId
-        val pn = binding.staffLayout.signupPhoneNumber
-        val pass1 = binding.staffLayout.signupPassword1
-        val pass2 = binding.staffLayout.signupPassword2
-
-        fn.error = null
-        ln.error = null
-        em.error = null
-        id.error = null
-        pn.error = null
-        pass1.error = null
-        pass2.error = null
-
-        var isValid = true
-        var focusView: View? = null
-
-        if (fn.text.toString().isNullOrEmpty()) {
-            fn.error = getString(R.string.field_cant_be_empty)
-            isValid = false
-            focusView = fn
-        }
-
-        if (ln.text.toString().isNullOrEmpty()) {
-            ln.error = getString(R.string.field_cant_be_empty)
-            isValid = false
-            focusView = ln
-        }
-
-        if (!Methods.isValidEmail(em.text.toString())) {
-            em.error = getString(R.string.invalid_email)
-            isValid = false
-            focusView = em
-        }
-
-        if (id.text.toString().isNullOrEmpty()) {
-            id.error = getString(R.string.field_cant_be_empty)
-            isValid = false
-            focusView = id
-        }
-
-        if (pn.text.toString().isNullOrEmpty()) {
-            pn.error = getString(R.string.field_cant_be_empty)
-            isValid = false
-            focusView = pn
-        }
-
-        if (!Methods.isValidPassword(pass1.text.toString())) {
-            pass1.error = getString(R.string.invalid_password)
-            isValid = false
-            focusView = pass1
-        }
-
-        if (!Methods.isValidPassword(pass2.text.toString())) {
-            pass2.error = getString(R.string.invalid_password)
-            isValid = false
-            focusView = pass2
-        }
-
-        if (pass1.text.toString() != pass2.text.toString()) {
-            pass2.error = getString(R.string.password_dont_match)
-            isValid = false
-            focusView = pass2
-        }
-
-        if (userImagePath == null) {
-            Toast.makeText(context, getString(R.string.user_image_cant_empty), Toast.LENGTH_LONG)
-                .show()
-            isValid = false
-        }
-
-
-        if (isValid) {
-            Methods.hideSoftKey(activity!!)
-            Methods.showProgressBar(
-                binding.staffLayout.progressBar, binding.staffLayout.signupBtn,
-                listOf(binding.staffLayout.signupNotAs, binding.staffLayout.signupLogin)
-            )
-            processSignup(
-                User(
-                    firstName = fn.text.toString(),
-                    lastName = ln.text.toString(),
-                    schoolId = id.text.toString(),
-                    email = em.text.toString(),
-                    userCreatedWhen = System.currentTimeMillis(),
-                    phoneNumber = pn.text.toString(),
-                    imageUri = userImagePath.toString(),
-                    userWho = Methods.userWhoNameToCode(userWho),
-                    password = pass1.text.toString()
-                )
-            )
-        } else {
-            focusView?.requestFocus()
-        }
-    }
-
     private fun verifyStudentInput() {
-        val fn = binding.studentLayout.editFn
-        val ln = binding.studentLayout.editLn
-        val matric = binding.studentLayout.editMatric
-        val em = binding.studentLayout.editEmail
-        val pn = binding.studentLayout.signupPhoneNumber
-        val college = binding.studentLayout.editCollege
-        val dept = binding.studentLayout.editDept
-        val yearEntry = binding.studentLayout.editYear
-        val hall = binding.studentLayout.editHall
-        val roomNumber = binding.studentLayout.editHallRoomNumber
-        val pass1 = binding.studentLayout.signupPassword1
-        val pass2 = binding.studentLayout.signupPassword2
+        val fn = binding.editFn
+        val ln = binding.editLn
+        val matric = binding.editMatric
+        val em = binding.editEmail
+        val pn = binding.signupPhoneNumber
+        val college = binding.editCollege
+        val dept = binding.editDept
+        val yearEntry = binding.editYear
+        val hall = binding.editHall
+        val roomNumber = binding.editHallRoomNumber
+        val pass1 = binding.signupPassword1
+        val pass2 = binding.signupPassword2
 
         fn.error = null
         ln.error = null
@@ -347,17 +212,10 @@ class SignupFragment : Fragment(), Injectable, DatePickerListener {
         if (isValid) {
             Methods.hideSoftKey(activity!!)
 
-            if (userWho == getString(R.string.student)) {
-                Methods.showProgressBar(
-                    binding.studentLayout.progressBar, binding.studentLayout.signupBtn,
-                    listOf(binding.studentLayout.signupNotAs, binding.studentLayout.signupLogin)
-                )
-            } else {
-                Methods.showProgressBar(
-                    binding.staffLayout.progressBar, binding.staffLayout.signupBtn,
-                    listOf(binding.staffLayout.signupNotAs, binding.staffLayout.signupLogin)
-                )
-            }
+            Methods.showProgressBar(
+                binding.progressBar, binding.signupBtn,
+                listOf(binding.signupNotAs, binding.signupLogin)
+            )
 
             processSignup(
                 User(
@@ -366,6 +224,7 @@ class SignupFragment : Fragment(), Injectable, DatePickerListener {
                     schoolId = matric.text.toString(),
                     email = em.text.toString(),
                     userCreatedWhen = System.currentTimeMillis(),
+                    userCreatedByWho = "Self",
                     phoneNumber = pn.text.toString(),
                     imageUri = userImagePath.toString(),
                     userWho = Methods.userWhoNameToCode(userWho),
@@ -386,25 +245,18 @@ class SignupFragment : Fragment(), Injectable, DatePickerListener {
         viewModel.authUserAndProceedSaving(user)
         viewModel.uiData.observe(this, Observer {
 
-            if (userWho == getString(R.string.student)) {
-                Methods.hideProgressBar(
-                    binding.studentLayout.progressBar, binding.studentLayout.signupBtn,
-                    listOf(binding.studentLayout.signupNotAs, binding.studentLayout.signupLogin)
-                )
-            } else {
-                Methods.hideProgressBar(
-                    binding.staffLayout.progressBar, binding.staffLayout.signupBtn,
-                    listOf(binding.staffLayout.signupNotAs, binding.staffLayout.signupLogin)
-                )
-            }
+            Methods.hideProgressBar(
+                binding.progressBar, binding.signupBtn,
+                listOf(binding.signupNotAs, binding.signupLogin)
+            )
 
             it?.let {
                 if (it.status!!) {
                     Methods.showSuccessDialog(
                         context!!,
                         getString(R.string.user_created),
-                        it.message!!
-                    )
+                        it.message!!)
+
                     viewModel.saveUiDataToDefault()
                 } else {
                     Methods.showNotSuccessDialog(
@@ -425,7 +277,7 @@ class SignupFragment : Fragment(), Injectable, DatePickerListener {
         val c = SimpleSearchDialogCompat(context, "Select College",
             "Search for your college", null, Colleges.fuoColleges(),
             SearchResultListener<Colleges> { dialog, item, _ ->
-                binding.studentLayout.editCollege.setText(item.title)
+                binding.editCollege.setText(item.title)
                 ds = Colleges.deptByCollege(item.position)
                 dialog.dismiss()
             })
@@ -433,32 +285,32 @@ class SignupFragment : Fragment(), Injectable, DatePickerListener {
         val h = SimpleSearchDialogCompat(context, "Select Hostel",
             "Search for your hostel", null, Colleges.hallInFUO(),
             SearchResultListener<Hall> { dialog, item, _ ->
-                binding.studentLayout.editHall.setText(item.title)
+                binding.editHall.setText(item.title)
                 dialog.dismiss()
             })
 
-        binding.studentLayout.editCollege.setOnClickListener {
+        binding.editCollege.setOnClickListener {
             c.show()
         }
 
         val date = DatePickerFragment()
         date.listener = this
 
-        binding.studentLayout.editDept.setOnClickListener {
+        binding.editDept.setOnClickListener {
             //Setup dept dialog
             SimpleSearchDialogCompat(context, "Select Department",
                 "Search for your department", null, ds,
                 SearchResultListener<Dept> { dialog, item, _ ->
-                    binding.studentLayout.editDept.setText(item.title)
+                    binding.editDept.setText(item.title)
                     dialog.dismiss()
                 }).show()
         }
 
-        binding.studentLayout.editYear.setOnClickListener {
+        binding.editYear.setOnClickListener {
             date.show(fragmentManager!!, "datePicker")
         }
 
-        binding.studentLayout.editHall.setOnClickListener {
+        binding.editHall.setOnClickListener {
             h.show()
         }
     }
@@ -484,12 +336,12 @@ class SignupFragment : Fragment(), Injectable, DatePickerListener {
             userImagePath = data?.data
             if (userImagePath != null) {
                 if (userWho == Constants.STUDENT) {
-                    binding.studentLayout.profileImage.load(userImagePath) {
+                    binding.profileImage.load(userImagePath) {
                         crossfade(true)
                         transformations(CircleCropTransformation())
                     }
                 } else {
-                    binding.staffLayout.profileImage.load(userImagePath) {
+                    binding.profileImage.load(userImagePath) {
                         crossfade(true)
                         transformations(CircleCropTransformation())
                     }
@@ -505,7 +357,7 @@ class SignupFragment : Fragment(), Injectable, DatePickerListener {
     }
 
     override fun dateSelected(year: Int, month: Int, dayOfMonth: Int) {
-        binding.studentLayout.editYear.setText(year.toString())
+        binding.editYear.setText(year.toString())
     }
 
     private fun pickImage() {

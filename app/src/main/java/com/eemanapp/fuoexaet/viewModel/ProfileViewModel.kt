@@ -37,8 +37,7 @@ class ProfileViewModel @Inject constructor(private var pref: SharedPref) : ViewM
     }
 
     fun updateUserData(user: User) {
-        fireStoreDoc =
-            fireStore.collection(Methods.userWhoCodeToName(user.userWho)).document(user.uniqueId!!)
+        fireStoreDoc = fireStore.collection(Methods.userWhoCodeToName(user.userWho)).document(user.uniqueId!!)
         fireStoreDoc?.set(user)?.addOnCompleteListener {
             if (it.isSuccessful) {
                 // Handle Success

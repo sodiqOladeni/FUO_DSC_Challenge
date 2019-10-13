@@ -121,4 +121,37 @@
     <string name="hall_room_number">Hall Room Number</string>
     <string name="user_created">User created</string>
     <string name="current_request_clicked_">Current Request (Clicked Request)</string>
+    <string name="personal_profile">Personal Profile</string>
+    <string name="because_you_are_a_staff">Because you are a staff, you can create account for other staff</string>
+    <string name="create_coordinator">Create Coordinator Account</string>
+    <string name="create_security">Create Security Account</string>
+    <string name="account_created">Account Created</string>
+    <string name="old_password">Old Password</string>
+    <string name="new_password">New Password</string>
+    <string name="confirm_new_password">Confirm New Password</string>
+    <string name="update_password">Update Password</string>
+    <string name="password_changed">Password Chnaged</string>
+    <string name="change_password">Change Password</string>
+    <string name="no_internet_connection">No internet connection</string>
+    <string name="submit_feature_request">Submit Feature Request</string>
+    <string name="we_are_constantly">We are always working on improving the system, report error or submit new feature request.
+        \n\n Your bug fix or feature request might be included in the next update</string>
+    <string name="cancel">Cancel</string>
+    <string name="ok">OK</string>
+    <string name="submit">Submit</string>
+    <string name="report_saved">Report Saved</string>
+    <string name="we_love_to_hear">We love to hear from you!</string>
+    <string name="email_uniqueness_staff">Email is unique identity, verification will be required to complete the signup process</string>
+    <string name="email_uniqueness_student">Your email is your unique identity, you we be required to verify the email to complete your sign up process</string>
+    <string name="creating_as_placeholder">You are creating a %s Account</string>
+    <string name="not_yet_approved">Not yet approved</string>
+    <string name="card_number">Card number</string>
+    <string name="card_full_name">Cardholder\'s full name</string>
+    <string name="expiry_date">Expiry date</string>
+    <string name="cvv">cvv</string>
+    <string name="make_payment">Make Payment</string>
+    <string name="invalid_card">Invalid Card</string>
+    <string name="invalid_card_message">Card provided in invalid and can\'t be charged, please provide a valid card to proceed</string>
+    <string name="you_need_payment">Login successful! to continue using the app, you need to make a one time payment of NGN 1,000. \n\nThe payment is one time and you won\'t be asked to pay again.</string>
+    <string name="continue_to_payment">Continue to Payment</string>
 </resources>

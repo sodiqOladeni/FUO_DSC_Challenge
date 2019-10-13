@@ -3,6 +3,9 @@ package com.eemanapp.fuoexaet.utils
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+import android.os.Build
 import android.text.TextUtils
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -10,7 +13,6 @@ import android.widget.TextView
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.eemanapp.fuoexaet.model.Request
 import com.google.android.material.button.MaterialButton
-import org.threeten.bp.format.DateTimeFormatter
 import java.sql.Time
 import java.text.SimpleDateFormat
 import java.util.*
@@ -97,6 +99,19 @@ class Methods {
                 titleText = title
                 contentText = message
                 confirmText = confirmationMessage
+                show()
+            }
+            return dialogBuilder
+        }
+
+        fun showNormalDialog(context: Context, title: String, message: String, confirmationMessage: String = "Ok", cancelMessage: String = "Cancel"
+        ): SweetAlertDialog {
+            val dialogBuilder = SweetAlertDialog(context, SweetAlertDialog.NORMAL_TYPE)
+            dialogBuilder.apply {
+                titleText = title
+                contentText = message
+                confirmText = confirmationMessage
+                cancelText = cancelMessage
                 show()
             }
             return dialogBuilder
@@ -238,6 +253,51 @@ class Methods {
                         && Date(it.requestTime).year == Date(System.currentTimeMillis()).year
                         && it.requestType == "Regular Exeat"
             }?.size ?: 0
+        }
+
+
+        @Suppress("DEPRECATION")
+        fun isInternetAvailable(context: Context): Boolean {
+            var result = false
+            val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                cm?.run {
+                    cm.getNetworkCapabilities(cm.activeNetwork)?.run {
+                        result = when {
+                            hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
+                            hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
+                            hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> true
+                            else -> false
+                        }
+                    }
+                }
+            } else {
+                cm?.run {
+                    cm.activeNetworkInfo?.run {
+                        if (type == ConnectivityManager.TYPE_WIFI) {
+                            result = true
+                        } else if (type == ConnectivityManager.TYPE_MOBILE) {
+                            result = true
+                        }
+                    }
+                }
+            }
+            return result
+        }
+
+        @Suppress("DEPRECATION")
+        fun isNetworkAvailable(context: Context): Boolean {
+            val connectivityManager =
+                context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+            val activeNetworkInfo = connectivityManager.activeNetworkInfo
+            return activeNetworkInfo != null && activeNetworkInfo.isConnected
+        }
+
+
+        fun isWifiEnabled(context: Context): Boolean {
+            val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+            val wifiNetwork = cm.getNetworkInfo(ConnectivityManager.TYPE_WIFI)
+            return wifiNetwork != null && wifiNetwork.isConnected
         }
     }
 }
