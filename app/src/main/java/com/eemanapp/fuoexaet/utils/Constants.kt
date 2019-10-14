@@ -29,5 +29,12 @@ class Constants {
         const val USER_USERWHO = "User_User_Who"
         const val USER_UNIQUEID = "User_Unique_Id"
         const val USER_NOT_PAY = "User_Never_Pay"
+        const val HAS_USER_PAY = "Has_User_Pay"
+        const val USER_PAYMENT_REF = "User_Payment_Ref"
+        const val FCM_TOKEN = "Fcm_Token"
+        const val USER_CREATED_BY_WHO = "User_Created_By_Who"
+        const val USER_CREATED_WHEN = "User_Created_When"
+        const val PASSWORD = "Password"
+        const val PROGRAMME = "Programme"
     }
 }

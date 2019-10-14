@@ -19,6 +19,17 @@ class SharedPref(var context:Context) {
         return pref.getString(Constants.USER_ID, "")
     }
 
+    fun setToken(token:String){
+        pref.edit().apply {
+            putString(Constants.FCM_TOKEN, token)
+            apply()
+        }
+    }
+
+    fun getToken():String?{
+        return pref.getString(Constants.FCM_TOKEN, "")
+    }
+
     fun deletePrefs(){
         pref.edit().apply {
             clear()
@@ -34,8 +45,15 @@ class SharedPref(var context:Context) {
             putString(Constants.USER_EMAIL, user.email)
             putString(Constants.USER_PHONENUMBER, user.phoneNumber)
             putString(Constants.USER_IMAGEURL, user.imageUri)
+            putBoolean(Constants.HAS_USER_PAY, user.hasUserPay)
+            putString(Constants.USER_PAYMENT_REF, user.userPaymentRef)
+            putString(Constants.FCM_TOKEN, user.fcmToken)
+            putString(Constants.USER_CREATED_BY_WHO, user.userCreatedByWho)
+            putLong(Constants.USER_CREATED_WHEN, user.userCreatedWhen?:0)
             putInt(Constants.USER_USERWHO, user.userWho)
             putString(Constants.USER_UNIQUEID, user.uniqueId)
+            putString(Constants.PASSWORD, user.password)
+            putString(Constants.PROGRAMME, user.programme)
             putString(Constants.USER_COLLEGE, user.college)
             putString(Constants.USER_DEPT, user.dept)
             putString(Constants.USER_ENTRYYEAR, user.entryYear)
@@ -53,8 +71,14 @@ class SharedPref(var context:Context) {
             email = pref.getString(Constants.USER_EMAIL, "")!!
             phoneNumber = pref.getString(Constants.USER_PHONENUMBER, "")!!
             imageUri = pref.getString(Constants.USER_IMAGEURL, "")!!
+            hasUserPay = pref.getBoolean(Constants.HAS_USER_PAY, false)
+            userPaymentRef = pref.getString(Constants.USER_PAYMENT_REF, "")
+            fcmToken = pref.getString(Constants.FCM_TOKEN, "")
+            userCreatedByWho = pref.getString(Constants.USER_CREATED_BY_WHO, "")
+            userCreatedWhen = pref.getLong(Constants.USER_CREATED_WHEN, 0)
             userWho = pref.getInt(Constants.USER_USERWHO, -1)
             uniqueId = pref.getString(Constants.USER_UNIQUEID, "")
+            password = pref.getString(Constants.PASSWORD, "")?:""
             college = pref.getString(Constants.USER_COLLEGE, "")
             dept = pref.getString(Constants.USER_DEPT, "")
             entryYear = pref.getString(Constants.USER_ENTRYYEAR, "")

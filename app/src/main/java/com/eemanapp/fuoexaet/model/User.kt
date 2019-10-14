@@ -16,6 +16,7 @@ data class User(
     var imageUri: String = "",
     var hasUserPay:Boolean = false,
     var userPaymentRef:String? = null,
+    var fcmToken:String? = "",
     // This is the user type
     // 0 ==> Student
     // 1 ==> Student coordinator

@@ -24,6 +24,10 @@ import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
 
+    companion object {
+        var isActive = false
+    }
+
     @Inject
     lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Fragment>
     private val IN_APP_UPDATE_REQUEST_CODE = 500
@@ -44,8 +48,11 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
-            setOf(R.id.homeDashboardFragment, R.id.requestsFragment,
-                R.id.profileFragment, R.id.settingsFragment))
+            setOf(
+                R.id.homeDashboardFragment, R.id.requestsFragment,
+                R.id.profileFragment, R.id.settingsFragment
+            )
+        )
 
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
@@ -92,6 +99,16 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
                     )
                 }
             }
+    }
+
+    override fun onStart() {
+        isActive = true
+        super.onStart()
+    }
+
+    override fun onStop() {
+        isActive = false
+        super.onStop()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

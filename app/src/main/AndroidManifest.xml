@@ -61,6 +61,7 @@
             android:name="co.paystack.android.PublicKey"
             android:value="pk_test_68e5fe35c83c0fcd94f29be305d69510dd858a09"/>
 
+        <service android:name=".utils.FirebaseMessaging" />
     </application>
 
 </manifest>
