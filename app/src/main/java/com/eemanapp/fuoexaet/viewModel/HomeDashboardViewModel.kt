@@ -25,9 +25,6 @@ class HomeDashboardViewModel @Inject constructor(
     private val _user = MutableLiveData<User>()
     val user: LiveData<User>
         get() = _user
-    private val _uiData = MutableLiveData<UiData>()
-    val uiData: LiveData<UiData>
-        get() = _uiData
     val requests = requestDao.getRequests()
     private val newUiData = UiData()
     private var mRequestQuery: Query? = null
@@ -48,22 +45,27 @@ class HomeDashboardViewModel @Inject constructor(
         return pref.getUser()
     }
 
-    fun updateRequest(request: Request) {
+    fun updateRequest(request: Request):MutableLiveData<UiData> {
+        val uiData = MutableLiveData<UiData>()
         val ref = db.collection(Constants.ALL_REQUESTS).document(request.requestUniqueId)
         ref.update("requestStatus", request.requestStatus,
-            "approveCoordinator", request.approveCoordinator)
+            "declineOrApproveTime", request.declineOrApproveTime,
+            "approveCoordinator", request.approveCoordinator,
+            "gateDepartureTime", request.gateDepartureTime,
+            "gateArrivalTime", request.gateArrivalTime)
 
             .addOnSuccessListener {
                 newUiData.status = true
                 newUiData.message = "Request successfully ${request.requestStatus}"
-                _uiData.value = newUiData
+                uiData.value = newUiData
             }
 
             .addOnFailureListener {
                 newUiData.status = false
                 newUiData.message = "Error updating request"
-                _uiData.value = newUiData
+                uiData.value = newUiData
             }
+        return uiData
     }
 
     private fun startListening() {
@@ -107,7 +109,9 @@ class HomeDashboardViewModel @Inject constructor(
                     }
                 }
                 DocumentChange.Type.REMOVED -> {
-
+                    uiScope.launch {
+                        deleteRequestChangesInDb(snapshot.toObject(Request::class.java))
+                    }
                 }
             }
         }
@@ -122,6 +126,12 @@ class HomeDashboardViewModel @Inject constructor(
     private suspend fun updateRequestChangesInDb(request: Request) {
         return withContext(Dispatchers.IO) {
             requestDao.updateRequest(request)
+        }
+    }
+
+    private suspend fun deleteRequestChangesInDb(request: Request) {
+        return withContext(Dispatchers.IO) {
+            requestDao.deleteRequest(request)
         }
     }
 

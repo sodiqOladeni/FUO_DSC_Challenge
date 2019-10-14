@@ -27,7 +27,7 @@ class SignupCreateStaffViewModel @Inject constructor(var pref: SharedPref) :
             if (it.isSuccessful) {
                 // Handle Success
                 newUiData.status = true
-                newUiData.message = "Account was successfully created, verification link has been sent to the email provided"
+                newUiData.message = "Account was successfully created, the user can proceed to login using the credentials provided"
                 uiData.value = newUiData
             } else {
                 // Handle failures

@@ -47,8 +47,8 @@ class LoginFragment : Fragment(), Injectable {
         binding.lifecycleOwner = this
 
         userWho = arguments?.getString(Constants.USER_WHO)!!
-        binding.loginWho.text = getString(R.string.login_as_placeholder, userWho)
-        binding.loginNotAs.text = getString(R.string.not_d_placeholder, userWho)
+        binding.loginWho.text = getString(R.string.login_as_placeholder, userWho).replace("_", " ")
+        binding.loginNotAs.text = getString(R.string.not_d_placeholder, userWho).replace("_", " ")
 
         val b = Bundle()
         b.putString(Constants.USER_WHO, userWho)

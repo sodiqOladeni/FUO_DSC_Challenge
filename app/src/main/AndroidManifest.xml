@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.eemanapp.fuoexaet">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -11,7 +12,8 @@
 
     <application
         android:name=".view.MainApplication"
-        android:allowBackup="true"
+        android:allowBackup="false"
+        tools:replace="android:allowBackup"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher_exeat_app"
         android:label="@string/app_name"
@@ -61,7 +63,21 @@
             android:name="co.paystack.android.PublicKey"
             android:value="pk_test_68e5fe35c83c0fcd94f29be305d69510dd858a09"/>
 
-        <service android:name=".utils.FirebaseMessaging" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/ic_small_notification" />
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/fountain_green" />
+
+        <service android:name=".messaging.FirebaseMessaging"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <receiver android:name=".messaging.ApproveDeclineBroadcastReceiver"/>
     </application>
 
 </manifest>

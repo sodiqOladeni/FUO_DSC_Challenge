@@ -3,6 +3,7 @@ package com.eemanapp.fuoexaet.view.main
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -10,12 +11,17 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.eemanapp.fuoexaet.R
+import com.eemanapp.fuoexaet.data.SharedPref
+import com.eemanapp.fuoexaet.utils.Methods
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.play.core.appupdate.AppUpdateManager
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory
 import com.google.android.play.core.install.model.AppUpdateType
 import com.google.android.play.core.install.model.UpdateAvailability
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.iid.FirebaseInstanceId
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.HasSupportFragmentInjector
 import kotlinx.android.synthetic.main.activity_main.*
@@ -27,7 +33,9 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
     companion object {
         var isActive = false
     }
-
+    @Inject
+    lateinit var db:FirebaseFirestore
+    @Inject lateinit var pref: SharedPref
     @Inject
     lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Fragment>
     private val IN_APP_UPDATE_REQUEST_CODE = 500
@@ -80,6 +88,20 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
                 )
             }
         }
+
+        FirebaseInstanceId.getInstance().instanceId
+            .addOnCompleteListener(OnCompleteListener { task ->
+                if (!task.isSuccessful) {
+                    Log.w("MainActivity", "getInstanceId failed", task.exception)
+                    return@OnCompleteListener
+                }
+
+                // Get new Instance ID token
+                val token = task.result?.token
+                // Log and toast
+                Log.v("MainActivity", "getInstanceId" + token)
+                updateToken(token.toString())
+            })
     }
 
     override fun onResume() {
@@ -125,5 +147,16 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
 
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp() || super.onSupportNavigateUp()
+    }
+
+    private fun updateToken(token: String) {
+        Log.v("MainActivity", "token==>"+token)
+        val user = pref.getUser()
+        db.collection(Methods.userWhoCodeToName(user.userWho)).document(user.uniqueId!!)
+            .update("fcmToken", token).addOnCompleteListener {
+                if (it.isSuccessful) {
+                    pref.setToken(token)
+                }
+            }
     }
 }

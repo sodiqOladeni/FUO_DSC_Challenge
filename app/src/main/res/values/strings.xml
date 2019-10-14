@@ -33,7 +33,7 @@
     <string name="confirm_password">Confirm Password</string>
     <string name="continue_as">%s as</string>
     <string name="student">Student</string>
-    <string name="student_affairs">Student Coordinator</string>
+    <string name="student_affairs">Student_Coordinator</string>
     <string name="security">Security</string>
     <string name="enter_email_to_reset">Enter your email to reset your password</string>
     <string name="reset">Reset Password</string>
@@ -154,4 +154,5 @@
     <string name="invalid_card_message">Card provided in invalid and can\'t be charged, please provide a valid card to proceed</string>
     <string name="you_need_payment">Login successful! to continue using the app, you need to make a one time payment of NGN 1,000. \n\nThe payment is one time and you won\'t be asked to pay again.</string>
     <string name="continue_to_payment">Continue to Payment</string>
+    <string name="student_coordinator">Student Coordinator</string>
 </resources>

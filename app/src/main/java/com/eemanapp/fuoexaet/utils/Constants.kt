@@ -36,5 +36,12 @@ class Constants {
         const val USER_CREATED_WHEN = "User_Created_When"
         const val PASSWORD = "Password"
         const val PROGRAMME = "Programme"
+        const val STUDENT_REQUEST_CHANNEL = "Student Requests"
+        const val STUDENT_REQUEST_CHANNEL_DESC = "Channel for getting notifications on requests made by the students"
+        const val REQUEST_NOTIFICATION_CHANNEL_ID = "Student_Requests"
+        const val ACTION_APPROVE = "Action_Approve"
+        const val ACTION_DECLINE = "Action_Decline"
+        const val APPROVE = "Approve"
+        const val DECLINE = "Decline"
     }
 }

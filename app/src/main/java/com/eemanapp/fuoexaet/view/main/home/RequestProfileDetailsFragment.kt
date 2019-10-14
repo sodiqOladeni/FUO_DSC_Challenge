@@ -39,6 +39,7 @@ class RequestProfileDetailsFragment : Fragment(), Injectable {
     private var requesterUserId: String? = null
     private var user: User? = null
     private var mAdapter: RequestsStudentAdapter? = null
+    private var updateOnGoing = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -72,16 +73,18 @@ class RequestProfileDetailsFragment : Fragment(), Injectable {
 
         binding.btnApproveRequest.setOnClickListener {
             if (Methods.isNetworkAvailable(context!!)) {
-                request?.approveCoordinator =
-                    getString(R.string.name_template, user?.firstName, user?.lastName)
-                request?.requestStatus = DiffExaetStatus.APPROVED.name
-                request?.declineOrApproveTime = System.currentTimeMillis()
-                Methods.showProgressBar(
-                    binding.progressBarApprove,
-                    binding.btnApproveRequest,
-                    listOf(binding.btnDeclineRequest)
-                )
-                updateRequest()
+                if (!updateOnGoing) {
+                    request?.approveCoordinator =
+                        getString(R.string.name_template, user?.firstName, user?.lastName)
+                    request?.requestStatus = DiffExaetStatus.APPROVED.name
+                    request?.declineOrApproveTime = System.currentTimeMillis()
+                    Methods.showProgressBar(
+                        binding.progressBarApprove,
+                        binding.btnApproveRequest,
+                        listOf(binding.btnDeclineRequest)
+                    )
+                    updateRequest()
+                }
             } else {
                 Snackbar.make(
                     binding.root,
@@ -93,16 +96,18 @@ class RequestProfileDetailsFragment : Fragment(), Injectable {
 
         binding.btnDeclineRequest.setOnClickListener {
             if (Methods.isNetworkAvailable(context!!)) {
-                request?.approveCoordinator =
-                    getString(R.string.name_template, user?.firstName, user?.lastName)
-                request?.requestStatus = DiffExaetStatus.DECLINED.name
-                request?.declineOrApproveTime = System.currentTimeMillis()
-                Methods.showProgressBar(
-                    binding.progressBarDecline,
-                    binding.btnDeclineRequest,
-                    listOf(binding.btnApproveRequest)
-                )
-                updateRequest()
+                if (!updateOnGoing) {
+                    request?.approveCoordinator =
+                        getString(R.string.name_template, user?.firstName, user?.lastName)
+                    request?.requestStatus = DiffExaetStatus.DECLINED.name
+                    request?.declineOrApproveTime = System.currentTimeMillis()
+                    Methods.showProgressBar(
+                        binding.progressBarDecline,
+                        binding.btnDeclineRequest,
+                        listOf(binding.btnApproveRequest)
+                    )
+                    updateRequest()
+                }
             } else {
                 Snackbar.make(
                     binding.root,
@@ -114,9 +119,11 @@ class RequestProfileDetailsFragment : Fragment(), Injectable {
 
         binding.btnOutOfSchoolRequest.setOnClickListener {
             if (Methods.isNetworkAvailable(context!!)) {
-                request?.requestStatus = DiffExaetStatus.OUT_SCHOOL.name
-                request?.gateDepartureTime = System.currentTimeMillis()
-                updateRequest()
+                if (!updateOnGoing) {
+                    request?.requestStatus = DiffExaetStatus.OUT_SCHOOL.name
+                    request?.gateDepartureTime = System.currentTimeMillis()
+                    updateRequest()
+                }
             } else {
                 Snackbar.make(
                     binding.root,
@@ -128,9 +135,11 @@ class RequestProfileDetailsFragment : Fragment(), Injectable {
 
         binding.btnCompletedRequest.setOnClickListener {
             if (Methods.isNetworkAvailable(context!!)) {
-                request?.requestStatus = DiffExaetStatus.COMPLETED.name
-                request?.gateArrivalTime = System.currentTimeMillis()
-                updateRequest()
+                if (!updateOnGoing) {
+                    request?.requestStatus = DiffExaetStatus.COMPLETED.name
+                    request?.gateArrivalTime = System.currentTimeMillis()
+                    updateRequest()
+                }
             } else {
                 Snackbar.make(
                     binding.root,
@@ -264,9 +273,9 @@ class RequestProfileDetailsFragment : Fragment(), Injectable {
     }
 
     private fun updateRequest() {
-        viewModel.updateRequest(request!!)
-        viewModel.uiData.observe(this, Observer {
-
+        updateOnGoing = true
+        viewModel.updateRequest(request!!).observe(this, Observer {
+            updateOnGoing = false
             Methods.hideProgressBar(
                 binding.progressBarDecline,
                 binding.btnDeclineRequest,

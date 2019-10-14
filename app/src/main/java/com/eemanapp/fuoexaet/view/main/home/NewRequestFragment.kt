@@ -51,6 +51,7 @@ class NewRequestFragment : Fragment(), Injectable, DatePickerListener, TimePicke
     lateinit var viewModelFactory: ViewModelProvider.Factory
     private val TAG = NewRequestFragment::class.java.simpleName
     private var userRequestThisMonth: Int? = null
+    private var ongoingNewRequest = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -74,7 +75,6 @@ class NewRequestFragment : Fragment(), Injectable, DatePickerListener, TimePicke
 
         viewModel.requests.observe(this, Observer {
             userRequestThisMonth = Methods.countUserRegularRequestThisMonth(it)
-            Log.v(TAG, "Exeat number this month ==> $userRequestThisMonth")
         })
     }
 
@@ -120,7 +120,9 @@ class NewRequestFragment : Fragment(), Injectable, DatePickerListener, TimePicke
 
         binding.btnSubmitRequest.setOnClickListener {
             if (Methods.isNetworkAvailable(context!!)) {
-                verifyExaetRequestInput()
+                if (!ongoingNewRequest) {
+                    verifyExaetRequestInput()
+                }
             } else {
                 Snackbar.make(
                     binding.root,
@@ -151,7 +153,11 @@ class NewRequestFragment : Fragment(), Injectable, DatePickerListener, TimePicke
             isValid = false
             focusView = binding.requestType
         } else {
-            if ((requestType.equals(getString(R.string.regular_exaet), true)) and (userRequestThisMonth == 2)) {
+            if ((requestType.equals(
+                    getString(R.string.regular_exaet),
+                    true
+                )) and (userRequestThisMonth == 2)
+            ) {
                 Methods.showNotSuccessDialog(
                     context!!,
                     getString(R.string.request_error),
@@ -240,8 +246,9 @@ class NewRequestFragment : Fragment(), Injectable, DatePickerListener, TimePicke
     }
 
     private fun submitRequest(request: Request) {
-        viewModel.submitRequest(request)
-        viewModel.uiData.observe(this, Observer {
+        ongoingNewRequest = true
+        viewModel.submitRequest(request).observe(this, Observer {
+            ongoingNewRequest = false
             Methods.hideProgressBar(
                 binding.progressBar,
                 binding.btnSubmitRequest,
@@ -262,7 +269,7 @@ class NewRequestFragment : Fragment(), Injectable, DatePickerListener, TimePicke
                         it.message!!
                     )
                     dialog.setOnDismissListener {
-                        findNavController().navigateUp()
+                         findNavController().navigateUp()
                     }
                 } else {
                     Methods.showNotSuccessDialog(

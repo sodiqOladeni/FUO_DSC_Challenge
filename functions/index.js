@@ -12,7 +12,8 @@ exports.sendNotifications = functions.firestore.document('All_Student_Requests/{
     //Compose Notification
     const payload = {
       data:{
-        title: `A new ${snapshot.data().requestType} was made from ${snapshot.data().user.schoolId} to ${snapshot.data().location}`,
+        title: `${snapshot.data().requestType} from ${snapshot.data().user.schoolId}`,
+        location:`${snapshot.data().user.schoolId} is going to ${snapshot.data().location}`,
         body: snapshot.data().purpose,
         icon: snapshot.data().user.imageUri,
         requestId:snapshot.data().requestUniqueId,
@@ -20,10 +21,11 @@ exports.sendNotifications = functions.firestore.document('All_Student_Requests/{
     };
 
     // Get all Coordinator tokens
-    const allCoodinatorTokens = await admin.firebase().collection('Student Coordinator').get();
+    const allCoodinatorTokens = await admin.firestore().collection('Student_Coordinator').get();
     const tokens = [];
     allCoodinatorTokens.forEach((coordinatorDocs) => {
-      tokens.push(coordinatorDocs.fcmToken);
+      console.log('Doc maybe real', coordinatorDocs.data().fcmToken);
+      tokens.push(coordinatorDocs.data().fcmToken);
     });
 
     if (tokens.length > 0) {
@@ -102,6 +104,5 @@ exports.createCoordinator = functions.firestore.document('Student_Coordinator/{i
       console.log('Error creating new user:', error);
       return null
     });
-
-    return null;
+    return null
 });

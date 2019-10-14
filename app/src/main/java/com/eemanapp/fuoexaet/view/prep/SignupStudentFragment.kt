@@ -66,9 +66,9 @@ class SignupStudentFragment : Fragment(), Injectable, DatePickerListener {
         when (userWho) {
             getString(R.string.student) -> {
                 binding.signupWho.text =
-                    getString(R.string.signing_as_placeholder, userWho)
+                    getString(R.string.signing_as_placeholder, userWho).replace("_", " ")
                 binding.signupNotAs.text =
-                    getString(R.string.not_d_placeholder, userWho)
+                    getString(R.string.not_d_placeholder, userWho).replace("_", " ")
 
                 binding.signupNotAs.setOnClickListener {
                     findNavController().navigateUp()

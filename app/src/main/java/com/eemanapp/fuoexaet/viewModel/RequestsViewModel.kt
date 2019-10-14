@@ -20,9 +20,6 @@ class RequestsViewModel @Inject constructor(
 
     private val db = FirebaseFirestore.getInstance()
     val requests = requestDao.getRequests()
-    private val _uiData = MutableLiveData<UiData>()
-    val uiData: LiveData<UiData>
-        get() = _uiData
     private val newUiData = UiData()
 
     // _________________________________
@@ -44,26 +41,28 @@ class RequestsViewModel @Inject constructor(
     }
 
 
-    fun submitRequest(request: Request) {
+    fun submitRequest(request: Request):MutableLiveData<UiData> {
+        val uiData = MutableLiveData<UiData>()
         val ref = db.collection(Constants.ALL_REQUESTS).document()
         request.requestUniqueId = ref.id
         ref.set(request)
             .addOnSuccessListener {
                 newUiData.status = true
                 newUiData.message = "Request successfully submitted"
-                _uiData.value = newUiData
+                uiData.value = newUiData
             }
             .addOnFailureListener {
                 newUiData.status = false
                 newUiData.message = it.message
-                _uiData.value = newUiData
+                uiData.value = newUiData
             }
+        return uiData
     }
 
-    fun updateRequest(request: Request) {
+    fun updateRequest(request: Request):MutableLiveData<UiData> {
+        val uiData = MutableLiveData<UiData>()
         val ref = db.collection(Constants.ALL_REQUESTS).document(request.requestUniqueId)
-        ref.update(
-            "requestStatus", request.requestStatus,
+        ref.update("requestStatus", request.requestStatus,
             "declineOrApproveTime", request.declineOrApproveTime,
             "approveCoordinator", request.approveCoordinator,
             "gateDepartureTime", request.gateDepartureTime,
@@ -72,13 +71,14 @@ class RequestsViewModel @Inject constructor(
             .addOnSuccessListener {
                 newUiData.status = true
                 newUiData.message = "Request successfully updated to ${request.requestStatus}"
-                _uiData.value = newUiData
+                uiData.value = newUiData
             }
             .addOnFailureListener {
                 newUiData.status = false
                 newUiData.message = "Error updating request"
-                _uiData.value = newUiData
+                uiData.value = newUiData
             }
+        return uiData
     }
 
 

@@ -8,7 +8,7 @@ import androidx.room.TypeConverters
 import com.eemanapp.fuoexaet.model.Request
 import com.eemanapp.fuoexaet.model.User
 
-@Database(entities = [Request::class], version = 1)
+@Database(entities = [Request::class], version = 2)
 @TypeConverters(Converters::class)
 abstract class FuoDb : RoomDatabase(){
     abstract val requestDao:RequestDao
@@ -20,7 +20,9 @@ abstract class FuoDb : RoomDatabase(){
                 if (!Companion::INSTANCE.isInitialized) {
                     INSTANCE = Room.databaseBuilder(context.applicationContext,
                         FuoDb::class.java,
-                        "Fuo_Database").build()
+                        "Fuo_Database")
+                        .fallbackToDestructiveMigration()
+                        .build()
                 }
             }
             return INSTANCE

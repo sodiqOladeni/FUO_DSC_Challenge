@@ -14,6 +14,9 @@ interface RequestDao {
     @Update
     fun updateRequest(vararg request: Request)
 
+    @Delete
+    fun deleteRequest(vararg request: Request)
+
     @Query("select * from request order by requestTime DESC")
     fun getRequests():LiveData<List<Request>>
 

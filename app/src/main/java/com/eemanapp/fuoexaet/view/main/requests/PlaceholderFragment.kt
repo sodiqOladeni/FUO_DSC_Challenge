@@ -265,9 +265,8 @@ class PlaceholderFragment : Fragment(), Injectable, RequestClickListener {
     }
 
     private fun updateRequest(request: Request) {
-        viewModel.updateRequest(request)
         isUpdateInProgress = true
-        viewModel.uiData.observe(this, Observer {
+        viewModel.updateRequest(request).observe(this, Observer {
             isUpdateInProgress = false
         })
     }
