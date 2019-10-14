@@ -1,0 +1,19 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "All_Student_Requests",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "user.uniqueId",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "requestTime",
+          "order": "ASCENDING"
+        }
+      ]
+    }
+  ],
+  "fieldOverrides": []
+}

@@ -27,7 +27,7 @@ class SignupCreateStaffViewModel @Inject constructor(var pref: SharedPref) :
             if (it.isSuccessful) {
                 // Handle Success
                 newUiData.status = true
-                newUiData.message = "Account was successfully created, it will be activated within 24 hours"
+                newUiData.message = "Account was successfully created, verification link has been sent to the email provided"
                 uiData.value = newUiData
             } else {
                 // Handle failures

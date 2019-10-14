@@ -7,7 +7,7 @@ class Constants {
         const val USER_WHO = "user_who"
         const val STUDENT = "Student"
         const val SECURITY = "Security"
-        const val COORDINATOR = "Student Coordinator"
+        const val COORDINATOR = "Student_Coordinator"
         const val USER = "User"
         const val REQUEST = "Request"
         const val REQUEST_ID = "Request_Id"
