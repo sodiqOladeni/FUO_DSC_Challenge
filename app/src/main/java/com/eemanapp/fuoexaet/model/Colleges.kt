@@ -50,8 +50,11 @@ class Colleges(var position: Int, var name: String) : Searchable {
 
         fun hallInFUO():ArrayList<Hall>{
             return arrayListOf(
-                Hall("Hall of Fame"),
-                Hall("Hall of LOML"))
+                Hall("Yusuf Ali Luxurious Hostel"),
+                Hall("Adegunwa Hostel"),
+                Hall("Female Hostel 1"),
+                Hall("Female Hostel 2")
+            )
         }
     }
 }

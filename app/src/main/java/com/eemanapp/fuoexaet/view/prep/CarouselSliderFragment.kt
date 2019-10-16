@@ -22,10 +22,9 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 /**
  * A simple [Fragment] subclass.
  */
-class CarouselSliderFragment : Fragment(), Injectable, HomeScreenInitializer {
-
-    override fun initializeHomeScreen(view: View) {
-        when (view.id) {
+class CarouselSliderFragment : Fragment(), Injectable, View.OnClickListener {
+    override fun onClick(view: View?) {
+        when (view?.id) {
             R.id.btn_login -> {
                 showBottomSheet(whatToContinueAs = getString(R.string.login))
             }
@@ -38,9 +37,7 @@ class CarouselSliderFragment : Fragment(), Injectable, HomeScreenInitializer {
         }
     }
 
-    private var slideViews = intArrayOf(R.layout.carousel_slide1, R.layout.carousel_slider2)
     private lateinit var binding: FragmentSliderBinding
-    private var mPagerAdapter: SliderViewPager? = null
     private var mContext: Context? = null
 
     override fun onAttach(context: Context) {
@@ -48,8 +45,10 @@ class CarouselSliderFragment : Fragment(), Injectable, HomeScreenInitializer {
         mContext = getContext()
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_slider, container, false)
         return binding.root
@@ -57,10 +56,8 @@ class CarouselSliderFragment : Fragment(), Injectable, HomeScreenInitializer {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        mPagerAdapter = SliderViewPager(context!!, slideViews, this)
-        binding.viewPager.adapter = mPagerAdapter
-        binding.layoutDots.setupWithViewPager(binding.viewPager, true)
+        binding.btnLogin.setOnClickListener(this)
+        binding.btnSignup.setOnClickListener(this)
     }
 
     private fun showBottomSheet(whatToContinueAs: String) {
@@ -99,7 +96,6 @@ class CarouselSliderFragment : Fragment(), Injectable, HomeScreenInitializer {
                 findNavController().navigate(R.id.to_loginFragment, b)
             }
         }
-
         dialog.show()
     }
 }
