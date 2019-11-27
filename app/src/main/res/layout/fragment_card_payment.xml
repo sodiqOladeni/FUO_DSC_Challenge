@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -15,66 +15,65 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/card_number"
-            android:textColor="@color/black"
-            android:textSize="16sp" />
+            android:text="@string/service_charge"
+            android:textStyle="bold"
+            android:textColor="@color/fountain_green"
+            android:textSize="28sp" />
 
-        <com.google.android.material.card.MaterialCardView
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:textSize="14sp"
+            android:text="@string/service_charge_details"/>
+
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            app:cardBackgroundColor="@color/white"
-            app:cardElevation="10dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="10dp">
+            android:layout_height="wrap_content"
+            android:textColorHint="@color/fountain_green"
+            android:hint="@string/card_number"
+            android:layout_marginTop="50dp">
 
-            <EditText
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/card_number"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:inputType="number"
-                android:background="@null"
-                android:hint="XXXX XXXX XXXX XXXX"
-                android:padding="5dp"
+                android:textSize="16sp"
+                android:drawableEnd="@drawable/ic_master_card"
                 android:textColor="@color/fair_black" />
-        </com.google.android.material.card.MaterialCardView>
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="@string/card_full_name"
-            android:textColor="@color/black"
-            android:textSize="16sp" />
 
-        <com.google.android.material.card.MaterialCardView
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            app:cardBackgroundColor="@color/white"
-            app:cardElevation="10dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="10dp">
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:textColorHint="@color/fountain_green"
+            android:layout_marginTop="5dp"
+            android:hint="@string/card_full_name">
 
-            <EditText
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/card_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:background="@null"
+                android:textSize="16sp"
                 android:inputType="textPersonName"
-                android:hint="Adeyemi Adelakun"
-                android:padding="5dp"
                 android:textColor="@color/fair_black" />
-        </com.google.android.material.card.MaterialCardView>
+        </com.google.android.material.textfield.TextInputLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="36dp"
             android:orientation="horizontal">
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="start"
+                android:layout_gravity="start|bottom"
                 android:layout_weight="1"
                 android:orientation="vertical">
 
@@ -82,42 +81,47 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/expiry_date"
-                    android:textColor="@color/black"
+                    android:textColor="#D6D9E4"
+                    android:layout_marginStart="3dp"
                     android:textSize="16sp" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_gravity="bottom"
+                    android:gravity="bottom"
                     android:orientation="horizontal">
 
-                    <com.google.android.material.card.MaterialCardView
+                    <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        app:cardElevation="10dp"
-                        app:cardBackgroundColor="@color/white"
+                        android:layout_height="wrap_content"
+                        android:hint="MM"
+                        android:textColorHint="@color/fountain_green"
                         android:layout_marginEnd="5dp">
 
-                        <EditText
+                        <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/card_mm"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
-                            android:background="@null"
                             android:gravity="center"
-                            android:maxLength="2"
                             android:inputType="number"
-                            android:hint="MM"
-                            android:padding="5dp"
                             android:textColor="@color/fair_black"
-                            android:textSize="14sp" />
-                    </com.google.android.material.card.MaterialCardView>
+                            android:textSize="16sp" />
+                    </com.google.android.material.textfield.TextInputLayout>
 
-                    <com.google.android.material.card.MaterialCardView
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/about_to_grey"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="6dp"/>
+
+                    <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        app:cardElevation="10dp"
-                        app:cardBackgroundColor="@color/white"
+                        android:layout_height="wrap_content"
+                        android:hint="YY"
+                        android:textColorHint="@color/fountain_green"
                         android:layout_marginStart="5dp">
 
                         <EditText
@@ -125,15 +129,12 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
-                            android:background="@null"
                             android:gravity="center"
-                            android:maxLength="2"
                             android:inputType="number"
-                            android:hint="YY"
-                            android:padding="5dp"
+                            android:maxLength="2"
                             android:textColor="@color/fair_black"
-                            android:textSize="14sp" />
-                    </com.google.android.material.card.MaterialCardView>
+                            android:textSize="16sp" />
+                    </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
 
 
@@ -144,35 +145,38 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_gravity="bottom"
                 android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/cvv"
-                    android:textAllCaps="true"
-                    android:textColor="@color/black"
-                    android:textSize="16sp" />
+                    android:textColorHint="@color/fountain_green"
+                    android:hint="@string/cvv">
 
-                <com.google.android.material.card.MaterialCardView
-                    android:layout_width="100dp"
-                    android:layout_height="50dp"
-                    app:cardElevation="10dp"
-                    app:cardBackgroundColor="@color/white"
-                    android:layout_marginTop="10dp">
-
-                    <EditText
+                    <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/card_cvv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:background="@null"
-                        android:maxLength="4"
                         android:inputType="number"
-                        android:hint="Enter CVV"
-                        android:padding="5dp"
+                        android:textSize="16sp"
                         android:textColor="@color/fair_black" />
-                </com.google.android.material.card.MaterialCardView>
+
+                    <TextView
+                        android:id="@+id/what_cvv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="11sp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="3dp"
+                        android:layout_marginTop="-5dp"
+                        android:drawableStart="@drawable/ic_info_outline_24dp"
+                        android:drawablePadding="5dp"
+                        android:textColor="@color/fountain_green"
+                        android:text="@string/what_is_cvv"/>
+                </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
 
 
@@ -180,13 +184,13 @@
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="44dp"
             android:layout_marginTop="40dp">
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_pay"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="44dp"
                 android:alpha="0.3"
                 android:clickable="false"
                 android:enabled="false"
@@ -208,6 +212,13 @@
 
         </FrameLayout>
 
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/paystack_badge"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center_horizontal"/>
+
     </LinearLayout>
-</ScrollView>
+</androidx.core.widget.NestedScrollView>
 </layout>

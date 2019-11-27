@@ -10,30 +10,26 @@ import javax.inject.Inject
 
 class ForgetPasswordViewModel @Inject constructor() : ViewModel() {
 
-    private val _uiData = MutableLiveData<UiData>()
-    val uiData: LiveData<UiData>
-        get() = _uiData
     private var mAuth = FirebaseAuth.getInstance()
     private var authTask: Task<Void>? = null
-    private var newUiData = UiData()
 
-    fun resetPasswordWithEmail(email: String) {
+    fun resetPasswordWithEmail(email: String):MutableLiveData<UiData> {
+        val uiData = MutableLiveData<UiData>()
+        val newUiData = UiData()
         authTask = mAuth.sendPasswordResetEmail(email)
             .addOnSuccessListener {
                 newUiData.status = true
                 newUiData.message = "Password reset link has been sent to your email"
-                _uiData.value = newUiData
+                uiData.value = newUiData
             }
             .addOnFailureListener {
                 newUiData.status = false
                 newUiData.message = it.message
-                _uiData.value = newUiData
+                uiData.value = newUiData
             }
+        return uiData
     }
 
-    fun uiDataToNull() {
-        _uiData.value = null
-    }
 
     override fun onCleared() {
         super.onCleared()

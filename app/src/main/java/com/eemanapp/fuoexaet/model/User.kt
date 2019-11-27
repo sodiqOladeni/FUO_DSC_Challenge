@@ -14,9 +14,9 @@ data class User(
     var email: String = "",
     var phoneNumber: String = "",
     var imageUri: String = "",
-    var hasUserPay:Boolean = false,
+    var hasUserPay:Boolean = true,
     var userPaymentRef:String? = null,
-    var fcmToken:String? = "",
+    var fcmToken:String? = "token_has_not_been_generated",
     // This is the user type
     // 0 ==> Student
     // 1 ==> Student coordinator

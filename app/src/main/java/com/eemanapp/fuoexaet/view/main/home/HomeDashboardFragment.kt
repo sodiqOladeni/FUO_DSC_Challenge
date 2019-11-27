@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -95,10 +96,11 @@ class HomeDashboardFragment : Fragment(), Injectable, RequestClickListener {
         when (Methods.userWhoCodeToName(user?.userWho!!)) {
             Constants.STUDENT -> {
                 binding.fabNewRequest.visibility = View.VISIBLE
-
+                val animation = AnimationUtils.loadLayoutAnimation(context, R.anim.item_animation_from_bottom)
                 binding.recyclerView.apply {
                     adapter = requestsStudentAdapter
                     layoutManager = LinearLayoutManager(context)
+                    layoutAnimation = animation
                 }
 
                 viewModel.requests.observe(this, Observer {
@@ -118,7 +120,7 @@ class HomeDashboardFragment : Fragment(), Injectable, RequestClickListener {
                         binding.countPendingExaet.text =
                             Methods.getAllRequestPendingCount(it).size.toString()
                         //Update adapter to load previous requests
-                        requestsStudentAdapter?.requests = it
+                        requestsStudentAdapter?.submitList(it)
                     }
                 })
             }
@@ -126,10 +128,11 @@ class HomeDashboardFragment : Fragment(), Injectable, RequestClickListener {
             Constants.COORDINATOR -> {
                 //Hide ability to send request if not student by hiding the fab
                 binding.fabNewRequest.visibility = View.GONE
-
+                val animation = AnimationUtils.loadLayoutAnimation(context, R.anim.item_animation_from_bottom)
                 binding.recyclerView.apply {
                     adapter = requestsStaffAdapter
                     layoutManager = LinearLayoutManager(context)
+                    layoutAnimation = animation
                 }
 
                 viewModel.requests.observe(this, Observer {
@@ -153,7 +156,7 @@ class HomeDashboardFragment : Fragment(), Injectable, RequestClickListener {
                             Methods.countRequestPendingToday(it, today, thisMonth, thisYear)
                                 .toString()
                         //Update adapter to load previous requests
-                        requestsStaffAdapter?.requests = it
+                        requestsStaffAdapter?.submitList(it)
                     }
                 })
             }
@@ -161,10 +164,11 @@ class HomeDashboardFragment : Fragment(), Injectable, RequestClickListener {
             Constants.SECURITY -> {
                 //Hide ability to send request if not student by hiding the fab
                 binding.fabNewRequest.visibility = View.GONE
-
+                val animation = AnimationUtils.loadLayoutAnimation(context, R.anim.item_animation_from_bottom)
                 binding.recyclerView.apply {
                     adapter = requestsSecurityAdapter
                     layoutManager = LinearLayoutManager(context)
+                    layoutAnimation = animation
                 }
 
                 viewModel.requests.observe(this, Observer {
@@ -188,7 +192,7 @@ class HomeDashboardFragment : Fragment(), Injectable, RequestClickListener {
                             Methods.countRequestPendingToday(it, today, thisMonth, thisYear)
                                 .toString()
                         //Update adapter to load previous requests
-                        requestsSecurityAdapter?.requests = it
+                        requestsSecurityAdapter?.submitList(it)
                     }
                 })
             }

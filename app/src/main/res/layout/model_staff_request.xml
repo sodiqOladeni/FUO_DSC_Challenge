@@ -176,7 +176,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/request_type"
-                android:textColor="@color/black"
+                app:setRequestColor="@{request.requestType}"
                 android:textStyle="bold"
                 tools:text="@string/request_type" />
 
@@ -185,7 +185,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{request.requestType}"
-                android:textColor="@color/fade_grey"
+                app:setRequestColor="@{request.requestType}"
                 android:textStyle="normal"
                 tools:text="Regular Exaet" />
         </LinearLayout>
@@ -209,6 +209,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:layout_gravity="center_vertical"
                 android:layout_marginStart="5dp"
                 android:orientation="vertical">
 
@@ -217,7 +219,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
-                    android:lines="3"
                     android:text="@{request.purpose}"
                     android:textColor="#3B414B"
                     android:textSize="14sp"
@@ -225,6 +226,7 @@
 
                 <LinearLayout
                     android:id="@+id/layout_location"
+                    android:layout_marginTop="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 

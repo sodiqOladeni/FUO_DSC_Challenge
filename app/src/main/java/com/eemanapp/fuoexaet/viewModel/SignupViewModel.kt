@@ -41,7 +41,7 @@ class SignupViewModel @Inject constructor(var pref: SharedPref) :
     private var uploadTask: UploadTask? = null
     private var fireStoreDoc: DocumentReference? = null
 
-    fun authUserAndProceedSaving(user: User) {
+    fun authUserAndProceedSaving(user: User):MutableLiveData<UiData> {
         createUserTask = firebaseAuth.createUserWithEmailAndPassword(user.email, user.password)
         createUserTask?.addOnCompleteListener {
             if (it.isSuccessful) {
@@ -53,6 +53,7 @@ class SignupViewModel @Inject constructor(var pref: SharedPref) :
                 _uiData.value = newUiData
             }
         }
+        return _uiData
     }
 
     private fun saveUserImage(user: User) {

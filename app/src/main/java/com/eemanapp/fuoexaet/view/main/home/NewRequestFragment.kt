@@ -289,12 +289,12 @@ class NewRequestFragment : Fragment(), Injectable, DatePickerListener, TimePicke
     }
 
     override fun dateSelected(year: Int, month: Int, dayOfMonth: Int) {
-        val date = Methods.formatDate(year, month, dayOfMonth)
+        val date = Methods.formatDateRemove1900(year, month, dayOfMonth)
         if (isDepartureDate) {
             binding.departureDate.text = date
             departureDate = date
         } else {
-            binding.arrivalDate.text = Methods.formatDate(year, month, dayOfMonth)
+            binding.arrivalDate.text = Methods.formatDateRemove1900(year, month, dayOfMonth)
             arrivalDate = date
         }
     }

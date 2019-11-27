@@ -88,8 +88,7 @@ class ForgetPasswordFragment : Fragment(), Injectable {
 
     private fun resetPassword(e: String) {
 
-        viewModel.resetPasswordWithEmail(e)
-        viewModel.uiData.observe(this, Observer {
+        viewModel.resetPasswordWithEmail(e).observe(this, Observer {
 
             Methods.hideProgressBar(
                 binding.progressBar, binding.fpReset,
@@ -104,7 +103,6 @@ class ForgetPasswordFragment : Fragment(), Injectable {
                 )
                 d.setCancelClickListener {
                     findNavController().navigateUp()
-                    viewModel.uiDataToNull()
                 }
             } else {
                 Methods.showSuccessDialog(context!!, getString(R.string.error_occur), it.message!!)

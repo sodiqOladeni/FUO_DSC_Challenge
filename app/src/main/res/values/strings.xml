@@ -148,11 +148,14 @@
     <string name="card_number">Card number</string>
     <string name="card_full_name">Cardholder\'s full name</string>
     <string name="expiry_date">Expiry date</string>
-    <string name="cvv">cvv</string>
+    <string name="cvv">CVV</string>
     <string name="make_payment">Make Payment</string>
     <string name="invalid_card">Invalid Card</string>
     <string name="invalid_card_message">Card provided in invalid and can\'t be charged, please provide a valid card to proceed</string>
     <string name="you_need_payment">Login successful! to continue using the app, you need to make a one time payment of NGN 1,000. \n\nThe payment is one time and you won\'t be asked to pay again.</string>
     <string name="continue_to_payment">Continue to Payment</string>
     <string name="student_coordinator">Student Coordinator</string>
+    <string name="service_charge">Service Charge</string>
+    <string name="service_charge_details">This exeat app requires a One-time service \nCharge of <b>N1000</b></string>
+    <string name="what_is_cvv">What is CVV?</string>
 </resources>

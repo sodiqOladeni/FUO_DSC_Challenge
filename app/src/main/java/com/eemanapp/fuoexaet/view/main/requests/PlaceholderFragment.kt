@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -93,9 +94,11 @@ class PlaceholderFragment : Fragment(), Injectable, RequestClickListener {
 
         when (Methods.userWhoCodeToName(user!!.userWho)) {
             Constants.STUDENT -> {
+                val animation = AnimationUtils.loadLayoutAnimation(context, R.anim.item_animation_from_bottom)
                 binding.recyclerView.apply {
                     adapter = requestsStudentAdapter
                     layoutManager = LinearLayoutManager(context)
+                    layoutAnimation = animation
                 }
                 viewModel.requests.observe(this, Observer {
                     binding.progressBar.visibility = View.GONE
@@ -107,25 +110,27 @@ class PlaceholderFragment : Fragment(), Injectable, RequestClickListener {
                         binding.recyclerView.visibility = View.VISIBLE
                         when (sectionNumber) {
                             1 -> {
-                                requestsStudentAdapter?.requests = it
+                                requestsStudentAdapter?.submitList(it)
                             }
                             2 -> {
-                                requestsStudentAdapter?.requests = Methods.getAllRequestPendingCount(it)
+                                requestsStudentAdapter?.submitList(Methods.getAllRequestPendingCount(it))
                             }
                             3 -> {
-                                requestsStudentAdapter?.requests = Methods.getAllRequestApprovedCount(it)
+                                requestsStudentAdapter?.submitList(Methods.getAllRequestApprovedCount(it))
                             }
                             4 -> {
-                                requestsStudentAdapter?.requests = Methods.getAllRequestDeclinedCount(it)
+                                requestsStudentAdapter?.submitList(Methods.getAllRequestDeclinedCount(it))
                             }
                         }
                     }
                 })
             }
             Constants.COORDINATOR -> {
+                val animation = AnimationUtils.loadLayoutAnimation(context, R.anim.item_animation_from_bottom)
                 binding.recyclerView.apply {
                     adapter = requestsStaffAdapter
                     layoutManager = LinearLayoutManager(context)
+                    layoutAnimation = animation
                 }
 
                 viewModel.requests.observe(this, Observer {
@@ -138,25 +143,27 @@ class PlaceholderFragment : Fragment(), Injectable, RequestClickListener {
                         binding.recyclerView.visibility = View.VISIBLE
                         when (sectionNumber) {
                             1 -> {
-                                requestsStaffAdapter?.requests = it
+                                requestsStaffAdapter?.submitList(it)
                             }
                             2 -> {
-                                requestsStaffAdapter?.requests = Methods.getAllRequestPendingCount(it)
+                                requestsStaffAdapter?.submitList(Methods.getAllRequestPendingCount(it))
                             }
                             3 -> {
-                                requestsStaffAdapter?.requests = Methods.getAllRequestApprovedCount(it)
+                                requestsStaffAdapter?.submitList(Methods.getAllRequestApprovedCount(it))
                             }
                             4 -> {
-                                requestsStaffAdapter?.requests = Methods.getAllRequestDeclinedCount(it)
+                                requestsStaffAdapter?.submitList(Methods.getAllRequestDeclinedCount(it))
                             }
                         }
                     }
                 })
             }
             Constants.SECURITY -> {
+                val animation = AnimationUtils.loadLayoutAnimation(context, R.anim.item_animation_from_bottom)
                 binding.recyclerView.apply {
                     adapter = requestsSecurityAdapter
                     layoutManager = LinearLayoutManager(context)
+                    layoutAnimation = animation
                 }
 
                 viewModel.requests.observe(this, Observer {
@@ -169,16 +176,16 @@ class PlaceholderFragment : Fragment(), Injectable, RequestClickListener {
                         binding.recyclerView.visibility = View.VISIBLE
                         when (sectionNumber) {
                             1 -> {
-                                requestsSecurityAdapter?.requests = it
+                                requestsSecurityAdapter?.submitList(it)
                             }
                             2 -> {
-                                requestsSecurityAdapter?.requests = Methods.getAllRequestPendingCount(it)
+                                requestsSecurityAdapter?.submitList(Methods.getAllRequestPendingCount(it))
                             }
                             3 -> {
-                                requestsSecurityAdapter?.requests = Methods.getAllRequestApprovedCount(it)
+                                requestsSecurityAdapter?.submitList(Methods.getAllRequestApprovedCount(it))
                             }
                             4 -> {
-                                requestsSecurityAdapter?.requests = Methods.getAllRequestDeclinedCount(it)
+                                requestsSecurityAdapter?.submitList(Methods.getAllRequestDeclinedCount(it))
                             }
                         }
                     }

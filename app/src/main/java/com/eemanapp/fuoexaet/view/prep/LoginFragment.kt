@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-
 import com.eemanapp.fuoexaet.R
 import com.eemanapp.fuoexaet.databinding.LoginFragmentBinding
 import com.eemanapp.fuoexaet.di.Injectable
@@ -59,8 +58,6 @@ class LoginFragment : Fragment(), Injectable {
             } else {
                 Snackbar.make(binding.root, getString(R.string.no_internet_connection), Snackbar.LENGTH_LONG).show()
             }
-
-//            findNavController().navigate(R.id.to_cardPaymentFragment)
         }
 
         binding.loginForgetPassword.setOnClickListener {
@@ -85,7 +82,7 @@ class LoginFragment : Fragment(), Injectable {
     }
 
     private fun verifyInput() {
-        var isValid: Boolean = true
+        var isValid = true
         var focusView: View? = null
 
         binding.loginEmail.error = null
@@ -119,8 +116,7 @@ class LoginFragment : Fragment(), Injectable {
     }
 
     private fun processLogin(e: String, p: String) {
-        viewModel.authUser(e, p, userWho)
-        viewModel.uiData.observe(this, Observer {uiData->
+        viewModel.authUser(e, p, userWho).observe(this, Observer {uiData->
 
             Methods.hideProgressBar(
                 binding.progressBar, binding.loginBtn,
@@ -135,7 +131,6 @@ class LoginFragment : Fragment(), Injectable {
             if (uiData != null) {
                 if (uiData.status!!) {
                     startMainActivity()
-                    viewModel.setUiDataToNull()
                 } else {
                     if (uiData.message!! == Constants.USER_NOT_PAY){
                         val d = Methods.showNormalDialog(context = context!!, title = getString(R.string.continue_to_payment),
@@ -157,7 +152,6 @@ class LoginFragment : Fragment(), Injectable {
                         Methods.showNotSuccessDialog(
                             context!!, getString(R.string.error_occur), uiData.message!!)
                     }
-                    viewModel.setUiDataToNull()
                 }
             }
         })

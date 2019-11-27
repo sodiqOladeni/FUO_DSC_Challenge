@@ -164,8 +164,8 @@ class Methods {
         }
 
         @SuppressLint("SimpleDateFormat")
-        fun formatDate(year: Int, month: Int, dayOfMonth: Int): String {
-            val date = Date(year, month, dayOfMonth)
+        fun formatDateRemove1900(year: Int, month: Int, dayOfMonth: Int): String {
+            val date = Date(year - 1900, month, dayOfMonth)
             return SimpleDateFormat("E, dd MMM yyyy").format(date).toString()
         }
 

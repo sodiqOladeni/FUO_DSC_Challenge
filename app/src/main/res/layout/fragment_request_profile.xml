@@ -597,6 +597,7 @@
                     android:paddingEnd="15dp">
 
                     <TextView
+                        android:id="@+id/request_type_label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/request_type_"
@@ -609,7 +610,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@{request.requestType}"
-                        android:textColor="@color/fade_grey"
                         android:textStyle="normal"
                         tools:text="Regular Exaet" />
                 </LinearLayout>

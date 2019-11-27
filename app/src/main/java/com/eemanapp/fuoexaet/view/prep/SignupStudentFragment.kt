@@ -219,12 +219,14 @@ class SignupStudentFragment : Fragment(), Injectable, DatePickerListener {
 
             processSignup(
                 User(
+                    hasUserPay = true,
                     firstName = fn.text.toString(),
                     lastName = ln.text.toString(),
                     schoolId = matric.text.toString(),
                     email = em.text.toString(),
                     userCreatedWhen = System.currentTimeMillis(),
                     userCreatedByWho = "Self",
+                    fcmToken = "fcm_token_not_yet_captured",
                     phoneNumber = pn.text.toString(),
                     imageUri = userImagePath.toString(),
                     userWho = Methods.userWhoNameToCode(userWho),
@@ -245,18 +247,21 @@ class SignupStudentFragment : Fragment(), Injectable, DatePickerListener {
         viewModel.authUserAndProceedSaving(user)
         viewModel.uiData.observe(this, Observer {
 
-            Methods.hideProgressBar(
-                binding.progressBar, binding.signupBtn,
-                listOf(binding.signupNotAs, binding.signupLogin)
-            )
-
             it?.let {
+                Methods.hideProgressBar(
+                    binding.progressBar, binding.signupBtn,
+                    listOf(binding.signupNotAs, binding.signupLogin)
+                )
+
                 if (it.status!!) {
-                    Methods.showSuccessDialog(
+                    val d = Methods.showSuccessDialog(
                         context!!,
                         getString(R.string.user_created),
                         it.message!!)
 
+                    d.setConfirmClickListener {
+                        findNavController().navigate(R.id.to_loginFragment)
+                    }
                     viewModel.saveUiDataToDefault()
                 } else {
                     Methods.showNotSuccessDialog(
@@ -268,7 +273,6 @@ class SignupStudentFragment : Fragment(), Injectable, DatePickerListener {
                 }
             }
         })
-
     }
 
     private fun clickListeners() {

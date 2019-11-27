@@ -2,14 +2,11 @@ package com.eemanapp.fuoexaet.view
 
 import android.app.Activity
 import android.app.Application
-import android.app.Service
 import co.paystack.android.PaystackSdk
 import com.eemanapp.fuoexaet.di.AppInjector
 import com.google.android.play.core.missingsplits.MissingSplitsManagerFactory
-import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
-import dagger.android.HasServiceInjector
 import javax.inject.Inject
 
 class MainApplication : Application(), HasActivityInjector {
@@ -24,7 +21,6 @@ class MainApplication : Application(), HasActivityInjector {
             return
         }
         AppInjector.init(this)
-        PaystackSdk.initialize(this)
     }
 
     override fun activityInjector() = dispatchingAndroidInjector

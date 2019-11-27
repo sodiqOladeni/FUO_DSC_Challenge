@@ -4,10 +4,12 @@ import android.graphics.Color
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import coil.api.load
 import coil.transform.CircleCropTransformation
-import com.bumptech.glide.Glide
+import com.eemanapp.fuoexaet.R
+
 
 @BindingAdapter("goneIfNotNull")
 fun goneIfNotNull(view: View, it: Any?) {
@@ -41,22 +43,22 @@ fun goneLayoutIfNotStaff(view: View, it: Int){
 }
 
 @BindingAdapter("requestStatusColor")
-fun setRequestStatusColor(txtView: TextView, requestStatus: String) {
+fun TextView.setRequestStatusColor(requestStatus: String) {
     when (requestStatus) {
         DiffExaetStatus.APPROVED.name -> {
-            txtView.setTextColor(Color.parseColor("#10C971"))
+            this.setTextColor(ContextCompat.getColor(this.context, R.color.approved_request_lightGreen))
         }
 
         DiffExaetStatus.DECLINED.name -> {
-            txtView.setTextColor(Color.parseColor("#EB5757"))
+            this.setTextColor(ContextCompat.getColor(this.context, R.color.rejected_request_red))
         }
 
         DiffExaetStatus.OUT_SCHOOL.name -> {
-            txtView.setTextColor(Color.parseColor("#F2C94C"))
+            this.setTextColor(ContextCompat.getColor(this.context, R.color.pending_request_yellow))
         }
 
         DiffExaetStatus.COMPLETED.name -> {
-            txtView.setTextColor(Color.parseColor("#463C6A"))
+            this.setTextColor(ContextCompat.getColor(this.context, R.color.total_request_purple))
         }
     }
 }
@@ -64,4 +66,13 @@ fun setRequestStatusColor(txtView: TextView, requestStatus: String) {
 @BindingAdapter("convertSystemTimeToReadableTime")
 fun convertSystemTimeToReadableTIme(view: TextView, systemTime: Long) {
     view.text = Methods.convertLongToDateString(systemTime)
+}
+
+@BindingAdapter("setRequestColor")
+fun TextView.setRequestColor(requestType:String){
+    when (requestType){
+        "Emergency Exeat" -> this.setTextColor(ContextCompat.getColor(this.context, R.color.rejected_request_red))
+        "Vacation Exeat" -> this.setTextColor(ContextCompat.getColor(this.context, R.color.total_request_purple))
+        else -> this.setTextColor(ContextCompat.getColor(this.context, R.color.black))
+    }
 }

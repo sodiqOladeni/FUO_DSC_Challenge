@@ -145,7 +145,6 @@ class HomeDashboardViewModel @Inject constructor(
         when (Methods.userWhoCodeToName(user.userWho)) {
             //STUDENT
             Constants.STUDENT -> {
-                db.collection(Constants.ALL_REQUESTS)
                 val q = db.collection(Constants.ALL_REQUESTS)
                     .whereEqualTo("user.uniqueId", user.uniqueId)
                 setQuery(q)

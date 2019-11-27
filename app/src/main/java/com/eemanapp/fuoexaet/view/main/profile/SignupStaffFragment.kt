@@ -152,6 +152,7 @@ class SignupStaffFragment : Fragment(), Injectable {
                     lastName = ln.text.toString(),
                     schoolId = id.text.toString(),
                     email = em.text.toString(),
+                    fcmToken = "fcm_token_not_yet_captured",
                     userCreatedWhen = System.currentTimeMillis(),
                     userCreatedByWho = "${user?.firstName} ${user?.lastName}",
                     phoneNumber = pn.text.toString(),

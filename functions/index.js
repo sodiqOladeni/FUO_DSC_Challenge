@@ -4,8 +4,7 @@ const functions = require('firebase-functions')
 const admin = require('firebase-admin');
 admin.initializeApp();
 
-//Send Notification to all Coordinators whenever a new Request is made
-
+// Send Notification to all Coordinators whenever a new Request is made
 exports.sendNotifications = functions.firestore.document('All_Student_Requests/{id}').onCreate(
   async (snapshot) => {
 

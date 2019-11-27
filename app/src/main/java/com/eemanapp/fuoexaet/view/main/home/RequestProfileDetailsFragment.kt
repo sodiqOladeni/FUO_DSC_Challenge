@@ -7,6 +7,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -20,6 +22,7 @@ import com.eemanapp.fuoexaet.model.User
 import com.eemanapp.fuoexaet.utils.Constants
 import com.eemanapp.fuoexaet.utils.DiffExaetStatus
 import com.eemanapp.fuoexaet.utils.Methods
+import com.eemanapp.fuoexaet.utils.setRequestColor
 import com.eemanapp.fuoexaet.viewModel.RequestsViewModel
 import com.google.android.material.snackbar.Snackbar
 import javax.inject.Inject
@@ -58,9 +61,11 @@ class RequestProfileDetailsFragment : Fragment(), Injectable {
         user = arguments?.getParcelable(Constants.USER)
         mAdapter = RequestsStudentAdapter()
 
+        val animation = AnimationUtils.loadLayoutAnimation(context, R.anim.item_animation_from_bottom)
         binding.recyclerView.apply {
             adapter = mAdapter
             layoutManager = LinearLayoutManager(context)
+            layoutAnimation = animation
         }
 
         requestId?.let {
@@ -155,6 +160,8 @@ class RequestProfileDetailsFragment : Fragment(), Injectable {
             binding.request = it
             request = it
             updateButtonsBasedOnRequest()
+            // Change the text color for the request
+            binding.requestType.setRequestColor(it.requestType)
         })
     }
 
@@ -176,7 +183,7 @@ class RequestProfileDetailsFragment : Fragment(), Injectable {
                     binding.countPendingExaet.text =
                         Methods.getAllRequestPendingCount(userRequests).size.toString()
                     //Update adapter to load previous requests
-                    mAdapter?.requests = userRequests
+                    mAdapter?.submitList(userRequests)
                 }
             })
     }
