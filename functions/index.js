@@ -8,12 +8,39 @@ admin.initializeApp();
 exports.sendNotifications = functions.firestore.document('All_Student_Requests/{id}').onCreate(
   async (snapshot) => {
 
-    //Compose Notification
+    if (snapshot.data().requestType === "Vacation Exeat"){
+    //Compose Notification to HOD
     const payload = {
       data:{
-        title: `${snapshot.data().requestType} from ${snapshot.data().user.schoolId}`,
-        location:`${snapshot.data().user.schoolId} is going to ${snapshot.data().location}`,
-        body: snapshot.data().purpose,
+        title: `New Vacation Request from ${snapshot.data().user.firstName} ${snapshot.data().user.lastName} (${snapshot.data().user.schoolId})`,
+        location:`The Student is going to ${snapshot.data().location}`,
+        purpose: snapshot.data().purpose,
+        icon: snapshot.data().user.imageUri,
+        requestId:snapshot.data().requestUniqueId,
+      }
+    };
+
+    // Get all Coordinator tokens
+    const allHODTokens = await admin.firestore().collection('HOD').get();
+    const tokens = [];
+    allHODTokens.forEach((hodDocs) => {
+      console.log('Doc maybe real', hodDocs.data().fcmToken);
+      tokens.push(hodDocs.data().fcmToken);
+    });
+
+    if (tokens.length > 0) {
+      const response = await admin.messaging().sendToDevice(tokens, payload);
+      console.log('Notifications has been sent Response==>'+response);
+    }
+
+    }else{
+
+    //Compose Notification to Coordinators
+    const payload = {
+      data:{
+        title: `New Request from ${snapshot.data().user.firstName} ${snapshot.data().user.lastName} (${snapshot.data().user.schoolId})`,
+        location:`The Student is going to ${snapshot.data().location}`,
+        purpose: snapshot.data().purpose,
         icon: snapshot.data().user.imageUri,
         requestId:snapshot.data().requestUniqueId,
       }
@@ -29,9 +56,44 @@ exports.sendNotifications = functions.firestore.document('All_Student_Requests/{
 
     if (tokens.length > 0) {
       const response = await admin.messaging().sendToDevice(tokens, payload);
-      console.log('Notifications has been sent');
+      console.log('Notifications has been sent Response ==>'+response);
+    }
     }
   });
+
+
+
+  // Send Notification to Student for Accept or Decline Request whenever a Request is updated
+exports.sendNotificationsToStudent = functions.firestore.document('All_Student_Requests/{id}').onUpdate(
+  async (change) => {
+
+    const newData = change.after.data();
+
+    if (newData.requestStatus === "APPROVED" || newData.requestStatus === "DECLINED"){
+
+  //Compose Notification
+const payload = {
+  data:{
+    title: `Request was ${newData.requestStatus} by ${newData.approveCoordinator}`,
+    location:`You requested going to ${newData.location}`,
+    purpose: newData.purpose,
+    icon: newData.user.imageUri,
+    requestId:newData.requestUniqueId,
+  }
+};
+
+// Get Student tokens
+const token = newData.user.fcmToken;
+
+if (token === "" || token === "fcm_token_not_yet_captured" || token === null) {
+  console.log('Notifications cant be sent, token is empty');
+}else {
+  console.log('Notifications has been sent');
+  const response = await admin.messaging().sendToDevice(token, payload);
+}
+}
+  });
+
 
   // Cleans up the tokens that are no longer valid.
 function cleanupTokens(response, tokens) {

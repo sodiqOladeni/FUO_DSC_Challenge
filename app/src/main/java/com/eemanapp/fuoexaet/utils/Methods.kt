@@ -121,11 +121,13 @@ class Methods {
         // 0 ==> Student
         // 1 ==> Student coordinator
         // 2 ==> Security
+        // 3 ==> HOD
         fun userWhoNameToCode(name: String): Int {
             return when (name) {
                 Constants.STUDENT -> 0
                 Constants.COORDINATOR -> 1
                 Constants.SECURITY -> 2
+                Constants.HOD -> 3
                 else -> 0
             }
         }
@@ -134,11 +136,13 @@ class Methods {
         // Student ==> 0
         // Student coordinator ==> 1
         // Security ==> 2
+        // 3 ==> HOD
         fun userWhoCodeToName(code: Int): String {
             return when (code) {
                 0 -> Constants.STUDENT
                 1 -> Constants.COORDINATOR
                 2 -> Constants.SECURITY
+                3 -> Constants.HOD
                 else -> Constants.STUDENT
             }
         }
@@ -177,7 +181,7 @@ class Methods {
         @SuppressLint("SimpleDateFormat")
         fun formatTime(hours: Int, minutes: Int): String {
             val time = Time(hours, minutes, 0)
-            return SimpleDateFormat("HH:mm a").format(time).toString()
+            return SimpleDateFormat("HH:mm a").format(time)
         }
 
         fun getAllRequestApprovedCount(requests: List<Request>): List<Request> {
@@ -251,7 +255,7 @@ class Methods {
             return requests?.filter {
                 (Date(it.requestTime).month == Date(System.currentTimeMillis()).month)
                         && Date(it.requestTime).year == Date(System.currentTimeMillis()).year
-                        && it.requestType == "Regular Exeat"
+                        && it.requestType == "Regular Exeat" && it.requestStatus == "OUT_SCHOOL"
             }?.size ?: 0
         }
 

@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -78,6 +79,14 @@ class RequestProfileDetailsFragment : Fragment(), Injectable {
 
         binding.btnApproveRequest.setOnClickListener {
             if (Methods.isNetworkAvailable(context!!)) {
+                if (request?.requestType == getString(R.string.vacation_exaet) && request?.hasHODApproved == false){
+                    Toast.makeText(
+                        context,
+                        getString(R.string.hod_is_yet_to_approve_vacation_exeat),
+                        Toast.LENGTH_LONG
+                    ).show()
+                    return@setOnClickListener
+                }
                 if (!updateOnGoing) {
                     request?.approveCoordinator =
                         getString(R.string.name_template, user?.firstName, user?.lastName)
@@ -101,6 +110,15 @@ class RequestProfileDetailsFragment : Fragment(), Injectable {
 
         binding.btnDeclineRequest.setOnClickListener {
             if (Methods.isNetworkAvailable(context!!)) {
+                if (request?.requestType == getString(R.string.vacation_exaet) && request?.hasHODApproved == false){
+                    Toast.makeText(
+                        context,
+                        getString(R.string.hod_is_yet_to_approve_vacation_exeat),
+                        Toast.LENGTH_LONG
+                    ).show()
+                    return@setOnClickListener
+                }
+
                 if (!updateOnGoing) {
                     request?.approveCoordinator =
                         getString(R.string.name_template, user?.firstName, user?.lastName)
@@ -157,6 +175,7 @@ class RequestProfileDetailsFragment : Fragment(), Injectable {
 
     private fun getRequestWithId() {
         viewModel.getRequestById(requestId!!).observe(this, Observer {
+            Log.v("RequestProfile", "Request ==> $it")
             binding.request = it
             request = it
             updateButtonsBasedOnRequest()

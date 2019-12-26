@@ -83,7 +83,6 @@ dependencies {
     //Lifecycle
     implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.1.0'
-    implementation 'com.google.android.material:material:1.0.0'
 
     // architecture room persistence
     def arch_room_version = '2.2.2'
@@ -93,7 +92,7 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version_ktx"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version_ktx"
 
-    //Kotlin coroutines
+    //Kotlin Coroutines
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.0"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.0"
 
@@ -111,12 +110,14 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:3.0.0'
     //Search dialog
     implementation 'com.github.mirrajabi:search-dialog:1.2.1'
+    //Flex Layout
+    implementation 'com.google.android:flexbox:2.0.0'
 
     // Firebase
-    implementation 'com.google.firebase:firebase-messaging:20.0.1'
+    implementation 'com.google.firebase:firebase-messaging:20.1.0'
     implementation 'com.google.firebase:firebase-storage:19.1.0'
-    implementation 'com.google.firebase:firebase-firestore:21.3.0'
-    implementation 'com.google.firebase:firebase-auth:19.1.0'
+    implementation 'com.google.firebase:firebase-firestore:21.3.1'
+    implementation 'com.google.firebase:firebase-auth:19.2.0'
     implementation 'com.google.firebase:firebase-core:17.2.1'
     // Crashlytics
     implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'

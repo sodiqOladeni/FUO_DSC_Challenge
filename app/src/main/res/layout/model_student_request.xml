@@ -174,6 +174,16 @@
                     app:setRequestColor="@{request.requestType}"
                     android:textStyle="normal"
                     tools:text="Regular Exaet" />
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="-6dp"
+                    android:textColor="@color/black"
+                    android:clickable="false"
+                    android:checked="@{request.hasHODApproved}"
+                    app:hideViewOrVisible="@{request.requestType}"
+                    android:text="@string/hod_confirmation"/>
             </LinearLayout>
 
             <LinearLayout
@@ -187,6 +197,7 @@
                     android:id="@+id/request_reason"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="@{request.purpose}"
                     android:ellipsize="end"
                     android:lines="3"
                     android:textColor="#3B414B"

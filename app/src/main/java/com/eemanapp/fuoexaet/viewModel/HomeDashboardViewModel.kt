@@ -3,9 +3,11 @@ package com.eemanapp.fuoexaet.viewModel
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.eemanapp.fuoexaet.data.SharedPref
 import com.eemanapp.fuoexaet.data.local.RequestDao
+import com.eemanapp.fuoexaet.model.Filter
 import com.eemanapp.fuoexaet.model.Request
 import com.eemanapp.fuoexaet.model.UiData
 import com.eemanapp.fuoexaet.model.User
@@ -19,20 +21,35 @@ class HomeDashboardViewModel @Inject constructor(
     private val requestDao: RequestDao, private val pref: SharedPref
 ) : ViewModel(), EventListener<QuerySnapshot> {
 
+    private val TAG = "HomeDashboardViewModel"
     private val db = FirebaseFirestore.getInstance()
     private val viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
     private val _user = MutableLiveData<User>()
     val user: LiveData<User>
         get() = _user
-    val requests = requestDao.getRequests()
     private val newUiData = UiData()
     private var mRequestQuery: Query? = null
     private val snapshots = ArrayList<DocumentSnapshot>()
-    var registration: ListenerRegistration? = null
+    private var registration: ListenerRegistration? = null
+    private val _requests = MutableLiveData<List<Request>>()
+    val requests: LiveData<List<Request>>
+        get() = _requests
 
     init {
         getUser()
+    }
+
+    fun getRequests(filter: Filter?):LiveData<List<Request>> {
+        return if (filter == null) {
+            requestDao.getRequests()
+        } else {
+            requestDao.getRequests(
+                filter.startDate,
+                filter.endingDate,
+                filter.exeatsType,
+                filter.requestsStatus)
+        }
     }
 
     private fun getUser() {
@@ -45,14 +62,19 @@ class HomeDashboardViewModel @Inject constructor(
         return pref.getUser()
     }
 
-    fun updateRequest(request: Request):MutableLiveData<UiData> {
+    fun updateRequest(request: Request): MutableLiveData<UiData> {
         val uiData = MutableLiveData<UiData>()
         val ref = db.collection(Constants.ALL_REQUESTS).document(request.requestUniqueId)
-        ref.update("requestStatus", request.requestStatus,
+        ref.update(
+            "requestStatus", request.requestStatus,
             "declineOrApproveTime", request.declineOrApproveTime,
             "approveCoordinator", request.approveCoordinator,
             "gateDepartureTime", request.gateDepartureTime,
-            "gateArrivalTime", request.gateArrivalTime)
+            "gateArrivalTime", request.gateArrivalTime,
+            "hasHODApproved", request.hasHODApproved,
+            "approveHOD", request.approveHOD,
+            "hodApproveTime", request.hodApproveTime
+        )
 
             .addOnSuccessListener {
                 newUiData.status = true
@@ -149,13 +171,9 @@ class HomeDashboardViewModel @Inject constructor(
                     .whereEqualTo("user.uniqueId", user.uniqueId)
                 setQuery(q)
             }
-            //SECURITY
-            Constants.SECURITY -> {
-                val q = db.collection(Constants.ALL_REQUESTS)
-                setQuery(q)
-            }
-            //COORDINATOR
-            Constants.COORDINATOR -> {
+
+            //SECURITY, COORDINATOR and HOD
+            Constants.COORDINATOR, Constants.SECURITY, Constants.HOD -> {
                 val q = db.collection(Constants.ALL_REQUESTS)
                 setQuery(q)
             }

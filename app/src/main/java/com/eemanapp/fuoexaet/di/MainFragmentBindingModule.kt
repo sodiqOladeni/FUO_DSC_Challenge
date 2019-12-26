@@ -1,5 +1,6 @@
 package com.eemanapp.fuoexaet.di
 
+import com.eemanapp.fuoexaet.view.main.home.FilterDialog
 import com.eemanapp.fuoexaet.view.main.home.HomeDashboardFragment
 import com.eemanapp.fuoexaet.view.main.profile.ProfileFragment
 import com.eemanapp.fuoexaet.view.main.home.NewRequestFragment
@@ -42,4 +43,7 @@ abstract class MainFragmentBindingModule {
 
     @ContributesAndroidInjector
     abstract fun bindPasswordResetFragment():PasswordResetFragment
+
+    @ContributesAndroidInjector
+    abstract fun bindFilterDialog():FilterDialog
 }

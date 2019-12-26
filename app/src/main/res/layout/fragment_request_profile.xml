@@ -612,6 +612,17 @@
                         android:text="@{request.requestType}"
                         android:textStyle="normal"
                         tools:text="Regular Exaet" />
+
+                    <CheckBox
+                        android:id="@+id/hod_confirmation_status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="-6dp"
+                        android:textColor="@color/black"
+                        android:clickable="false"
+                        android:checked="@{request.hasHODApproved}"
+                        app:hideViewOrVisible="@{request.requestType}"
+                        android:text="@string/hod_confirmation"/>
                 </LinearLayout>
 
                 <TextView
@@ -850,6 +861,7 @@
                         android:layout_height="wrap_content"
                         android:background="@color/rejected_request_red"
                         android:orientation="vertical"
+                        android:layout_marginBottom="20dp"
                         android:paddingBottom="16dp">
 
                         <LinearLayout
@@ -936,6 +948,7 @@
                         android:layout_height="wrap_content"
                         android:background="@color/light_grey"
                         android:orientation="vertical"
+                        android:layout_marginBottom="20dp"
                         android:paddingBottom="16dp">
 
                         <LinearLayout

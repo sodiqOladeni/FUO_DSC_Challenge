@@ -2,6 +2,7 @@ package com.eemanapp.fuoexaet.view.prep
 
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -116,6 +117,7 @@ class LoginFragment : Fragment(), Injectable {
     }
 
     private fun processLogin(e: String, p: String) {
+        Log.v("LoginViewModel", "Email: $e Password: $p UserWho: $userWho")
         viewModel.authUser(e, p, userWho).observe(this, Observer {uiData->
 
             Methods.hideProgressBar(

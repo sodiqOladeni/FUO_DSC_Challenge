@@ -85,6 +85,9 @@ class CarouselSliderFragment : Fragment(), Injectable, View.OnClickListener {
                     R.id.user_coordinator -> {
                         b.putString(Constants.USER_WHO, getString(R.string.student_affairs))
                     }
+                    R.id.user_hod -> {
+                        b.putString(Constants.USER_WHO, getString(R.string.hod))
+                    }
                 }
             }
 

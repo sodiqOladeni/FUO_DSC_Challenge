@@ -7,6 +7,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
@@ -19,6 +21,7 @@ import com.eemanapp.fuoexaet.interfaces.TimePickerListener
 import com.eemanapp.fuoexaet.viewModel.RequestsViewModel
 import javax.inject.Inject
 import androidx.appcompat.widget.PopupMenu
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.eemanapp.fuoexaet.model.Request
@@ -40,8 +43,8 @@ class NewRequestFragment : Fragment(), Injectable, DatePickerListener, TimePicke
     private val systemType = System.currentTimeMillis()
     private var isDepartureDate = true
     private var isDepartureTime = true
-    private var departureDate: String? = Methods.formatDate(systemType)
-    private var departureTime: String? = Methods.formatTime(systemType)
+    private var departureDate: String? = null
+    private var departureTime: String? = null
     private var arrivalDate: String? = null
     private var arrivalTime: String? = null
     private var requestType: String? = null
@@ -52,6 +55,9 @@ class NewRequestFragment : Fragment(), Injectable, DatePickerListener, TimePicke
     private val TAG = NewRequestFragment::class.java.simpleName
     private var userRequestThisMonth: Int? = null
     private var ongoingNewRequest = false
+    private var isInvalidDepartureTime = false
+    private var isInvalidArrivalTime = false
+    private var shakeAnimation:Animation? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -69,6 +75,7 @@ class NewRequestFragment : Fragment(), Injectable, DatePickerListener, TimePicke
         dateTimePicker?.listener = this
         timePickerFragment?.listener = this
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(RequestsViewModel::class.java)
+        shakeAnimation = AnimationUtils.loadAnimation(context, R.anim.shake_animation)
 
         user = arguments?.getParcelable(Constants.USER)
         setListeners()
@@ -79,25 +86,22 @@ class NewRequestFragment : Fragment(), Injectable, DatePickerListener, TimePicke
     }
 
     private fun setListeners() {
-        binding.departureDate.text = departureDate
-        binding.departureTime.text = departureTime
-
         binding.labelDepartureDate.setOnClickListener {
             isDepartureDate = true
-            dateTimePicker?.show(fragmentManager!!, "Date_Picker")
+            dateTimePicker?.show(childFragmentManager, "Date_Picker")
         }
         binding.departureDate.setOnClickListener {
             isDepartureDate = true
-            dateTimePicker?.show(fragmentManager!!, "Date_Picker")
+            dateTimePicker?.show(childFragmentManager, "Date_Picker")
         }
 
         binding.labelArrivalDate.setOnClickListener {
             isDepartureDate = false
-            dateTimePicker?.show(fragmentManager!!, "Date_Picker")
+            dateTimePicker?.show(childFragmentManager, "Date_Picker")
         }
         binding.arrivalDate.setOnClickListener {
             isDepartureDate = false
-            dateTimePicker?.show(fragmentManager!!, "Date_Picker")
+            dateTimePicker?.show(childFragmentManager, "Date_Picker")
         }
 
         binding.labelArrivalTime.setOnClickListener {
@@ -153,16 +157,8 @@ class NewRequestFragment : Fragment(), Injectable, DatePickerListener, TimePicke
             isValid = false
             focusView = binding.requestType
         } else {
-            if ((requestType.equals(
-                    getString(R.string.regular_exaet),
-                    true
-                )) and (userRequestThisMonth == 2)
-            ) {
-                Methods.showNotSuccessDialog(
-                    context!!,
-                    getString(R.string.request_error),
-                    getString(R.string.regular_request_cannot_be_made)
-                )
+            if ((requestType.equals(getString(R.string.regular_exaet), true)) and (userRequestThisMonth == 2)) {
+                Methods.showNotSuccessDialog(context!!, getString(R.string.request_error), getString(R.string.regular_request_cannot_be_made))
                 return
             }
         }
@@ -179,6 +175,13 @@ class NewRequestFragment : Fragment(), Injectable, DatePickerListener, TimePicke
             focusView = binding.departureTime
         }
 
+        if (isInvalidDepartureTime) {
+            binding.departureTime.requestFocus()
+            shakeThis(binding.departureTime)
+            Toast.makeText(context, getString(R.string.invalid_departure_time), Toast.LENGTH_LONG).show()
+            return
+        }
+
         if (arrivalDate.isNullOrEmpty()) {
             message += "Arrival Date"
             isValid = false
@@ -189,6 +192,13 @@ class NewRequestFragment : Fragment(), Injectable, DatePickerListener, TimePicke
             message += "Arrival Time"
             isValid = false
             focusView = binding.arrivalTime
+        }
+
+        if (isInvalidArrivalTime) {
+            binding.arrivalTime.requestFocus()
+            shakeThis(binding.arrivalTime)
+            Toast.makeText(context, getString(R.string.invalid_arrival_time), Toast.LENGTH_LONG).show()
+            return
         }
 
         if (location.isNullOrEmpty()) {
@@ -219,6 +229,7 @@ class NewRequestFragment : Fragment(), Injectable, DatePickerListener, TimePicke
             val request = Request(
                 requestType = requestType!!,
                 requestStatus = DiffExaetStatus.PENDING.name,
+                hasHODApproved = false,
                 departureDate = departureDate ?: "",
                 departureTime = departureTime ?: "",
                 arrivalDate = arrivalDate ?: "",
@@ -300,13 +311,59 @@ class NewRequestFragment : Fragment(), Injectable, DatePickerListener, TimePicke
     }
 
     override fun timeSelected(hours: Int, minutes: Int) {
-        val time = Methods.formatTime(hours, minutes)
+        Log.v(TAG, "Number Test ==> 0$minutes")
+        Log.v(TAG, "Original Hour ==>$hours and Minutes $minutes")
+        var amOrPm = "AM"
+        var formattedHour = hours
+        var formattedMinutes = minutes.toString()
+
+        //Format Minute to always have 2 digit number
+        if (minutes < 10){
+            formattedMinutes = "0$minutes"
+        }
+
+        // Format time to have the understandable format // 00:00 AM
+        // Format Hour to 12 hour if greater than 12 hours
+        if (formattedHour > 12){
+            amOrPm = "PM"
+            formattedHour -= 12
+        }
+        var time = getString(R.string.time_template, formattedHour.toString(), formattedMinutes, amOrPm)
+
+        if (formattedHour < 10){
+            time = getString(R.string.time_template, "0$formattedHour", formattedMinutes, amOrPm)
+        }
+
+
+        Log.v(TAG, "New Formatted Time ==>$time")
         if (isDepartureTime) {
+            binding.departureTime.setTextColor(ContextCompat.getColor(requireActivity(), R.color.black))
+            binding.labelDepartureTime.setTextColor(ContextCompat.getColor(requireActivity(), R.color.black))
             binding.departureTime.text = time
             departureTime = time
+            isInvalidDepartureTime = false
+            if (hours >= 16){
+                isInvalidDepartureTime = true
+                binding.departureTime.setTextColor(ContextCompat.getColor(requireActivity(), R.color.rejected_request_red))
+                binding.labelDepartureTime.setTextColor(ContextCompat.getColor(requireActivity(), R.color.rejected_request_red))
+                Toast.makeText(context, getString(R.string.invalid_departure_time), Toast.LENGTH_LONG).show()
+            }
         } else {
-            binding.arrivalTime.text = Methods.formatTime(hours, minutes)
+            binding.arrivalTime.setTextColor(ContextCompat.getColor(requireActivity(), R.color.black))
+            binding.labelArrivalTime.setTextColor(ContextCompat.getColor(requireActivity(), R.color.black))
+            binding.arrivalTime.text = time
             arrivalTime = time
+            isInvalidArrivalTime = false
+            if (hours >= 17 && minutes >= 30){
+                isInvalidArrivalTime = true
+                binding.arrivalTime.setTextColor(ContextCompat.getColor(requireActivity(), R.color.rejected_request_red))
+                binding.labelArrivalTime.setTextColor(ContextCompat.getColor(requireActivity(), R.color.rejected_request_red))
+                Toast.makeText(context, getString(R.string.invalid_arrival_time), Toast.LENGTH_LONG).show()
+            }
         }
+    }
+
+    private fun shakeThis(view: View){
+        view.startAnimation(shakeAnimation)
     }
 }

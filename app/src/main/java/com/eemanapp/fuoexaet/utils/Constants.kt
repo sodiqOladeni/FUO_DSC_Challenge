@@ -8,6 +8,7 @@ class Constants {
         const val STUDENT = "Student"
         const val SECURITY = "Security"
         const val COORDINATOR = "Student_Coordinator"
+        const val HOD = "HOD"
         const val USER = "User"
         const val REQUEST = "Request"
         const val REQUEST_ID = "Request_Id"

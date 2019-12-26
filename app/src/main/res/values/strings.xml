@@ -22,7 +22,7 @@
     <string name="password">Password</string>
     <string name="login">Login</string>
     <string name="forgot_password">Forgot Password?</string>
-    <string name="not_d_placeholder">Not a %s</string>
+    <string name="not_d_placeholder">Not %s</string>
     <string name="dont_have_an_account">Don\'t have an account?</string>
 
     <string name="welcome_fuo_exaet">Welcome to,\nFUO Exeat App</string>
@@ -82,7 +82,7 @@
     <string name="bsc">Bsc</string>
     <string name="make_pass_request">Make a pass request</string>
     <string name="your_request_forwarded">Your request will automatically be forwarded to student coordinators</string>
-    <string name="select_request_type">Select request type</string>
+    <string name="select_exeat_type">Select exeat type</string>
     <string name="departure_time">Departure Time</string>
     <string name="select_date_">Select Date:</string>
     <string name="select_time_">Select Time:</string>
@@ -144,7 +144,7 @@
     <string name="email_uniqueness_staff">Email is unique identity, verification will be required to complete the signup process</string>
     <string name="email_uniqueness_student">Your email is your unique identity, you we be required to verify the email to complete your sign up process</string>
     <string name="creating_as_placeholder">You are creating a %s Account</string>
-    <string name="not_yet_approved">Not yet approved</string>
+    <string name="not_yet_approved">Coordinator yet to approve</string>
     <string name="card_number">Card number</string>
     <string name="card_full_name">Cardholder\'s full name</string>
     <string name="expiry_date">Expiry date</string>
@@ -158,4 +158,27 @@
     <string name="service_charge">Service Charge</string>
     <string name="service_charge_details">This exeat app requires a One-time service \nCharge of <b>N1000</b></string>
     <string name="what_is_cvv">What is CVV?</string>
+    <string name="filter_request_range">You can filter the range of the requests to see more specific result</string>
+    <string name="starting_date">Starting Date</string>
+    <string name="ending_date">Ending Date</string>
+    <string name="select_date_range">Select Date Range</string>
+    <string name="all">All</string>
+    <string name="select_request_status">Select Request Status</string>
+    <string name="pending">Pending</string>
+    <string name="approved">Approved</string>
+    <string name="declined">Declined</string>
+    <string name="out_of_school">Out of School</string>
+    <string name="completed">Completed</string>
+    <string name="filter">Filter</string>
+    <string name="matric_number_not_valid">Matric number not valid</string>
+    <string name="time_template">%s:%s %s</string>
+    <string name="time_template_with_zero">0%s:%s %s</string>
+    <string name="invalid_departure_time">You are not allowed to go out after 04:00 PM</string>
+    <string name="invalid_arrival_time">You must be back in school before 05:30 PM</string>
+    <string name="update_cancelled">Update canceled</string>
+    <string name="hod">HOD</string>
+    <string name="hod_confirmation">HOD Confirmation</string>
+    <string name="approve_vacation_request">Approve Vacation Request</string>
+    <string name="hod_is_yet_to_approve_vacation_exeat">Please wait for HOD to confirm Vacation Request</string>
+    <string name="search_with_student_name">Search student\'s name or location</string>
 </resources>

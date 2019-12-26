@@ -44,6 +44,7 @@ class LoginViewModel @Inject constructor(var pref: SharedPref) : ViewModel() {
                                 uiData.value = newUiData
                             }
                         } else {
+                            FirebaseAuth.getInstance().signOut()
                             newUiData.status = false
                             newUiData.message =
                                 "User does not exist please confirm you are on the right page or signup instead"

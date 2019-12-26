@@ -1,303 +1,293 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.core.widget.NestedScrollView
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fillViewport="true">
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:fitsSystemWindows="true"
+            tools:context=".view.main.home.HomeDashboardFragment">
 
-            <RelativeLayout
+            <LinearLayout
+                android:id="@+id/top_label"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:fitsSystemWindows="true"
-                tools:context=".view.main.home.HomeDashboardFragment">
+                android:layout_height="wrap_content">
 
-                <LinearLayout
-                    android:id="@+id/top_label"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="33dp">
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_height="80dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="1"
+                    app:cardBackgroundColor="@color/total_request_purple"
+                    app:cardCornerRadius="5dp"
+                    app:cardElevation="5dp">
 
-                    <com.google.android.material.card.MaterialCardView
-                        android:layout_width="0dp"
-                        android:layout_height="80dp"
-                        android:layout_marginEnd="12dp"
-                        android:layout_weight="1"
-                        app:cardBackgroundColor="@color/total_request_purple"
-                        app:cardCornerRadius="5dp"
-                        app:cardElevation="10dp">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="5dp">
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="vertical"
-                            android:padding="10dp">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:lines="1"
-                                android:text="@string/exaet_requests"
-                                android:textColor="@color/white" />
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="8dp">
-
-                                <TextView
-                                    android:id="@+id/count_all_exaet"
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center_vertical"
-                                    android:layout_weight="1"
-                                    android:ellipsize="end"
-                                    android:lines="1"
-                                    android:text="0"
-                                    android:textColor="@color/white"
-                                    android:textSize="24sp"
-                                    android:textStyle="bold" />
-
-                                <ImageView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center_vertical"
-                                    app:srcCompat="@drawable/ic_requests_24dp" />
-                            </LinearLayout>
-                        </LinearLayout>
-
-                    </com.google.android.material.card.MaterialCardView>
-
-                    <com.google.android.material.card.MaterialCardView
-                        android:layout_width="0dp"
-                        android:layout_height="80dp"
-                        android:layout_marginStart="12dp"
-                        android:layout_weight="1"
-                        app:cardBackgroundColor="@color/approved_request_lightGreen"
-                        app:cardCornerRadius="5dp"
-                        app:cardElevation="10dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/exaet_requests"
+                            android:textSize="12sp"
+                            android:textColor="@color/white" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="vertical"
-                            android:padding="10dp">
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="center_vertical"
+                            android:layout_marginTop="5dp">
 
                             <TextView
+                                android:id="@+id/count_all_exaet"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_weight="1"
+                                android:gravity="center_vertical"
+                                android:ellipsize="end"
+                                android:lines="1"
+                                android:text="0"
+                                android:textColor="@color/white"
+                                android:textSize="20sp"
+                                android:textStyle="bold" />
+
+                            <ImageView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:lines="1"
-                                android:text="@string/approved_requests"
-                                android:textColor="@color/white" />
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="8dp">
-
-                                <TextView
-                                    android:id="@+id/count_approve_exaet"
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center_vertical"
-                                    android:layout_weight="1"
-                                    android:ellipsize="end"
-                                    android:lines="1"
-                                    android:text="0"
-                                    android:textColor="@color/white"
-                                    android:textSize="24sp"
-                                    android:textStyle="bold" />
-
-                                <ImageView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center_vertical"
-                                    app:srcCompat="@drawable/ic_approved_24dp" />
-                            </LinearLayout>
+                                android:layout_gravity="center_vertical"
+                                app:srcCompat="@drawable/ic_requests_24dp" />
                         </LinearLayout>
+                    </LinearLayout>
 
-                    </com.google.android.material.card.MaterialCardView>
-                </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
 
-                <LinearLayout
-                    android:id="@+id/bottom_label"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/top_label"
-                    android:layout_marginTop="17dp">
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_height="80dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="1"
+                    app:cardBackgroundColor="@color/approved_request_lightGreen"
+                    app:cardCornerRadius="5dp"
+                    app:cardElevation="5dp">
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="5dp">
 
-                    <com.google.android.material.card.MaterialCardView
-                        android:layout_width="0dp"
-                        android:layout_height="80dp"
-                        android:layout_marginEnd="12dp"
-                        android:layout_weight="1"
-                        app:cardBackgroundColor="@color/rejected_request_red"
-                        app:cardCornerRadius="5dp"
-                        app:cardElevation="10dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="12sp"
+                            android:text="@string/approved_requests"
+                            android:textColor="@color/white" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="vertical"
-                            android:padding="10dp">
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="center_vertical"
+                            android:layout_marginTop="5dp">
 
                             <TextView
+                                android:id="@+id/count_approve_exaet"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_weight="1"
+                                android:ellipsize="end"
+                                android:lines="1"
+                                android:text="0"
+                                android:textColor="@color/white"
+                                android:textSize="20sp"
+                                android:textStyle="bold" />
+
+                            <ImageView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:lines="1"
-                                android:text="@string/rejected_requests"
-                                android:textColor="@color/white" />
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="8dp">
-
-                                <TextView
-                                    android:id="@+id/count_rejected_exaet"
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center_vertical"
-                                    android:layout_weight="1"
-                                    android:ellipsize="end"
-                                    android:lines="1"
-                                    android:text="0"
-                                    android:textColor="@color/white"
-                                    android:textSize="24sp"
-                                    android:textStyle="bold" />
-
-                                <ImageView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center_vertical"
-                                    android:tint="@color/white"
-                                    app:srcCompat="@drawable/ic_reject_24px" />
-                            </LinearLayout>
+                                android:layout_gravity="center_vertical"
+                                app:srcCompat="@drawable/ic_approved_24dp" />
                         </LinearLayout>
+                    </LinearLayout>
 
-                    </com.google.android.material.card.MaterialCardView>
+                </com.google.android.material.card.MaterialCardView>
 
-                    <com.google.android.material.card.MaterialCardView
-                        android:layout_width="0dp"
-                        android:layout_height="80dp"
-                        android:layout_marginStart="12dp"
-                        android:layout_weight="1"
-                        app:cardBackgroundColor="@color/pending_request_yellow"
-                        app:cardCornerRadius="5dp"
-                        app:cardElevation="10dp">
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_height="80dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="1"
+                    app:cardBackgroundColor="@color/rejected_request_red"
+                    app:cardCornerRadius="5dp"
+                    app:cardElevation="5dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="5dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/rejected_requests"
+                            android:textSize="12sp"
+                            android:textColor="@color/white" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="vertical"
-                            android:padding="10dp">
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="center_vertical"
+                            android:layout_marginTop="5dp">
 
                             <TextView
+                                android:id="@+id/count_rejected_exaet"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_weight="1"
+                                android:ellipsize="end"
+                                android:lines="1"
+                                android:text="0"
+                                android:textColor="@color/white"
+                                android:textSize="20sp"
+                                android:textStyle="bold" />
+
+                            <ImageView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:lines="1"
-                                android:text="@string/pending_requests"
-                                android:textColor="@color/white" />
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="8dp">
-
-                                <TextView
-                                    android:id="@+id/count_pending_exaet"
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center_vertical"
-                                    android:layout_weight="1"
-                                    android:ellipsize="end"
-                                    android:lines="1"
-                                    android:text="0"
-                                    android:textColor="@color/white"
-                                    android:textSize="24sp"
-                                    android:textStyle="bold" />
-
-                                <ImageView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center_vertical"
-                                    app:srcCompat="@drawable/ic_rejected_24dp" />
-                            </LinearLayout>
+                                android:layout_gravity="center_vertical"
+                                android:tint="@color/white"
+                                app:srcCompat="@drawable/ic_reject_24px" />
                         </LinearLayout>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
 
-                    </com.google.android.material.card.MaterialCardView>
-                </LinearLayout>
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_height="80dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_weight="1"
+                    app:cardBackgroundColor="@color/pending_request_yellow"
+                    app:cardCornerRadius="5dp"
+                    app:cardElevation="10dp">
 
-                <Button
-                    android:id="@+id/btn_filter"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_below="@id/bottom_label"
-                    android:layout_marginStart="0dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginEnd="0dp"
-                    android:drawableEnd="@drawable/ic_filter_list_24dp"
-                    android:text="@string/filter_requests"
-                    android:textAlignment="viewStart"
-                    android:textAllCaps="false"
-                    android:textColor="@color/deep_hash"
-                    app:cornerRadius="5dp" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="5dp">
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerView"
-                    android:layout_width="match_parent"
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:textSize="12sp"
+                            android:text="@string/pending_requests"
+                            android:textColor="@color/white" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="center_vertical"
+                            android:layout_marginTop="5dp">
+
+                            <TextView
+                                android:id="@+id/count_pending_exaet"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_weight="1"
+                                android:ellipsize="end"
+                                android:lines="1"
+                                android:text="0"
+                                android:textColor="@color/white"
+                                android:textSize="24sp"
+                                android:textStyle="bold" />
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                app:srcCompat="@drawable/ic_rejected_24dp" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_filter"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_below="@id/top_label"
+                android:layout_marginTop="10dp"
+                android:drawableEnd="@drawable/ic_filter_list_24dp"
+                android:text="@string/filter_requests"
+                android:textAlignment="viewStart"
+                android:textAllCaps="false"
+                android:textColor="@color/deep_hash"
+                app:cornerRadius="5dp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/btn_filter"
+                android:layout_marginTop="5dp"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:id="@+id/empty_data"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <ImageView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/btn_filter"
-                    android:visibility="gone"
-                    android:layout_marginTop="5dp"/>
+                    app:srcCompat="@drawable/ic_undraw_no_data" />
 
-                <LinearLayout
-                    android:id="@+id/empty_data"
-                    android:layout_width="match_parent"
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="40dp"
-                    android:visibility="gone"
-                    android:orientation="vertical"
-                    android:gravity="center"
-                    android:layout_below="@id/btn_filter">
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_horizontal"
+                    android:text="@string/no_request_has_been_made"
+                    android:textColor="@color/fair_black"
+                    android:textSize="16sp" />
+            </LinearLayout>
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:srcCompat = "@drawable/ic_undraw_no_data"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="16sp"
-                        android:textColor="@color/fair_black"
-                        android:layout_gravity="center_horizontal"
-                        android:gravity="center_horizontal"
-                        android:layout_marginTop="10dp"
-                        android:text="@string/no_request_has_been_made"/>
-                </LinearLayout>
-
-                <ProgressBar
-                    android:id="@+id/progressBar"
-                    android:layout_width="42dp"
-                    android:layout_height="42dp"
-                    android:layout_below="@id/btn_filter"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="40dp"
-                    android:indeterminate="true"
-                    android:indeterminateBehavior="repeat"
-                    android:indeterminateOnly="true" />
-            </RelativeLayout>
-        </androidx.core.widget.NestedScrollView>
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:layout_centerInParent="true"
+                android:indeterminate="true"
+                android:indeterminateBehavior="repeat"
+                android:indeterminateOnly="true" />
+        </RelativeLayout>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_newRequest"
@@ -307,6 +297,6 @@
             android:layout_margin="16dp"
             app:hoveredFocusedTranslationZ="0dp"
             app:pressedTranslationZ="0dp"
-            app:srcCompat="@drawable/ic_request_fab_24dp"/>
+            app:srcCompat="@drawable/ic_request_fab_24dp" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

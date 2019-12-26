@@ -30,6 +30,7 @@ import coil.api.load
 import coil.transform.CircleCropTransformation
 import com.eemanapp.fuoexaet.R
 import com.eemanapp.fuoexaet.databinding.SignupStudentBinding
+import com.eemanapp.fuoexaet.utils.isValidMatriculationNumber
 import com.google.android.material.snackbar.Snackbar
 import javax.inject.Inject
 
@@ -143,6 +144,12 @@ class SignupStudentFragment : Fragment(), Injectable, DatePickerListener {
             focusView = matric
         }
 
+        if (!matric.text.toString().isValidMatriculationNumber()) {
+            matric.error = getString(R.string.matric_number_not_valid)
+            isValid = false
+            focusView = matric
+        }
+
         if (!Methods.isValidEmail(em.text.toString())) {
             em.error = getString(R.string.invalid_email)
             isValid = false
@@ -222,7 +229,7 @@ class SignupStudentFragment : Fragment(), Injectable, DatePickerListener {
                     hasUserPay = true,
                     firstName = fn.text.toString(),
                     lastName = ln.text.toString(),
-                    schoolId = matric.text.toString(),
+                    schoolId = matric.text.toString().toUpperCase(),
                     email = em.text.toString(),
                     userCreatedWhen = System.currentTimeMillis(),
                     userCreatedByWho = "Self",

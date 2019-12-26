@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import android.widget.CompoundButton
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -24,6 +25,7 @@ import com.eemanapp.fuoexaet.model.User
 import com.eemanapp.fuoexaet.utils.Constants
 import com.eemanapp.fuoexaet.utils.DiffExaetStatus
 import com.eemanapp.fuoexaet.utils.Methods
+import com.eemanapp.fuoexaet.view.main.home.RequestsHODAdapter
 import com.eemanapp.fuoexaet.view.main.home.RequestsSecurityAdapter
 import com.eemanapp.fuoexaet.view.main.home.RequestsStaffAdapter
 import com.eemanapp.fuoexaet.view.main.home.RequestsStudentAdapter
@@ -44,6 +46,7 @@ class PlaceholderFragment : Fragment(), Injectable, RequestClickListener {
     private lateinit var binding: FragmentRequestsContentBinding
     private var user: User? = null
     private var sectionNumber: Int? = null
+    private var requestsHODAdapter: RequestsHODAdapter? = null
     private var requestsStudentAdapter: RequestsStudentAdapter? = null
     private var requestsStaffAdapter: RequestsStaffAdapter? = null
     private var requestsSecurityAdapter: RequestsSecurityAdapter? = null
@@ -76,6 +79,7 @@ class PlaceholderFragment : Fragment(), Injectable, RequestClickListener {
 
         requestsStudentAdapter = RequestsStudentAdapter()
         requestsStaffAdapter = RequestsStaffAdapter(this)
+        requestsHODAdapter = RequestsHODAdapter(this)
         requestsSecurityAdapter = RequestsSecurityAdapter(this)
 
         getUser()
@@ -94,7 +98,8 @@ class PlaceholderFragment : Fragment(), Injectable, RequestClickListener {
 
         when (Methods.userWhoCodeToName(user!!.userWho)) {
             Constants.STUDENT -> {
-                val animation = AnimationUtils.loadLayoutAnimation(context, R.anim.item_animation_from_bottom)
+                val animation =
+                    AnimationUtils.loadLayoutAnimation(context, R.anim.item_animation_from_bottom)
                 binding.recyclerView.apply {
                     adapter = requestsStudentAdapter
                     layoutManager = LinearLayoutManager(context)
@@ -113,20 +118,33 @@ class PlaceholderFragment : Fragment(), Injectable, RequestClickListener {
                                 requestsStudentAdapter?.submitList(it)
                             }
                             2 -> {
-                                requestsStudentAdapter?.submitList(Methods.getAllRequestPendingCount(it))
+                                requestsStudentAdapter?.submitList(
+                                    Methods.getAllRequestPendingCount(
+                                        it
+                                    )
+                                )
                             }
                             3 -> {
-                                requestsStudentAdapter?.submitList(Methods.getAllRequestApprovedCount(it))
+                                requestsStudentAdapter?.submitList(
+                                    Methods.getAllRequestApprovedCount(
+                                        it
+                                    )
+                                )
                             }
                             4 -> {
-                                requestsStudentAdapter?.submitList(Methods.getAllRequestDeclinedCount(it))
+                                requestsStudentAdapter?.submitList(
+                                    Methods.getAllRequestDeclinedCount(
+                                        it
+                                    )
+                                )
                             }
                         }
                     }
                 })
             }
             Constants.COORDINATOR -> {
-                val animation = AnimationUtils.loadLayoutAnimation(context, R.anim.item_animation_from_bottom)
+                val animation =
+                    AnimationUtils.loadLayoutAnimation(context, R.anim.item_animation_from_bottom)
                 binding.recyclerView.apply {
                     adapter = requestsStaffAdapter
                     layoutManager = LinearLayoutManager(context)
@@ -146,20 +164,33 @@ class PlaceholderFragment : Fragment(), Injectable, RequestClickListener {
                                 requestsStaffAdapter?.submitList(it)
                             }
                             2 -> {
-                                requestsStaffAdapter?.submitList(Methods.getAllRequestPendingCount(it))
+                                requestsStaffAdapter?.submitList(
+                                    Methods.getAllRequestPendingCount(
+                                        it
+                                    )
+                                )
                             }
                             3 -> {
-                                requestsStaffAdapter?.submitList(Methods.getAllRequestApprovedCount(it))
+                                requestsStaffAdapter?.submitList(
+                                    Methods.getAllRequestApprovedCount(
+                                        it
+                                    )
+                                )
                             }
                             4 -> {
-                                requestsStaffAdapter?.submitList(Methods.getAllRequestDeclinedCount(it))
+                                requestsStaffAdapter?.submitList(
+                                    Methods.getAllRequestDeclinedCount(
+                                        it
+                                    )
+                                )
                             }
                         }
                     }
                 })
             }
             Constants.SECURITY -> {
-                val animation = AnimationUtils.loadLayoutAnimation(context, R.anim.item_animation_from_bottom)
+                val animation =
+                    AnimationUtils.loadLayoutAnimation(context, R.anim.item_animation_from_bottom)
                 binding.recyclerView.apply {
                     adapter = requestsSecurityAdapter
                     layoutManager = LinearLayoutManager(context)
@@ -179,13 +210,73 @@ class PlaceholderFragment : Fragment(), Injectable, RequestClickListener {
                                 requestsSecurityAdapter?.submitList(it)
                             }
                             2 -> {
-                                requestsSecurityAdapter?.submitList(Methods.getAllRequestPendingCount(it))
+                                requestsSecurityAdapter?.submitList(
+                                    Methods.getAllRequestPendingCount(
+                                        it
+                                    )
+                                )
                             }
                             3 -> {
-                                requestsSecurityAdapter?.submitList(Methods.getAllRequestApprovedCount(it))
+                                requestsSecurityAdapter?.submitList(
+                                    Methods.getAllRequestApprovedCount(
+                                        it
+                                    )
+                                )
                             }
                             4 -> {
-                                requestsSecurityAdapter?.submitList(Methods.getAllRequestDeclinedCount(it))
+                                requestsSecurityAdapter?.submitList(
+                                    Methods.getAllRequestDeclinedCount(
+                                        it
+                                    )
+                                )
+                            }
+                        }
+                    }
+                })
+            }
+
+            Constants.HOD -> {
+                //Hide ability to send request if not student by hiding the fab
+                val animation =
+                    AnimationUtils.loadLayoutAnimation(context, R.anim.item_animation_from_bottom)
+                binding.recyclerView.apply {
+                    adapter = requestsHODAdapter
+                    layoutManager = LinearLayoutManager(context)
+                    layoutAnimation = animation
+                }
+
+                viewModel.requests.observe(this, Observer {
+                    binding.progressBar.visibility = View.GONE
+                    if (it.isNullOrEmpty()) {
+                        binding.recyclerView.visibility = View.GONE
+                        binding.emptyData.visibility = View.VISIBLE
+                    } else {
+                        binding.recyclerView.visibility = View.VISIBLE
+                        binding.emptyData.visibility = View.GONE
+                        when (sectionNumber) {
+                            1 -> {
+                                requestsHODAdapter?.submitList(it)
+                            }
+                            2 -> {
+                                requestsHODAdapter?.submitList(
+                                    Methods.getAllRequestPendingCount(
+                                        it
+                                    )
+                                )
+                            }
+                            3 -> {
+                                requestsHODAdapter?.submitList(
+                                    Methods.getAllRequestApprovedCount(
+                                        it
+                                    )
+                                )
+                            }
+                            4 -> {
+                                requestsHODAdapter?.submitList(
+                                    Methods.getAllRequestDeclinedCount(
+                                        it
+                                    )
+                                )
                             }
                         }
                     }
@@ -225,6 +316,15 @@ class PlaceholderFragment : Fragment(), Injectable, RequestClickListener {
 
     override fun onRequestDecline(request: Request) {
         if (Methods.isNetworkAvailable(context!!)) {
+            if (request.requestType == getString(R.string.vacation_exaet) && request.hasHODApproved == false) {
+                Toast.makeText(
+                    context,
+                    getString(R.string.hod_is_yet_to_approve_vacation_exeat),
+                    Toast.LENGTH_LONG
+                ).show()
+                return
+            }
+
             if (!isUpdateInProgress) {
                 request.requestStatus = DiffExaetStatus.DECLINED.name
                 request.approveCoordinator =
@@ -249,6 +349,15 @@ class PlaceholderFragment : Fragment(), Injectable, RequestClickListener {
 
     override fun onRequestApprove(request: Request) {
         if (Methods.isNetworkAvailable(context!!)) {
+            if (request.requestType == getString(R.string.vacation_exaet) && request.hasHODApproved == false) {
+                Toast.makeText(
+                    context,
+                    getString(R.string.hod_is_yet_to_approve_vacation_exeat),
+                    Toast.LENGTH_LONG
+                ).show()
+                return
+            }
+
             if (!isUpdateInProgress) {
                 request.requestStatus = DiffExaetStatus.APPROVED.name
                 request.approveCoordinator =
@@ -263,6 +372,29 @@ class PlaceholderFragment : Fragment(), Injectable, RequestClickListener {
                 ).show()
             }
         } else {
+            Snackbar.make(
+                binding.root,
+                getString(R.string.no_internet_connection),
+                Snackbar.LENGTH_LONG
+            ).show()
+        }
+    }
+
+    override fun onVacationApproved(request: Request, checkBoxView: CompoundButton, isChecked:Boolean) {
+        if (Methods.isNetworkAvailable(context!!)) {
+            if (!isUpdateInProgress) {
+                request.hasHODApproved = true
+                request.approveHOD =
+                    getString(R.string.name_template, user?.firstName, user?.lastName)
+                request.hodApproveTime = System.currentTimeMillis()
+                updateRequest(request)
+            } else {
+                checkBoxView.isChecked = false
+                Toast.makeText(context,
+                    getString(R.string.please_wait_request_in_progress), Toast.LENGTH_LONG).show()
+            }
+        } else {
+            checkBoxView.isChecked = false
             Snackbar.make(
                 binding.root,
                 getString(R.string.no_internet_connection),

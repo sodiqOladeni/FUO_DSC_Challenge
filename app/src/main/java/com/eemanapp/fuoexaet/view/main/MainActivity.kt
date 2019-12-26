@@ -51,19 +51,11 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolBar)
 
-        val navView: BottomNavigationView = findViewById(R.id.bottomNavView)
         navController = findNavController(R.id.nav_host_fragment)
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
-        appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.homeDashboardFragment, R.id.requestsFragment,
-                R.id.profileFragment, R.id.settingsFragment
-            )
-        )
 
-        setupActionBarWithNavController(navController, appBarConfiguration)
-        navView.setupWithNavController(navController)
+        setupActionBarWithNavController(navController)
 
         //_________________________________________________________//
         appUpdateManager = AppUpdateManagerFactory.create(this)
@@ -77,7 +69,7 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
             ) {
                 // Request the update.
                 appUpdateManager.startUpdateFlowForResult(
-                    // Pass the intent that is returned by 'getAppUpdateInfo()'.
+                    // Pass the intent that is returned by 'getAppUpdateInfo()'
                     appUpdateInfo,
                     // Or 'AppUpdateType.FLEXIBLE' for flexible updates.
                     AppUpdateType.IMMEDIATE,
@@ -92,14 +84,12 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
         FirebaseInstanceId.getInstance().instanceId
             .addOnCompleteListener(OnCompleteListener { task ->
                 if (!task.isSuccessful) {
-                    Log.w("MainActivity", "getInstanceId failed", task.exception)
                     return@OnCompleteListener
                 }
 
                 // Get new Instance ID token
                 val token = task.result?.token
                 // Log and toast
-                Log.v("MainActivity", "getInstanceId" + token)
                 updateToken(token.toString())
             })
     }
@@ -138,7 +128,7 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
             if (resultCode != RESULT_OK) {
                 // If the update is cancelled or fails,
                 // you can request to start the update again.
-                Snackbar.make(root, "Update canceled", Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(root, getString(R.string.update_cancelled), Snackbar.LENGTH_SHORT).show()
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data)
