@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15702" systemVersion="19D76" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Request" representedClassName="Request" syncable="YES" codeGenerationType="class">
+        <attribute name="approveCoordinator" optional="YES" attributeType="String"/>
+        <attribute name="approveHOD" optional="YES" attributeType="String"/>
+        <attribute name="arrivalDate" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="arrivalTime" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="declineOrApproveTime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="departureDate" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="departureTime" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="gateArrivalTime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="gateDepartureTime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="hasHODApproved" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="hodApproveTime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="location" attributeType="String"/>
+        <attribute name="purpose" optional="YES" attributeType="String"/>
+        <attribute name="requestStatus" optional="YES" attributeType="String"/>
+        <attribute name="requestTime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="requestType" attributeType="String"/>
+    </entity>
+    <entity name="User" representedClassName="User" syncable="YES" codeGenerationType="class">
+        <attribute name="college" optional="YES" attributeType="String"/>
+        <attribute name="dept" optional="YES" attributeType="String"/>
+        <attribute name="email" attributeType="String"/>
+        <attribute name="entryYear" optional="YES" attributeType="String"/>
+        <attribute name="fcmToken" optional="YES" attributeType="String"/>
+        <attribute name="firstName" attributeType="String"/>
+        <attribute name="hallOfResidence" optional="YES" attributeType="String"/>
+        <attribute name="hallRoomNumber" optional="YES" attributeType="String"/>
+        <attribute name="hasUserPay" optional="YES" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
+        <attribute name="imageUri" attributeType="String"/>
+        <attribute name="lastName" attributeType="String"/>
+        <attribute name="password" attributeType="String"/>
+        <attribute name="phoneNumber" attributeType="String"/>
+        <attribute name="programme" optional="YES" attributeType="String" defaultValueString="Bsc"/>
+        <attribute name="schoolId" attributeType="String"/>
+        <attribute name="uniqueId" optional="YES" attributeType="String"/>
+        <attribute name="userCreatedByWho" optional="YES" attributeType="String"/>
+        <attribute name="userCreatedWhen" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="userPaymentRef" optional="YES" attributeType="String"/>
+        <attribute name="userWho" attributeType="Integer 32" defaultValueString="-1" usesScalarValueType="YES"/>
+    </entity>
+    <elements>
+        <element name="Request" positionX="-63" positionY="-18" width="128" height="283"/>
+        <element name="User" positionX="-54" positionY="108" width="128" height="343"/>
+    </elements>
+</model>
