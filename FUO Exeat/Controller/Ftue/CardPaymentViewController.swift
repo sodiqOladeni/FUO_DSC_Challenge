@@ -10,6 +10,14 @@ import UIKit
 
 class CardPaymentViewController: UIViewController {
 
+    var userType:Int!
+    var exeatUser:ExeatUser!
+    @IBOutlet weak var cardNumberTextField: UITextField!
+    @IBOutlet weak var cardCvvTextField: UITextField!
+    @IBOutlet weak var cardMMTextField: UITextField!
+    @IBOutlet weak var cardYYTextField: UITextField!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -26,5 +34,8 @@ class CardPaymentViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
+    @IBAction func buttonMakePayment(_ sender: UIButton) {
+        
+    }
+    
 }

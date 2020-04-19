@@ -7,3 +7,7 @@
 //
 
 import Foundation
+
+struct  ExeatUser: Codable {
+    var hasUserPay:Bool
+}

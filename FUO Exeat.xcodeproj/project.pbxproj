@@ -3,27 +3,57 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0409B55523DA44A00099BCCA /* StudentRequestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0409B55323DA44A00099BCCA /* StudentRequestCell.swift */; };
 		04218DBD2355E7EC00008226 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04218DBC2355E7EC00008226 /* AppDelegate.swift */; };
-		04218DBF2355E7EC00008226 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04218DBE2355E7EC00008226 /* ViewController.swift */; };
+		04218DBF2355E7EC00008226 /* SliderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04218DBE2355E7EC00008226 /* SliderViewController.swift */; };
 		04218DC22355E7EC00008226 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04218DC02355E7EC00008226 /* Main.storyboard */; };
 		04218DC52355E7EC00008226 /* FUO_Exeat.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 04218DC32355E7EC00008226 /* FUO_Exeat.xcdatamodeld */; };
-		04218DC72355E7EE00008226 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04218DC62355E7EE00008226 /* Assets.xcassets */; };
 		04218DCA2355E7EE00008226 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04218DC82355E7EE00008226 /* LaunchScreen.storyboard */; };
+		0423BF702449CDD400184CC4 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0423BF6F2449CDD400184CC4 /* DataController.swift */; };
+		0423BF722449CF2700184CC4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0423BF712449CF2700184CC4 /* SceneDelegate.swift */; };
+		0423BF742449D23900184CC4 /* CardPaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0423BF732449D23900184CC4 /* CardPaymentViewController.swift */; };
+		042FE4A2238390EA00BC7657 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 042FE4A1238390EA00BC7657 /* Assets.xcassets */; };
+		04464A93244B65C100B504EF /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04464A92244B65C100B504EF /* Constants.swift */; };
+		04464A95244B6DB800B504EF /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04464A94244B6DB800B504EF /* UIViewController+Extension.swift */; };
+		04464A97244BB47900B504EF /* FirebaseClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04464A96244BB47900B504EF /* FirebaseClient.swift */; };
+		04464A99244BBBC200B504EF /* ExeatUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04464A98244BBBC200B504EF /* ExeatUser.swift */; };
+		04464A9B244C307200B504EF /* Utils+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04464A9A244C307200B504EF /* Utils+Extensions.swift */; };
+		04464A9D244C32B800B504EF /* UtilFuction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04464A9C244C32B800B504EF /* UtilFuction.swift */; };
+		045F21C52356EAFF007F002D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045F21C42356EAFF007F002D /* LoginViewController.swift */; };
+		045F21C72356EC5C007F002D /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045F21C62356EC5C007F002D /* SignupViewController.swift */; };
+		045F21C92356ECF9007F002D /* ForgetPasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045F21C82356ECF9007F002D /* ForgetPasswordVC.swift */; };
+		1C70A349D430A94BA1D9D38D /* Pods_FUO_Exeat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60F55C58B00621374ECBF944 /* Pods_FUO_Exeat.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0409B55323DA44A00099BCCA /* StudentRequestCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentRequestCell.swift; sourceTree = "<group>"; };
 		04218DB92355E7EC00008226 /* FUO Exeat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "FUO Exeat.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		04218DBC2355E7EC00008226 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		04218DBE2355E7EC00008226 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		04218DBE2355E7EC00008226 /* SliderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderViewController.swift; sourceTree = "<group>"; };
 		04218DC12355E7EC00008226 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		04218DC42355E7EC00008226 /* FUO_Exeat.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FUO_Exeat.xcdatamodel; sourceTree = "<group>"; };
-		04218DC62355E7EE00008226 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		04218DC92355E7EE00008226 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		04218DCB2355E7EE00008226 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0423BF6F2449CDD400184CC4 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
+		0423BF712449CF2700184CC4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		0423BF732449D23900184CC4 /* CardPaymentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardPaymentViewController.swift; sourceTree = "<group>"; };
+		042FE4A1238390EA00BC7657 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		04464A92244B65C100B504EF /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		04464A94244B6DB800B504EF /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
+		04464A96244BB47900B504EF /* FirebaseClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseClient.swift; sourceTree = "<group>"; };
+		04464A98244BBBC200B504EF /* ExeatUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExeatUser.swift; sourceTree = "<group>"; };
+		04464A9A244C307200B504EF /* Utils+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Utils+Extensions.swift"; sourceTree = "<group>"; };
+		04464A9C244C32B800B504EF /* UtilFuction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilFuction.swift; sourceTree = "<group>"; };
+		045F21C42356EAFF007F002D /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		045F21C62356EC5C007F002D /* SignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
+		045F21C82356ECF9007F002D /* ForgetPasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgetPasswordVC.swift; sourceTree = "<group>"; };
+		2917545F5BACFDD3FB73D04C /* Pods-FUO Exeat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FUO Exeat.debug.xcconfig"; path = "Target Support Files/Pods-FUO Exeat/Pods-FUO Exeat.debug.xcconfig"; sourceTree = "<group>"; };
+		60F55C58B00621374ECBF944 /* Pods_FUO_Exeat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FUO_Exeat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E1F0760DB118FCBCFA7660EF /* Pods-FUO Exeat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FUO Exeat.release.xcconfig"; path = "Target Support Files/Pods-FUO Exeat/Pods-FUO Exeat.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +61,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1C70A349D430A94BA1D9D38D /* Pods_FUO_Exeat.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -40,8 +71,11 @@
 		04218DB02355E7EC00008226 = {
 			isa = PBXGroup;
 			children = (
+				042FE4A1238390EA00BC7657 /* Assets.xcassets */,
 				04218DBB2355E7EC00008226 /* FUO Exeat */,
 				04218DBA2355E7EC00008226 /* Products */,
+				E8763084AFEFA8846C82BDE8 /* Pods */,
+				ED007010C2A4054C91CF668B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -56,15 +90,100 @@
 		04218DBB2355E7EC00008226 /* FUO Exeat */ = {
 			isa = PBXGroup;
 			children = (
+				04464A91244B65AC00B504EF /* Utils */,
+				0423BF752449D79D00184CC4 /* TableCells */,
+				045F21C32356EA41007F002D /* Models */,
+				045F21C22356EA34007F002D /* Views */,
+				045F21C12356EA22007F002D /* Controller */,
 				04218DBC2355E7EC00008226 /* AppDelegate.swift */,
-				04218DBE2355E7EC00008226 /* ViewController.swift */,
-				04218DC02355E7EC00008226 /* Main.storyboard */,
-				04218DC62355E7EE00008226 /* Assets.xcassets */,
-				04218DC82355E7EE00008226 /* LaunchScreen.storyboard */,
+				0423BF712449CF2700184CC4 /* SceneDelegate.swift */,
 				04218DCB2355E7EE00008226 /* Info.plist */,
-				04218DC32355E7EC00008226 /* FUO_Exeat.xcdatamodeld */,
 			);
 			path = "FUO Exeat";
+			sourceTree = "<group>";
+		};
+		0423BF752449D79D00184CC4 /* TableCells */ = {
+			isa = PBXGroup;
+			children = (
+				0409B55323DA44A00099BCCA /* StudentRequestCell.swift */,
+			);
+			path = TableCells;
+			sourceTree = "<group>";
+		};
+		0423BF762449D8A700184CC4 /* Ftue */ = {
+			isa = PBXGroup;
+			children = (
+				045F21C62356EC5C007F002D /* SignupViewController.swift */,
+				04218DBE2355E7EC00008226 /* SliderViewController.swift */,
+				045F21C42356EAFF007F002D /* LoginViewController.swift */,
+				045F21C82356ECF9007F002D /* ForgetPasswordVC.swift */,
+				0423BF732449D23900184CC4 /* CardPaymentViewController.swift */,
+			);
+			path = Ftue;
+			sourceTree = "<group>";
+		};
+		0423BF772449D8B600184CC4 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		04464A91244B65AC00B504EF /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				04464A92244B65C100B504EF /* Constants.swift */,
+				04464A9A244C307200B504EF /* Utils+Extensions.swift */,
+				04464A9C244C32B800B504EF /* UtilFuction.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		045F21C12356EA22007F002D /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				0423BF772449D8B600184CC4 /* Main */,
+				0423BF762449D8A700184CC4 /* Ftue */,
+				04464A94244B6DB800B504EF /* UIViewController+Extension.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		045F21C22356EA34007F002D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				04218DC02355E7EC00008226 /* Main.storyboard */,
+				04218DC82355E7EE00008226 /* LaunchScreen.storyboard */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		045F21C32356EA41007F002D /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				04218DC32355E7EC00008226 /* FUO_Exeat.xcdatamodeld */,
+				0423BF6F2449CDD400184CC4 /* DataController.swift */,
+				04464A96244BB47900B504EF /* FirebaseClient.swift */,
+				04464A98244BBBC200B504EF /* ExeatUser.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		E8763084AFEFA8846C82BDE8 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				2917545F5BACFDD3FB73D04C /* Pods-FUO Exeat.debug.xcconfig */,
+				E1F0760DB118FCBCFA7660EF /* Pods-FUO Exeat.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		ED007010C2A4054C91CF668B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				60F55C58B00621374ECBF944 /* Pods_FUO_Exeat.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -74,9 +193,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 04218DCE2355E7EE00008226 /* Build configuration list for PBXNativeTarget "FUO Exeat" */;
 			buildPhases = (
+				A0FF25D736DD32A8AFE5E37F /* [CP] Check Pods Manifest.lock */,
 				04218DB52355E7EC00008226 /* Sources */,
 				04218DB62355E7EC00008226 /* Frameworks */,
 				04218DB72355E7EC00008226 /* Resources */,
+				1FA35138F849734F46F3BAB1 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -126,21 +247,76 @@
 			buildActionMask = 2147483647;
 			files = (
 				04218DCA2355E7EE00008226 /* LaunchScreen.storyboard in Resources */,
-				04218DC72355E7EE00008226 /* Assets.xcassets in Resources */,
+				042FE4A2238390EA00BC7657 /* Assets.xcassets in Resources */,
 				04218DC22355E7EC00008226 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		1FA35138F849734F46F3BAB1 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FUO Exeat/Pods-FUO Exeat-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FUO Exeat/Pods-FUO Exeat-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FUO Exeat/Pods-FUO Exeat-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A0FF25D736DD32A8AFE5E37F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-FUO Exeat-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		04218DB52355E7EC00008226 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				04218DBF2355E7EC00008226 /* ViewController.swift in Sources */,
+				04464A95244B6DB800B504EF /* UIViewController+Extension.swift in Sources */,
+				04218DBF2355E7EC00008226 /* SliderViewController.swift in Sources */,
+				04464A9D244C32B800B504EF /* UtilFuction.swift in Sources */,
+				04464A93244B65C100B504EF /* Constants.swift in Sources */,
 				04218DBD2355E7EC00008226 /* AppDelegate.swift in Sources */,
+				04464A99244BBBC200B504EF /* ExeatUser.swift in Sources */,
+				0423BF722449CF2700184CC4 /* SceneDelegate.swift in Sources */,
+				045F21C72356EC5C007F002D /* SignupViewController.swift in Sources */,
 				04218DC52355E7EC00008226 /* FUO_Exeat.xcdatamodeld in Sources */,
+				045F21C92356ECF9007F002D /* ForgetPasswordVC.swift in Sources */,
+				0423BF702449CDD400184CC4 /* DataController.swift in Sources */,
+				0423BF742449D23900184CC4 /* CardPaymentViewController.swift in Sources */,
+				04464A97244BB47900B504EF /* FirebaseClient.swift in Sources */,
+				04464A9B244C307200B504EF /* Utils+Extensions.swift in Sources */,
+				0409B55523DA44A00099BCCA /* StudentRequestCell.swift in Sources */,
+				045F21C52356EAFF007F002D /* LoginViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -217,7 +393,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -272,7 +448,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -284,15 +460,18 @@
 		};
 		04218DCF2355E7EE00008226 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2917545F5BACFDD3FB73D04C /* Pods-FUO Exeat.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = F87A9MLJ2X;
 				INFOPLIST_FILE = "FUO Exeat/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "ng.notzero.FUO-Exeat";
+				PRODUCT_BUNDLE_IDENTIFIER = ng.notzero.fuoexeat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -301,15 +480,18 @@
 		};
 		04218DD02355E7EE00008226 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E1F0760DB118FCBCFA7660EF /* Pods-FUO Exeat.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = F87A9MLJ2X;
 				INFOPLIST_FILE = "FUO Exeat/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "ng.notzero.FUO-Exeat";
+				PRODUCT_BUNDLE_IDENTIFIER = ng.notzero.fuoexeat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
