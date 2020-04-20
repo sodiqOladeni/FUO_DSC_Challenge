@@ -22,7 +22,27 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:defaultNavHost="true"
+        android:layout_above="@id/view"
         android:layout_below="@id/toolBar"
         app:navGraph="@navigation/main_navigation_graph" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height=".5dp"
+        android:layout_above="@id/bottomNavView"
+        android:background="@color/fountain_blue"/>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavView"
+        android:theme="@style/AppTheme.GreenForPrimary"
+        app:layout_insetEdge="bottom"
+        android:background="?android:attr/windowBackground"
+        app:labelVisibilityMode="labeled"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_alignParentBottom="true"
+        app:menu="@menu/menu_bottom_navigation" />
 
 </RelativeLayout>

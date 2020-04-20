@@ -68,7 +68,7 @@ class ForgetPasswordFragment : Fragment(), Injectable {
         var isValid = true
         var focusView: View? = null
 
-        if (Methods.isValidEmail(binding.fpEmail.text.toString())) {
+        if (!Methods.isValidEmail(binding.fpEmail.text.toString())) {
             binding.fpEmail.error = getString(R.string.invalid_email)
             isValid = false
             focusView = binding.fpEmail
@@ -76,10 +76,8 @@ class ForgetPasswordFragment : Fragment(), Injectable {
 
         if (isValid) {
             Methods.hideSoftKey(activity!!)
-            Methods.showProgressBar(
-                binding.progressBar, binding.fpReset,
-                listOf(binding.fpSignup, binding.fpLogin)
-            )
+            Methods.showProgressBar(binding.progressBar, binding.fpReset,
+                listOf(binding.fpSignup, binding.fpLogin))
             resetPassword(binding.fpEmail.text.toString())
         } else {
             focusView?.requestFocus()
@@ -90,17 +88,12 @@ class ForgetPasswordFragment : Fragment(), Injectable {
 
         viewModel.resetPasswordWithEmail(e).observe(this, Observer {
 
-            Methods.hideProgressBar(
-                binding.progressBar, binding.fpReset,
-                listOf(binding.fpSignup, binding.fpLogin)
-            )
+            Methods.hideProgressBar(binding.progressBar, binding.fpReset,
+                listOf(binding.fpSignup, binding.fpLogin))
 
             if (it.status!!) {
-                val d = Methods.showSuccessDialog(
-                    context!!,
-                    getString(R.string.check_email),
-                    it.message!!
-                )
+                val d = Methods.showSuccessDialog(context!!, getString(R.string.check_email),
+                    it.message!!)
                 d.setCancelClickListener {
                     findNavController().navigateUp()
                 }

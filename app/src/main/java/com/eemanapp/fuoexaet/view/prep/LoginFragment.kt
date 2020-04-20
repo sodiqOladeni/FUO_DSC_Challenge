@@ -152,7 +152,7 @@ class LoginFragment : Fragment(), Injectable {
 
                     }else{
                         Methods.showNotSuccessDialog(
-                            context!!, getString(R.string.error_occur), uiData.message!!)
+                            requireContext(), getString(R.string.error_occur), uiData.message!!)
                     }
                 }
             }
@@ -161,6 +161,6 @@ class LoginFragment : Fragment(), Injectable {
 
     private fun startMainActivity() {
         findNavController().navigate(R.id.to_mainActivity)
-        activity?.finish()
+        requireActivity().finish()
     }
 }

@@ -1,9 +1,8 @@
 package com.eemanapp.fuoexaet.view.main
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -44,18 +43,12 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
 
     override fun supportFragmentInjector() = dispatchingAndroidInjector
     private lateinit var navController: NavController
-    private lateinit var appBarConfiguration: AppBarConfiguration
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolBar)
-
-        navController = findNavController(R.id.nav_host_fragment)
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-
-        setupActionBarWithNavController(navController)
+       setupNavigationViewController()
 
         //_________________________________________________________//
         appUpdateManager = AppUpdateManagerFactory.create(this)
@@ -140,7 +133,6 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
     }
 
     private fun updateToken(token: String) {
-        Log.v("MainActivity", "token==>"+token)
         val user = pref.getUser()
         db.collection(Methods.userWhoCodeToName(user.userWho)).document(user.uniqueId!!)
             .update("fcmToken", token).addOnCompleteListener {
@@ -148,5 +140,13 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
                     pref.setToken(token)
                 }
             }
+    }
+
+    private fun setupNavigationViewController(){
+        navController = findNavController(R.id.nav_host_fragment)
+        // Passing each menu ID as a set of Ids because each
+        // menu should be considered as top level destinations.
+        val navView: BottomNavigationView = findViewById(R.id.bottomNavView)
+        navView.setupWithNavController(navController)
     }
 }

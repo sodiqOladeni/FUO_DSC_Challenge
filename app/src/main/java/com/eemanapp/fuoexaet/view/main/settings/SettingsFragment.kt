@@ -73,11 +73,11 @@ class SettingsFragment : Fragment(), Injectable {
         }
 
         view.findViewById<TextView>(R.id.submit_feature_request).setOnClickListener {
-            reportCourseProblem()
+            reportProblem()
         }
     }
 
-    private fun reportCourseProblem() {
+    private fun reportProblem() {
         val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_submit_feature, null)
         reportProblemDialog = AlertDialog.Builder(context)
             .setCancelable(false)
