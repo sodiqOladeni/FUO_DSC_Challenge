@@ -48,7 +48,7 @@ class PasswordResetFragment : Fragment(), Injectable {
         user = arguments?.getParcelable(Constants.USER)
 
         binding.btnChangePassword.setOnClickListener {
-            if (Methods.isNetworkAvailable(context!!)) {
+            if (Methods.isNetworkAvailable(requireContext())) {
                 verifyInput()
             } else {
                 Snackbar.make(
@@ -111,7 +111,7 @@ class PasswordResetFragment : Fragment(), Injectable {
         }
 
         if (isVlaid) {
-            Methods.hideSoftKey(activity!!)
+            Methods.hideSoftKey(requireActivity())
             Methods.showProgressBar(
                 binding.progressBar, binding.btnChangePassword,
                 listOf()
@@ -127,7 +127,7 @@ class PasswordResetFragment : Fragment(), Injectable {
 
     private fun changePassword(email: String, oldPassword: String, newPassword: String) {
         viewModel.resetPasswordWithEmail(email, oldPassword, newPassword)
-            .observe(this, Observer {
+            .observe(viewLifecycleOwner, Observer {
                 Methods.hideProgressBar(
                     binding.progressBar, binding.btnChangePassword,
                     listOf()
@@ -136,7 +136,7 @@ class PasswordResetFragment : Fragment(), Injectable {
                 it?.let { uiData ->
                     if (uiData.status!!) {
                         Methods.showSuccessDialog(
-                            context!!,
+                            requireContext(),
                             getString(R.string.password_changed),
                             uiData.message!!
                         ).setOnDismissListener {
@@ -144,7 +144,7 @@ class PasswordResetFragment : Fragment(), Injectable {
                         }
                     } else {
                         Methods.showNotSuccessDialog(
-                            context!!,
+                            requireContext(),
                             getString(R.string.error_occur),
                             uiData.message!!
                         )

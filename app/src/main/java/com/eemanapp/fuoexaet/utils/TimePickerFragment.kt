@@ -24,7 +24,7 @@ class TimePickerFragment : DialogFragment(), TimePickerDialog.OnTimeSetListener 
         val minute = c.get(Calendar.MINUTE)
 
         // Create a new instance of DatePickerDialog and return it
-        return TimePickerDialog(context!!, this, hourOfDay, minute, false)
+        return TimePickerDialog(requireContext(), this, hourOfDay, minute, false)
     }
 
     override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {

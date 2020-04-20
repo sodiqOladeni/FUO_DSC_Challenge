@@ -80,7 +80,7 @@ class NewRequestFragment : Fragment(), Injectable, DatePickerListener, TimePicke
         user = arguments?.getParcelable(Constants.USER)
         setListeners()
 
-        viewModel.requests.observe(this, Observer {
+        viewModel.requests.observe(viewLifecycleOwner, Observer {
             userRequestThisMonth = Methods.countUserRegularRequestThisMonth(it)
         })
     }
@@ -106,24 +106,24 @@ class NewRequestFragment : Fragment(), Injectable, DatePickerListener, TimePicke
 
         binding.labelArrivalTime.setOnClickListener {
             isDepartureTime = false
-            timePickerFragment?.show(fragmentManager!!, "Time_Picker")
+            timePickerFragment?.show(requireFragmentManager(), "Time_Picker")
         }
         binding.arrivalTime.setOnClickListener {
             isDepartureTime = false
-            timePickerFragment?.show(fragmentManager!!, "Time_Picker")
+            timePickerFragment?.show(requireFragmentManager(), "Time_Picker")
         }
 
         binding.labelDepartureTime.setOnClickListener {
             isDepartureTime = true
-            timePickerFragment?.show(fragmentManager!!, "Time_Picker")
+            timePickerFragment?.show(requireFragmentManager(), "Time_Picker")
         }
         binding.departureTime.setOnClickListener {
             isDepartureTime = true
-            timePickerFragment?.show(fragmentManager!!, "Time_Picker")
+            timePickerFragment?.show(requireFragmentManager(), "Time_Picker")
         }
 
         binding.btnSubmitRequest.setOnClickListener {
-            if (Methods.isNetworkAvailable(context!!)) {
+            if (Methods.isNetworkAvailable(requireContext())) {
                 if (!ongoingNewRequest) {
                     verifyExaetRequestInput()
                 }
@@ -136,7 +136,7 @@ class NewRequestFragment : Fragment(), Injectable, DatePickerListener, TimePicke
             }
         }
 
-        popupMenu = PopupMenu(context!!, binding.requestType)
+        popupMenu = PopupMenu(requireContext(), binding.requestType)
         popupMenu.menuInflater.inflate(R.menu.menu_request_type, popupMenu.menu)
         binding.requestType.setOnClickListener {
             popupRequestType()
@@ -158,7 +158,7 @@ class NewRequestFragment : Fragment(), Injectable, DatePickerListener, TimePicke
             focusView = binding.requestType
         } else {
             if ((requestType.equals(getString(R.string.regular_exaet), true)) and (userRequestThisMonth == 2)) {
-                Methods.showNotSuccessDialog(context!!, getString(R.string.request_error), getString(R.string.regular_request_cannot_be_made))
+                Methods.showNotSuccessDialog(requireContext(), getString(R.string.request_error), getString(R.string.regular_request_cannot_be_made))
                 return
             }
         }
@@ -214,7 +214,7 @@ class NewRequestFragment : Fragment(), Injectable, DatePickerListener, TimePicke
         }
 
         if (isValid) {
-            Methods.hideSoftKey(activity!!)
+            Methods.hideSoftKey(requireActivity())
             Methods.showProgressBar(
                 binding.progressBar,
                 binding.btnSubmitRequest,
@@ -258,7 +258,7 @@ class NewRequestFragment : Fragment(), Injectable, DatePickerListener, TimePicke
 
     private fun submitRequest(request: Request) {
         ongoingNewRequest = true
-        viewModel.submitRequest(request).observe(this, Observer {
+        viewModel.submitRequest(request).observe(viewLifecycleOwner, Observer {
             ongoingNewRequest = false
             Methods.hideProgressBar(
                 binding.progressBar,
@@ -275,7 +275,7 @@ class NewRequestFragment : Fragment(), Injectable, DatePickerListener, TimePicke
             if (it != null) {
                 if (it.status!!) {
                     val dialog = Methods.showSuccessDialog(
-                        context!!,
+                        requireContext(),
                         getString(R.string.request_submitted),
                         it.message!!
                     )
@@ -284,14 +284,14 @@ class NewRequestFragment : Fragment(), Injectable, DatePickerListener, TimePicke
                     }
                 } else {
                     Methods.showNotSuccessDialog(
-                        context!!,
+                        requireContext(),
                         getString(R.string.error_occur),
                         it.message!!
                     )
                 }
             } else {
                 Methods.showNotSuccessDialog(
-                    context!!,
+                    requireContext(),
                     getString(R.string.error_occur),
                     getString(R.string.please_check_your_internet)
                 )
@@ -311,8 +311,6 @@ class NewRequestFragment : Fragment(), Injectable, DatePickerListener, TimePicke
     }
 
     override fun timeSelected(hours: Int, minutes: Int) {
-        Log.v(TAG, "Number Test ==> 0$minutes")
-        Log.v(TAG, "Original Hour ==>$hours and Minutes $minutes")
         var amOrPm = "AM"
         var formattedHour = hours
         var formattedMinutes = minutes.toString()

@@ -61,7 +61,7 @@ class SettingsFragment : Fragment(), Injectable {
 
         view.findViewById<TextView>(R.id.logout).setOnClickListener {
             viewModel.deleteUserFromDb()
-            viewModel.isUserSignOut.observe(this, Observer {
+            viewModel.isUserSignOut.observe(viewLifecycleOwner, Observer {
                 if (it) {
                     val i = Intent(context, PrepActivity::class.java)
                     i.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
@@ -91,7 +91,7 @@ class SettingsFragment : Fragment(), Injectable {
 
         reportProblemOk = dialogView.findViewById(R.id.ok)
         reportProblemOk?.setOnClickListener {
-            if (Methods.isNetworkAvailable(context!!)) {
+            if (Methods.isNetworkAvailable(requireContext())) {
                 verifyUserInput()
             } else {
                 Snackbar.make(
@@ -123,7 +123,7 @@ class SettingsFragment : Fragment(), Injectable {
         if (isEmpty) {
             focusView?.requestFocus()
         } else {
-            Methods.hideSoftKey(activity!!)
+            Methods.hideSoftKey(requireActivity())
             reportInProgress()
             processUserIssueFeatureReported(
                 FeatureRequestsAndErrorReport().apply {
@@ -135,19 +135,19 @@ class SettingsFragment : Fragment(), Injectable {
     }
 
     private fun processUserIssueFeatureReported(feature: FeatureRequestsAndErrorReport) {
-        viewModel.saveFeatureRequest(feature).observe(this, Observer {
+        viewModel.saveFeatureRequest(feature).observe(viewLifecycleOwner, Observer {
             reportNotInProgress()
             it?.let {
                 if (it.status!!) {
                     Methods.showSuccessDialog(
-                        context!!,
+                        requireContext(),
                         getString(R.string.report_saved),
                         it.message!!
                     ).setOnDismissListener {
                         reportProblemDialog?.dismiss()
                     }
                 } else {
-                    Methods.showNotSuccessDialog(context!!, getString(R.string.error_occur), it.message!!)
+                    Methods.showNotSuccessDialog(requireContext(), getString(R.string.error_occur), it.message!!)
                 }
             }
         })

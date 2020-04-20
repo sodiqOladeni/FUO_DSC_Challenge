@@ -86,7 +86,7 @@ class PlaceholderFragment : Fragment(), Injectable, RequestClickListener {
     }
 
     private fun getUser() {
-        viewModel.user.observe(this, Observer { dbuser ->
+        viewModel.user.observe(viewLifecycleOwner, Observer { dbuser ->
             dbuser?.let {
                 user = it
                 setupUI()
@@ -105,7 +105,7 @@ class PlaceholderFragment : Fragment(), Injectable, RequestClickListener {
                     layoutManager = LinearLayoutManager(context)
                     layoutAnimation = animation
                 }
-                viewModel.requests.observe(this, Observer {
+                viewModel.requests.observe(viewLifecycleOwner, Observer {
                     binding.progressBar.visibility = View.GONE
                     if (it.isNullOrEmpty()) {
                         binding.emptyData.visibility = View.VISIBLE
@@ -151,7 +151,7 @@ class PlaceholderFragment : Fragment(), Injectable, RequestClickListener {
                     layoutAnimation = animation
                 }
 
-                viewModel.requests.observe(this, Observer {
+                viewModel.requests.observe(viewLifecycleOwner, Observer {
                     binding.progressBar.visibility = View.GONE
                     if (it.isNullOrEmpty()) {
                         binding.emptyData.visibility = View.VISIBLE
@@ -197,7 +197,7 @@ class PlaceholderFragment : Fragment(), Injectable, RequestClickListener {
                     layoutAnimation = animation
                 }
 
-                viewModel.requests.observe(this, Observer {
+                viewModel.requests.observe(viewLifecycleOwner, Observer {
                     binding.progressBar.visibility = View.GONE
                     if (it.isNullOrEmpty()) {
                         binding.emptyData.visibility = View.VISIBLE
@@ -245,7 +245,7 @@ class PlaceholderFragment : Fragment(), Injectable, RequestClickListener {
                     layoutAnimation = animation
                 }
 
-                viewModel.requests.observe(this, Observer {
+                viewModel.requests.observe(viewLifecycleOwner, Observer {
                     binding.progressBar.visibility = View.GONE
                     if (it.isNullOrEmpty()) {
                         binding.recyclerView.visibility = View.GONE
@@ -315,7 +315,7 @@ class PlaceholderFragment : Fragment(), Injectable, RequestClickListener {
     }
 
     override fun onRequestDecline(request: Request) {
-        if (Methods.isNetworkAvailable(context!!)) {
+        if (Methods.isNetworkAvailable(requireContext())) {
             if (request.requestType == getString(R.string.vacation_exaet) && request.hasHODApproved == false) {
                 Toast.makeText(
                     context,
@@ -348,7 +348,7 @@ class PlaceholderFragment : Fragment(), Injectable, RequestClickListener {
     }
 
     override fun onRequestApprove(request: Request) {
-        if (Methods.isNetworkAvailable(context!!)) {
+        if (Methods.isNetworkAvailable(requireContext())) {
             if (request.requestType == getString(R.string.vacation_exaet) && request.hasHODApproved == false) {
                 Toast.makeText(
                     context,
@@ -381,7 +381,7 @@ class PlaceholderFragment : Fragment(), Injectable, RequestClickListener {
     }
 
     override fun onVacationApproved(request: Request, checkBoxView: CompoundButton, isChecked:Boolean) {
-        if (Methods.isNetworkAvailable(context!!)) {
+        if (Methods.isNetworkAvailable(requireContext())) {
             if (!isUpdateInProgress) {
                 request.hasHODApproved = true
                 request.approveHOD =

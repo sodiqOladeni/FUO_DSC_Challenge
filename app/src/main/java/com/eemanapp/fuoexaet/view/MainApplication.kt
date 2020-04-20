@@ -2,7 +2,6 @@ package com.eemanapp.fuoexaet.view
 
 import android.app.Activity
 import android.app.Application
-import co.paystack.android.PaystackSdk
 import com.eemanapp.fuoexaet.di.AppInjector
 import com.google.android.play.core.missingsplits.MissingSplitsManagerFactory
 import dagger.android.DispatchingAndroidInjector

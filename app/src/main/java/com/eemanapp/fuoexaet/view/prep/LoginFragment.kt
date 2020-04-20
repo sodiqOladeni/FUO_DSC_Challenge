@@ -54,7 +54,7 @@ class LoginFragment : Fragment(), Injectable {
         b.putString(Constants.USER_WHO, userWho)
 
         binding.loginBtn.setOnClickListener {
-            if (Methods.isNetworkAvailable(context!!)) {
+            if (Methods.isNetworkAvailable(requireContext())) {
                 verifyInput()
             } else {
                 Snackbar.make(binding.root, getString(R.string.no_internet_connection), Snackbar.LENGTH_LONG).show()
@@ -105,7 +105,7 @@ class LoginFragment : Fragment(), Injectable {
         }
 
         if (isValid) {
-            Methods.hideSoftKey(activity!!)
+            Methods.hideSoftKey(requireActivity())
             Methods.showProgressBar(
                 binding.progressBar, binding.loginBtn,
                 listOf(binding.loginForgetPassword, binding.loginNotAs, binding.loginSignup)
@@ -118,7 +118,7 @@ class LoginFragment : Fragment(), Injectable {
 
     private fun processLogin(e: String, p: String) {
         Log.v("LoginViewModel", "Email: $e Password: $p UserWho: $userWho")
-        viewModel.authUser(e, p, userWho).observe(this, Observer {uiData->
+        viewModel.authUser(e, p, userWho).observe(viewLifecycleOwner, Observer {uiData->
 
             Methods.hideProgressBar(
                 binding.progressBar, binding.loginBtn,
@@ -135,7 +135,7 @@ class LoginFragment : Fragment(), Injectable {
                     startMainActivity()
                 } else {
                     if (uiData.message!! == Constants.USER_NOT_PAY){
-                        val d = Methods.showNormalDialog(context = context!!, title = getString(R.string.continue_to_payment),
+                        val d = Methods.showNormalDialog(context = requireContext(), title = getString(R.string.continue_to_payment),
                             message = getString(R.string.you_need_payment), confirmationMessage = getString(R.string.make_payment))
 
                         d.setCancelable(false)
@@ -143,7 +143,10 @@ class LoginFragment : Fragment(), Injectable {
                             d.dismiss()
                             val b = Bundle()
                             b.putParcelable(Constants.USER, uiData.data as? User)
-                            findNavController().navigate(R.id.to_cardPaymentFragment, b)
+                            // Navigate to payment and avoid logging in
+                            // If payment is integrated
+                            // findNavController().navigate(R.id.to_cardPaymentFragment, b)
+                            startMainActivity()
                         }
                         d.setCancelClickListener {
                             d.dismiss()

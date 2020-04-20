@@ -65,14 +65,6 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
-        <action
-            android:id="@+id/to_cardPaymentFragment"
-            app:destination="@id/cardPaymentFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
-
     </fragment>
 
     <fragment
@@ -117,20 +109,5 @@
         android:name="com.eemanapp.fuoexaet.view.main.MainActivity"
         android:label="activity_main"
         tools:layout="@layout/activity_main"/>
-
-    <fragment
-        android:id="@+id/cardPaymentFragment"
-        android:name="com.eemanapp.fuoexaet.view.prep.CardPaymentFragment"
-        android:label="Pay With Card"
-        tools:layout="@layout/fragment_card_payment">
-
-        <action
-            android:id="@+id/to_mainActivity"
-            app:destination="@id/mainActivity"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
-    </fragment>
 
 </navigation>

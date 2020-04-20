@@ -81,7 +81,7 @@ class SignupStudentFragment : Fragment(), Injectable, DatePickerListener {
                 }
 
                 binding.signupBtn.setOnClickListener {
-                    if (Methods.isNetworkAvailable(context!!)) {
+                    if (Methods.isNetworkAvailable(requireContext())) {
                         verifyStudentInput()
                     } else {
                         Snackbar.make(binding.root, getString(R.string.no_internet_connection), Snackbar.LENGTH_LONG).show()
@@ -217,7 +217,7 @@ class SignupStudentFragment : Fragment(), Injectable, DatePickerListener {
         }
 
         if (isValid) {
-            Methods.hideSoftKey(activity!!)
+            Methods.hideSoftKey(requireActivity())
 
             Methods.showProgressBar(
                 binding.progressBar, binding.signupBtn,
@@ -252,7 +252,7 @@ class SignupStudentFragment : Fragment(), Injectable, DatePickerListener {
 
     private fun processSignup(user: User) {
         viewModel.authUserAndProceedSaving(user)
-        viewModel.uiData.observe(this, Observer {
+        viewModel.uiData.observe(viewLifecycleOwner, Observer {
 
             it?.let {
                 Methods.hideProgressBar(
@@ -262,7 +262,7 @@ class SignupStudentFragment : Fragment(), Injectable, DatePickerListener {
 
                 if (it.status!!) {
                     val d = Methods.showSuccessDialog(
-                        context!!,
+                        requireContext(),
                         getString(R.string.user_created),
                         it.message!!)
 
@@ -272,7 +272,7 @@ class SignupStudentFragment : Fragment(), Injectable, DatePickerListener {
                     viewModel.saveUiDataToDefault()
                 } else {
                     Methods.showNotSuccessDialog(
-                        context!!,
+                        requireContext(),
                         getString(R.string.error_occur),
                         it.message!!
                     )
@@ -318,7 +318,7 @@ class SignupStudentFragment : Fragment(), Injectable, DatePickerListener {
         }
 
         binding.editYear.setOnClickListener {
-            date.show(fragmentManager!!, "datePicker")
+            date.show(requireFragmentManager(), "datePicker")
         }
 
         binding.editHall.setOnClickListener {

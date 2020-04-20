@@ -23,6 +23,4 @@ import dagger.android.ContributesAndroidInjector
    @ContributesAndroidInjector
    abstract fun bindForget(): ForgetPasswordFragment
 
-    @ContributesAndroidInjector
-    abstract fun bindCardPaymentFragment(): CardPaymentFragment
 }

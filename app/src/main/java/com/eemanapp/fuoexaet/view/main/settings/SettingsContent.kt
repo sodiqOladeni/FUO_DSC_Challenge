@@ -10,7 +10,6 @@ class SettingsContent : PreferenceFragmentCompat(), Preference.OnPreferenceClick
     override fun onPreferenceClick(preference: Preference?): Boolean {
         if (preference?.title == getString(R.string.push_notifications)){
             Toast.makeText(context, "Category clicked", Toast.LENGTH_LONG).show()
-            //return super.onPreferenceTreeClick(preference)
         }
         return super.onPreferenceTreeClick(preference)
     }

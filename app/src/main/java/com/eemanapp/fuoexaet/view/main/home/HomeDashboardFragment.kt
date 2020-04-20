@@ -125,7 +125,7 @@ class HomeDashboardFragment : Fragment(), Injectable,
     }
 
     private fun getUser() {
-        viewModel.user.observe(this, Observer { dbuser ->
+        viewModel.user.observe(viewLifecycleOwner, Observer { dbuser ->
             dbuser?.let {
                 user = it
                 setupUser(null)
@@ -146,7 +146,7 @@ class HomeDashboardFragment : Fragment(), Injectable,
                     layoutAnimation = animation
                 }
 
-                viewModel.getRequests(filter).observe(this, Observer {
+                viewModel.getRequests(filter).observe(viewLifecycleOwner, Observer {
                     binding.progressBar.visibility = View.GONE
                     if (it.isNullOrEmpty()) {
                         binding.recyclerView.visibility = View.GONE
@@ -180,7 +180,7 @@ class HomeDashboardFragment : Fragment(), Injectable,
                     layoutAnimation = animation
                 }
 
-                viewModel.getRequests(filter).observe(this, Observer {
+                viewModel.getRequests(filter).observe(viewLifecycleOwner, Observer {
                     binding.progressBar.visibility = View.GONE
                     if (it.isNullOrEmpty()) {
                         binding.recyclerView.visibility = View.GONE
@@ -218,7 +218,7 @@ class HomeDashboardFragment : Fragment(), Injectable,
                     layoutAnimation = animation
                 }
 
-                viewModel.getRequests(filter).observe(this, Observer {
+                viewModel.getRequests(filter).observe(viewLifecycleOwner, Observer {
                     binding.progressBar.visibility = View.GONE
                     if (it.isNullOrEmpty()) {
                         binding.recyclerView.visibility = View.GONE
@@ -256,7 +256,7 @@ class HomeDashboardFragment : Fragment(), Injectable,
                     layoutAnimation = animation
                 }
 
-                viewModel.getRequests(filter).observe(this, Observer {
+                viewModel.getRequests(filter).observe(viewLifecycleOwner, Observer {
                     binding.progressBar.visibility = View.GONE
                     if (it.isNullOrEmpty()) {
                         binding.recyclerView.visibility = View.GONE
@@ -294,7 +294,7 @@ class HomeDashboardFragment : Fragment(), Injectable,
     }
 
     override fun onRequestDecline(request: Request) {
-        if (Methods.isNetworkAvailable(context!!)) {
+        if (Methods.isNetworkAvailable(requireContext())) {
             if (request.requestType == getString(R.string.vacation_exaet) && request.hasHODApproved == false) {
                 Toast.makeText(
                     context,
@@ -323,7 +323,7 @@ class HomeDashboardFragment : Fragment(), Injectable,
     }
 
     override fun onRequestApprove(request: Request) {
-        if (Methods.isNetworkAvailable(context!!)) {
+        if (Methods.isNetworkAvailable(requireContext())) {
             if (request.requestType == getString(R.string.vacation_exaet) && request.hasHODApproved == false) {
                 Toast.makeText(
                     context,
@@ -356,7 +356,7 @@ class HomeDashboardFragment : Fragment(), Injectable,
         checkBoxView: CompoundButton,
         isChecked: Boolean
     ) {
-        if (Methods.isNetworkAvailable(context!!)) {
+        if (Methods.isNetworkAvailable(requireContext())) {
             if (!isUpdateInProgress) {
                 request.hasHODApproved = true
                 request.approveHOD =

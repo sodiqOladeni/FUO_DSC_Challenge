@@ -7,9 +7,10 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.eemanapp.fuoexaet.R
+import com.eemanapp.fuoexaet.R.id.requestsFragment
 import com.eemanapp.fuoexaet.data.SharedPref
 import com.eemanapp.fuoexaet.utils.Methods
 import com.google.android.gms.tasks.OnCompleteListener
@@ -43,6 +44,7 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
 
     override fun supportFragmentInjector() = dispatchingAndroidInjector
     private lateinit var navController: NavController
+    private lateinit var appBarConfiguration: AppBarConfiguration
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -148,5 +150,9 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
         // menu should be considered as top level destinations.
         val navView: BottomNavigationView = findViewById(R.id.bottomNavView)
         navView.setupWithNavController(navController)
+        appBarConfiguration = AppBarConfiguration(
+            setOf(R.id.homeDashboardFragment, requestsFragment,
+                R.id.profileFragment, R.id.settingsFragment))
+        setupActionBarWithNavController(this, navController, appBarConfiguration)
     }
 }

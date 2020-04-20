@@ -1,9 +1,7 @@
 <resources>
     <string name="app_name">FUO Exeat</string>
-    <string name="ADMOB_APP_ID">n</string>
     <string name="ADMOB_APP_ID_TEST">ca-app-pub-3940256099942544~3347511713</string>
 
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="fuo_exaet_app">FUO Exeat App</string>
     <string name="sign_up">Sign up</string>
     <string name="log_in">Log in</string>

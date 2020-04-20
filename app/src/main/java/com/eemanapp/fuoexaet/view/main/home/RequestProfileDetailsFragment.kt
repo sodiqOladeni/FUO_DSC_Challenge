@@ -78,7 +78,7 @@ class RequestProfileDetailsFragment : Fragment(), Injectable {
         }
 
         binding.btnApproveRequest.setOnClickListener {
-            if (Methods.isNetworkAvailable(context!!)) {
+            if (Methods.isNetworkAvailable(requireContext())) {
                 if (request?.requestType == getString(R.string.vacation_exaet) && request?.hasHODApproved == false){
                     Toast.makeText(
                         context,
@@ -109,7 +109,7 @@ class RequestProfileDetailsFragment : Fragment(), Injectable {
         }
 
         binding.btnDeclineRequest.setOnClickListener {
-            if (Methods.isNetworkAvailable(context!!)) {
+            if (Methods.isNetworkAvailable(requireContext())) {
                 if (request?.requestType == getString(R.string.vacation_exaet) && request?.hasHODApproved == false){
                     Toast.makeText(
                         context,
@@ -141,7 +141,7 @@ class RequestProfileDetailsFragment : Fragment(), Injectable {
         }
 
         binding.btnOutOfSchoolRequest.setOnClickListener {
-            if (Methods.isNetworkAvailable(context!!)) {
+            if (Methods.isNetworkAvailable(requireContext())) {
                 if (!updateOnGoing) {
                     request?.requestStatus = DiffExaetStatus.OUT_SCHOOL.name
                     request?.gateDepartureTime = System.currentTimeMillis()
@@ -157,7 +157,7 @@ class RequestProfileDetailsFragment : Fragment(), Injectable {
         }
 
         binding.btnCompletedRequest.setOnClickListener {
-            if (Methods.isNetworkAvailable(context!!)) {
+            if (Methods.isNetworkAvailable(requireContext())) {
                 if (!updateOnGoing) {
                     request?.requestStatus = DiffExaetStatus.COMPLETED.name
                     request?.gateArrivalTime = System.currentTimeMillis()
@@ -174,7 +174,7 @@ class RequestProfileDetailsFragment : Fragment(), Injectable {
     }
 
     private fun getRequestWithId() {
-        viewModel.getRequestById(requestId!!).observe(this, Observer {
+        viewModel.getRequestById(requestId!!).observe(viewLifecycleOwner, Observer {
             Log.v("RequestProfile", "Request ==> $it")
             binding.request = it
             request = it
@@ -186,7 +186,7 @@ class RequestProfileDetailsFragment : Fragment(), Injectable {
 
     private fun getPreviousRequests() {
         viewModel.getRequestForUser(requesterUserId!!)
-            .observe(this, Observer { userRequests ->
+            .observe(viewLifecycleOwner, Observer { userRequests ->
                 if (userRequests.isNullOrEmpty()) {
                     binding.recyclerView.visibility = View.GONE
                     binding.emptyData.visibility = View.VISIBLE
@@ -300,7 +300,7 @@ class RequestProfileDetailsFragment : Fragment(), Injectable {
 
     private fun updateRequest() {
         updateOnGoing = true
-        viewModel.updateRequest(request!!).observe(this, Observer {
+        viewModel.updateRequest(request!!).observe(viewLifecycleOwner, Observer {
             updateOnGoing = false
             Methods.hideProgressBar(
                 binding.progressBarDecline,
@@ -317,7 +317,7 @@ class RequestProfileDetailsFragment : Fragment(), Injectable {
             if (it != null) {
                 if (it.status!!) {
                     val dialog = Methods.showSuccessDialog(
-                        context!!,
+                        requireContext(),
                         getString(R.string.request_updated), it.message!!
                     )
 
@@ -327,14 +327,14 @@ class RequestProfileDetailsFragment : Fragment(), Injectable {
 
                 } else {
                     Methods.showNotSuccessDialog(
-                        context!!,
+                        requireContext(),
                         getString(R.string.error_occur), it.message!!
                     )
                 }
 
             } else {
                 Methods.showNotSuccessDialog(
-                    context!!, getString(R.string.error_occur),
+                    requireContext(), getString(R.string.error_occur),
                     getString(R.string.please_check_your_internet)
                 )
             }

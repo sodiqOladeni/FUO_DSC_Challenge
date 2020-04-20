@@ -59,10 +59,6 @@
             android:value="@string/ADMOB_APP_ID_TEST" />
 
         <meta-data
-            android:name="co.paystack.android.PublicKey"
-            android:value="pk_test_68e5fe35c83c0fcd94f29be305d69510dd858a09"/>
-
-        <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@drawable/ic_small_notification" />
 

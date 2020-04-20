@@ -36,14 +36,8 @@ class CarouselSliderFragment : Fragment(), Injectable, View.OnClickListener {
             }
         }
     }
-
     private lateinit var binding: FragmentSliderBinding
-    private var mContext: Context? = null
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        mContext = getContext()
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -62,7 +56,7 @@ class CarouselSliderFragment : Fragment(), Injectable, View.OnClickListener {
 
     private fun showBottomSheet(whatToContinueAs: String) {
         val bottomView = layoutInflater.inflate(R.layout.dialog_continue_as, null)
-        val dialog = BottomSheetDialog(mContext!!)
+        val dialog = BottomSheetDialog(requireContext())
 
         val b = Bundle()
         b.putString(Constants.USER_WHO, getString(R.string.student))

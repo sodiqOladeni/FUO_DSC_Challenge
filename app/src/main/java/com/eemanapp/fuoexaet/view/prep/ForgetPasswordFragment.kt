@@ -2,7 +2,6 @@ package com.eemanapp.fuoexaet.view.prep
 
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.os.Handler
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -54,7 +53,7 @@ class ForgetPasswordFragment : Fragment(), Injectable {
         }
 
         binding.fpReset.setOnClickListener {
-            if (Methods.isNetworkAvailable(context!!)) {
+            if (Methods.isNetworkAvailable(requireContext())) {
                 verifyResetInput()
             } else {
                 Snackbar.make(binding.root, getString(R.string.no_internet_connection), Snackbar.LENGTH_LONG).show()
@@ -75,7 +74,7 @@ class ForgetPasswordFragment : Fragment(), Injectable {
         }
 
         if (isValid) {
-            Methods.hideSoftKey(activity!!)
+            Methods.hideSoftKey(requireActivity())
             Methods.showProgressBar(binding.progressBar, binding.fpReset,
                 listOf(binding.fpSignup, binding.fpLogin))
             resetPassword(binding.fpEmail.text.toString())
@@ -86,19 +85,19 @@ class ForgetPasswordFragment : Fragment(), Injectable {
 
     private fun resetPassword(e: String) {
 
-        viewModel.resetPasswordWithEmail(e).observe(this, Observer {
+        viewModel.resetPasswordWithEmail(e).observe(viewLifecycleOwner, Observer {
 
             Methods.hideProgressBar(binding.progressBar, binding.fpReset,
                 listOf(binding.fpSignup, binding.fpLogin))
 
             if (it.status!!) {
-                val d = Methods.showSuccessDialog(context!!, getString(R.string.check_email),
+                val d = Methods.showSuccessDialog(requireContext(), getString(R.string.check_email),
                     it.message!!)
                 d.setCancelClickListener {
                     findNavController().navigateUp()
                 }
             } else {
-                Methods.showSuccessDialog(context!!, getString(R.string.error_occur), it.message!!)
+                Methods.showSuccessDialog(requireContext(), getString(R.string.error_occur), it.message!!)
             }
         })
     }
