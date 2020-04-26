@@ -22,7 +22,7 @@ class RequestsFragment : Fragment() {
 
         val sectionsPagerAdapter = SectionsPagerAdapter(requireContext(), childFragmentManager)
         val viewPager: ViewPager = requireView().findViewById(R.id.view_pager)
-        viewPager.offscreenPageLimit = 4
+        viewPager.offscreenPageLimit = 5
         viewPager.adapter = sectionsPagerAdapter
         val tabs: TabLayout = requireView().findViewById(R.id.tabs)
         tabs.setupWithViewPager(viewPager)

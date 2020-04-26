@@ -45,10 +45,11 @@
     <string name="departure_time_">Departure Time:</string>
     <string name="arrival_time">Arrival Time</string>
     <string name="title_activity_requests">Requests</string>
-    <string name="tab_text_1">All</string>
+    <string name="tab_text_1">Completed</string>
     <string name="tab_text_2">Pending</string>
     <string name="tab_text_3">Approved</string>
     <string name="tab_text_4">Rejected</string>
+    <string name="tab_ongoing">OnGoing</string>
     <string name="change_picture">Change Picture</string>
     <string name="firstname">First Name</string>
     <string name="lastname">Last Name</string>

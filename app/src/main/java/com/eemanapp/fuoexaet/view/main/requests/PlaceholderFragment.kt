@@ -115,7 +115,10 @@ class PlaceholderFragment : Fragment(), Injectable, RequestClickListener {
                         binding.recyclerView.visibility = View.VISIBLE
                         when (sectionNumber) {
                             1 -> {
-                                requestsStudentAdapter?.submitList(it)
+                                requestsStudentAdapter?.submitList(
+                                    Methods.getAllRequestCompleted(
+                                        it
+                                    ))
                             }
                             2 -> {
                                 requestsStudentAdapter?.submitList(
@@ -136,6 +139,11 @@ class PlaceholderFragment : Fragment(), Injectable, RequestClickListener {
                                     Methods.getAllRequestDeclinedCount(
                                         it
                                     )
+                                )
+                            }
+                            5 -> {
+                                requestsStudentAdapter?.submitList(
+                                    Methods.getAllRequestOnGoing(it)
                                 )
                             }
                         }
@@ -165,9 +173,7 @@ class PlaceholderFragment : Fragment(), Injectable, RequestClickListener {
                             }
                             2 -> {
                                 requestsStaffAdapter?.submitList(
-                                    Methods.getAllRequestPendingCount(
-                                        it
-                                    )
+                                    Methods.getAllRequestPendingCount(it)
                                 )
                             }
                             3 -> {

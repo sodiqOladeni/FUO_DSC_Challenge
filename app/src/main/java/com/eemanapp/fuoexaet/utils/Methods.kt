@@ -196,6 +196,14 @@ class Methods {
             return requests.filter { it.requestStatus == DiffExaetStatus.PENDING.name }
         }
 
+        fun getAllRequestCompleted(requests: List<Request>): List<Request> {
+            return requests.filter { it.requestStatus == DiffExaetStatus.COMPLETED.name }
+        }
+
+        fun getAllRequestOnGoing(requests: List<Request>): List<Request> {
+            return requests.filter { it.requestStatus == DiffExaetStatus.OUT_SCHOOL.name }
+        }
+
         fun countRequestsToday(
             requests: List<Request>?,
             today: Int,
