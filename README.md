@@ -1,6 +1,7 @@
 # FUO_DSC_Challenge
 
 Fountain University Developer Student Clubs Solution Challenge (FUO Exeat System)
+The App is available for download from Play Store (https://bit.ly/2xWwer7)
 
 ## Getting Started
 
