@@ -20,12 +20,14 @@ The App is available for download from Play Store (https://bit.ly/2xWwer7)
 
 6. The project uses Firebase Cloud Functions to send Notification between users, the function folder is located /FUOExeat/functions.
 
-7. Check [Setting Started with Cloud Function](https://firebase.google.com/docs/functions/get-started) for how to deploy the function in (6) to firebase that was created in (4)
+7. Check [Getting Started with Cloud Function](https://firebase.google.com/docs/functions/get-started) for how to deploy the function in (6) to firebase that was created in (4)
 
 8. After the function has been deployed and the Google Service file has been added to app section of the app, the project is set to run. It can be compiled into apk and share or run directly on Android Emulator.
 
 ## Enquiry or problem setting up the project can be directed to:
 fuoexaet@gmail.com
+
+
 
 
 ## License
