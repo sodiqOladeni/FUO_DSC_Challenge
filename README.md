@@ -1,6 +1,7 @@
 # FUO_DSC_Challenge
 
 Fountain University Developer Student Clubs Solution Challenge (FUO Exeat System)
+
 The App is available for download from Play Store (https://bit.ly/2xWwer7)
 
 ## Getting Started
@@ -23,5 +24,15 @@ The App is available for download from Play Store (https://bit.ly/2xWwer7)
 
 8. After the function has been deployed and the Google Service file has been added to app section of the app, the project is set to run. It can be compiled into apk and share or run directly on Android Emulator.
 
+## Enquiry or problem setting up the project can be directed to:
+fuoexaet@gmail.com
 
 
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+
+
+## Acknowledgments
+
+The code contain some other third party open source libraries.
