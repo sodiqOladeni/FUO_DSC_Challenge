@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		0409B55523DA44A00099BCCA /* StudentRequestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0409B55323DA44A00099BCCA /* StudentRequestCell.swift */; };
+		04186248244F31C10051495D /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04186247244F31C10051495D /* ChangePasswordViewController.swift */; };
+		0419CCC924508D95009B0418 /* DiffExeatStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0419CCC824508D95009B0418 /* DiffExeatStatus.swift */; };
+		0419CCCB2450AE20009B0418 /* Request+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0419CCCA2450AE20009B0418 /* Request+Extension.swift */; };
 		04218DBD2355E7EC00008226 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04218DBC2355E7EC00008226 /* AppDelegate.swift */; };
 		04218DBF2355E7EC00008226 /* SliderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04218DBE2355E7EC00008226 /* SliderViewController.swift */; };
 		04218DC22355E7EC00008226 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04218DC02355E7EC00008226 /* Main.storyboard */; };
@@ -15,7 +18,6 @@
 		04218DCA2355E7EE00008226 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04218DC82355E7EE00008226 /* LaunchScreen.storyboard */; };
 		0423BF702449CDD400184CC4 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0423BF6F2449CDD400184CC4 /* DataController.swift */; };
 		0423BF722449CF2700184CC4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0423BF712449CF2700184CC4 /* SceneDelegate.swift */; };
-		0423BF742449D23900184CC4 /* CardPaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0423BF732449D23900184CC4 /* CardPaymentViewController.swift */; };
 		042FE4A2238390EA00BC7657 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 042FE4A1238390EA00BC7657 /* Assets.xcassets */; };
 		04464A93244B65C100B504EF /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04464A92244B65C100B504EF /* Constants.swift */; };
 		04464A95244B6DB800B504EF /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04464A94244B6DB800B504EF /* UIViewController+Extension.swift */; };
@@ -23,6 +25,12 @@
 		04464A99244BBBC200B504EF /* ExeatUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04464A98244BBBC200B504EF /* ExeatUser.swift */; };
 		04464A9B244C307200B504EF /* Utils+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04464A9A244C307200B504EF /* Utils+Extensions.swift */; };
 		04464A9D244C32B800B504EF /* UtilFuction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04464A9C244C32B800B504EF /* UtilFuction.swift */; };
+		04464AA7244D8F0600B504EF /* HomeDashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04464AA6244D8F0600B504EF /* HomeDashboardViewController.swift */; };
+		04464AA9244D8F5700B504EF /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04464AA8244D8F5700B504EF /* ProfileViewController.swift */; };
+		04464AAB244D8FBB00B504EF /* RequestsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04464AAA244D8FBB00B504EF /* RequestsViewController.swift */; };
+		04464AAD244D8FD500B504EF /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04464AAC244D8FD500B504EF /* SettingsViewController.swift */; };
+		04464AAF244D94AA00B504EF /* NewRequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04464AAE244D94AA00B504EF /* NewRequestViewController.swift */; };
+		04464AB1244DCAC400B504EF /* FeatureRequestsAndErrorReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04464AB0244DCAC300B504EF /* FeatureRequestsAndErrorReport.swift */; };
 		045F21C52356EAFF007F002D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045F21C42356EAFF007F002D /* LoginViewController.swift */; };
 		045F21C72356EC5C007F002D /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045F21C62356EC5C007F002D /* SignupViewController.swift */; };
 		045F21C92356ECF9007F002D /* ForgetPasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045F21C82356ECF9007F002D /* ForgetPasswordVC.swift */; };
@@ -31,6 +39,9 @@
 
 /* Begin PBXFileReference section */
 		0409B55323DA44A00099BCCA /* StudentRequestCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentRequestCell.swift; sourceTree = "<group>"; };
+		04186247244F31C10051495D /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
+		0419CCC824508D95009B0418 /* DiffExeatStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffExeatStatus.swift; sourceTree = "<group>"; };
+		0419CCCA2450AE20009B0418 /* Request+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Request+Extension.swift"; sourceTree = "<group>"; };
 		04218DB92355E7EC00008226 /* FUO Exeat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "FUO Exeat.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		04218DBC2355E7EC00008226 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		04218DBE2355E7EC00008226 /* SliderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderViewController.swift; sourceTree = "<group>"; };
@@ -40,7 +51,6 @@
 		04218DCB2355E7EE00008226 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0423BF6F2449CDD400184CC4 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		0423BF712449CF2700184CC4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		0423BF732449D23900184CC4 /* CardPaymentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardPaymentViewController.swift; sourceTree = "<group>"; };
 		042FE4A1238390EA00BC7657 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		04464A92244B65C100B504EF /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		04464A94244B6DB800B504EF /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
@@ -48,6 +58,12 @@
 		04464A98244BBBC200B504EF /* ExeatUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExeatUser.swift; sourceTree = "<group>"; };
 		04464A9A244C307200B504EF /* Utils+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Utils+Extensions.swift"; sourceTree = "<group>"; };
 		04464A9C244C32B800B504EF /* UtilFuction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilFuction.swift; sourceTree = "<group>"; };
+		04464AA6244D8F0600B504EF /* HomeDashboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDashboardViewController.swift; sourceTree = "<group>"; };
+		04464AA8244D8F5700B504EF /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		04464AAA244D8FBB00B504EF /* RequestsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestsViewController.swift; sourceTree = "<group>"; };
+		04464AAC244D8FD500B504EF /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		04464AAE244D94AA00B504EF /* NewRequestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRequestViewController.swift; sourceTree = "<group>"; };
+		04464AB0244DCAC300B504EF /* FeatureRequestsAndErrorReport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureRequestsAndErrorReport.swift; sourceTree = "<group>"; };
 		045F21C42356EAFF007F002D /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		045F21C62356EC5C007F002D /* SignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
 		045F21C82356ECF9007F002D /* ForgetPasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgetPasswordVC.swift; sourceTree = "<group>"; };
@@ -117,7 +133,6 @@
 				04218DBE2355E7EC00008226 /* SliderViewController.swift */,
 				045F21C42356EAFF007F002D /* LoginViewController.swift */,
 				045F21C82356ECF9007F002D /* ForgetPasswordVC.swift */,
-				0423BF732449D23900184CC4 /* CardPaymentViewController.swift */,
 			);
 			path = Ftue;
 			sourceTree = "<group>";
@@ -125,6 +140,12 @@
 		0423BF772449D8B600184CC4 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				04464AA6244D8F0600B504EF /* HomeDashboardViewController.swift */,
+				04464AA8244D8F5700B504EF /* ProfileViewController.swift */,
+				04464AAA244D8FBB00B504EF /* RequestsViewController.swift */,
+				04464AAC244D8FD500B504EF /* SettingsViewController.swift */,
+				04464AAE244D94AA00B504EF /* NewRequestViewController.swift */,
+				04186247244F31C10051495D /* ChangePasswordViewController.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -165,6 +186,9 @@
 				0423BF6F2449CDD400184CC4 /* DataController.swift */,
 				04464A96244BB47900B504EF /* FirebaseClient.swift */,
 				04464A98244BBBC200B504EF /* ExeatUser.swift */,
+				04464AB0244DCAC300B504EF /* FeatureRequestsAndErrorReport.swift */,
+				0419CCC824508D95009B0418 /* DiffExeatStatus.swift */,
+				0419CCCA2450AE20009B0418 /* Request+Extension.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -304,19 +328,27 @@
 				04464A95244B6DB800B504EF /* UIViewController+Extension.swift in Sources */,
 				04218DBF2355E7EC00008226 /* SliderViewController.swift in Sources */,
 				04464A9D244C32B800B504EF /* UtilFuction.swift in Sources */,
+				04464AAD244D8FD500B504EF /* SettingsViewController.swift in Sources */,
+				0419CCC924508D95009B0418 /* DiffExeatStatus.swift in Sources */,
 				04464A93244B65C100B504EF /* Constants.swift in Sources */,
 				04218DBD2355E7EC00008226 /* AppDelegate.swift in Sources */,
 				04464A99244BBBC200B504EF /* ExeatUser.swift in Sources */,
+				04464AA9244D8F5700B504EF /* ProfileViewController.swift in Sources */,
+				04464AA7244D8F0600B504EF /* HomeDashboardViewController.swift in Sources */,
 				0423BF722449CF2700184CC4 /* SceneDelegate.swift in Sources */,
 				045F21C72356EC5C007F002D /* SignupViewController.swift in Sources */,
+				04464AB1244DCAC400B504EF /* FeatureRequestsAndErrorReport.swift in Sources */,
 				04218DC52355E7EC00008226 /* FUO_Exeat.xcdatamodeld in Sources */,
 				045F21C92356ECF9007F002D /* ForgetPasswordVC.swift in Sources */,
 				0423BF702449CDD400184CC4 /* DataController.swift in Sources */,
-				0423BF742449D23900184CC4 /* CardPaymentViewController.swift in Sources */,
 				04464A97244BB47900B504EF /* FirebaseClient.swift in Sources */,
+				04464AAB244D8FBB00B504EF /* RequestsViewController.swift in Sources */,
 				04464A9B244C307200B504EF /* Utils+Extensions.swift in Sources */,
 				0409B55523DA44A00099BCCA /* StudentRequestCell.swift in Sources */,
 				045F21C52356EAFF007F002D /* LoginViewController.swift in Sources */,
+				04464AAF244D94AA00B504EF /* NewRequestViewController.swift in Sources */,
+				04186248244F31C10051495D /* ChangePasswordViewController.swift in Sources */,
+				0419CCCB2450AE20009B0418 /* Request+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

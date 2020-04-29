@@ -9,6 +9,7 @@ target 'FUO Exeat' do
   pod 'Firebase/Analytics'
   pod 'Firebase/Auth'
   pod 'Firebase/Firestore'
+  pod 'FirebaseFirestoreSwift'
   pod 'Firebase/Messaging'
   pod 'Firebase/Storage'
   pod 'Fabric'
@@ -17,5 +18,6 @@ target 'FUO Exeat' do
   pod 'Paystack'
   pod 'lottie-ios'
   pod 'JGProgressHUD'
+  pod 'BEMCheckBox'
 
 end

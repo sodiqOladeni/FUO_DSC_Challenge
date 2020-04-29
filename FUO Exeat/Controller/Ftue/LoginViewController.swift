@@ -42,12 +42,6 @@ class LoginViewController: UIViewController {
         }else if segue.identifier ==  Constants.Identifiers.navigateToSignupId {
             let signupViewController = segue.destination as! SignupViewController
             signupViewController.userType = self.userType
-        }else if segue.identifier ==  Constants.Identifiers.navigateToCardPaymentId {
-            let cardPaymentViewController = segue.destination as! CardPaymentViewController
-            cardPaymentViewController.userType = self.userType
-            if let exeatUser = exeatUser {
-                cardPaymentViewController.exeatUser = exeatUser
-            }
         }
     }
     
@@ -66,32 +60,32 @@ class LoginViewController: UIViewController {
     }
     
     fileprivate func checkFields(){
-        guard let email = loginEmailTextField.text else {
+        guard let email = loginEmailTextField.text, email.trimmingCharacters(in: .whitespacesAndNewlines).count > 0  else {
             showDialog(title: "Email field can't be blank", message: "Kindly provide your valid email address")
             return
         }
         
-        guard let password = loginPasswordTextField.text else {
+        guard let password = loginPasswordTextField.text, password.trimmingCharacters(in: .whitespacesAndNewlines).count > 0 else {
             showDialog(title: "Password field can't be blank", message: "Kindly provide your password to proceed ")
             return
         }
         
-        print("Email => \(email), Password => \(password)")
-//        loginUser(email: email, password: password)
+        loginUser(email: email, password: password)
         
     }
     
     fileprivate func loginUser(email:String, password:String){
-        print("Email ==> \(email) Password ==> \(password)")
         progressHud = startProgressDialog(progressMessage: "Please wait...")
         FirebaseClient.loginUser(userType: UtilFunction.userTypeCodeToName(userType), email: email, password: password) { (isSuccess, message, exeatUser) in
             self.stopProgressDialog(hud: self.progressHud)
             if isSuccess {
-                self.performSegue(withIdentifier: Constants.Identifiers.navigateToMainViewControllerId, sender: nil)
+                self.navigateToMainScreen()
             }else{
                 if message! == Constants.Payment.USER_NOT_PAY {
                     self.exeatUser = exeatUser
-                    self.displayPaymentActionAlert()
+                    // self.displayPaymentActionAlert()
+                    // Payment integration to be added to avoid login without payment
+                    self.navigateToMainScreen()
                 }else{
                     self.showDialog(title: "Error Occur", message: message!)
                 }
@@ -102,10 +96,11 @@ class LoginViewController: UIViewController {
     fileprivate func displayPaymentActionAlert(){
         let alert = UIAlertController(title: "Continue to Payment", message: Constants.Payment.you_need_payment, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Make Payment", style: .default, handler: { (alertOkMakePayment) in
-            self.performSegue(withIdentifier: Constants.Identifiers.navigateToCardPaymentId, sender: nil)
+        // Goto Payment ViewController or trigger payment Action
+            
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (alertCancelNoPayment) in
-            FirebaseClient.logoutUser()
+            try? Auth.auth().signOut()
         }))
         self.present(alert, animated: true)
     }
@@ -123,5 +118,11 @@ class LoginViewController: UIViewController {
         default:
             labelUserLoginIdentity.text = "You are login in as Student"
         }
+    }
+    
+    fileprivate func navigateToMainScreen(){
+        let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let tabViewController = mainStoryboard.instantiateViewController(withIdentifier: Constants.Identifiers.mainTabBarController) as! UITabBarController
+        self.present(tabViewController, animated: true, completion: nil)
     }
 }

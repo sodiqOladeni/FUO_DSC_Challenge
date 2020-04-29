@@ -7,27 +7,19 @@
 //
 
 import Foundation
+import UIKit
 
 
-extension Encodable {
-  /// Returns a JSON dictionary, with choice of minimal information
-  func getDictionary() -> [String: Any]? {
-    let encoder = JSONEncoder()
-
-    guard let data = try? encoder.encode(self) else { return nil }
-    return (try? JSONSerialization.jsonObject(with: data, options: .allowFragments)).flatMap { $0 as? [String: Any]
+extension UIImageView {
+    func load(url: URL) {
+        DispatchQueue.global().async { [weak self] in
+            if let data = try? Data(contentsOf: url) {
+                if let image = UIImage(data: data) {
+                    DispatchQueue.main.async {
+                        self?.image = image
+                    }
+                }
+            }
+        }
     }
-  }
-}
-
-extension Decodable {
-  /// Initialize from JSON Dictionary. Return nil on failure
-  init?(dictionary value: [String:Any]){
-
-    guard JSONSerialization.isValidJSONObject(value) else { return nil }
-    guard let jsonData = try? JSONSerialization.data(withJSONObject: value, options: []) else { return nil }
-
-    guard let newValue = try? JSONDecoder().decode(Self.self, from: jsonData) else { return nil }
-    self = newValue
-  }
 }

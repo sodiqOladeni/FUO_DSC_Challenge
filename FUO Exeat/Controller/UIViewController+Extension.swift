@@ -14,8 +14,7 @@ extension UIViewController{
     func showDialog(title:String, message: String) {
             let alertVC = UIAlertController(title: title, message: message, preferredStyle: .alert)
             alertVC.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-            self.show(alertVC, sender: nil)
-        
+            self.present(alertVC, animated: true, completion: nil)
     }
     
     func isValidURL(_ string:String?) -> Bool {

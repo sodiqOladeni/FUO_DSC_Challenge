@@ -7,9 +7,12 @@
 //
 
 import UIKit
+import JGProgressHUD
+
 class ForgetPasswordVC: UIViewController {
     
     @IBOutlet weak var emailForgetPassword: UITextField!
+    private var hud:JGProgressHUD?
     var userType:Int!
     
     override func viewDidLoad() {
@@ -50,7 +53,9 @@ class ForgetPasswordVC: UIViewController {
     }
     
     fileprivate func resetUserPassword(_ email:String){
+        hud = startProgressDialog(progressMessage: "Please wait...")
         FirebaseClient.resetuserpassword(email: email) { (isSuccess, message) in
+            self.stopProgressDialog(hud: self.hud)
             if isSuccess {
                 self.displayPasswordResetSuccessDialog(message)
             }else{

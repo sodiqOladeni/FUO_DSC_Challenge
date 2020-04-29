@@ -31,7 +31,7 @@ class SliderViewController: UIViewController {
     
     
     @IBAction func buttonLogin(_ sender: UIButton) {
-        self.displayPaymentActionAlert()
+        self.displayUserTypeActionAlert()
     }
     
     @IBAction func buttonSignup(_ sender: UIButton) {
@@ -45,7 +45,7 @@ class SliderViewController: UIViewController {
         }
     }
     
-    fileprivate func displayPaymentActionAlert(){
+    fileprivate func displayUserTypeActionAlert(){
         let alert = UIAlertController(title: "Login as", message: "Identify your login identity to proceed", preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Student", style: .default, handler: { (alert) in
             self.userType = 0
@@ -67,5 +67,6 @@ class SliderViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler:nil))
         self.present(alert, animated: true)
     }
+    
 }
 
